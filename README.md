@@ -8,16 +8,21 @@
 
 - Umfahrer, Michael
 
+
+### Senior Developer:
+
+- Hess, Manuel
+- Gerstbauer, Daniel Herbert
+
 ### Developer:
 
-- Gerstbauer, Daniel Herbert
-- Hess, Manuel
 - Kutschka, Lorenz
 - Schaffer, Michael
 - Schnögl, Bernhard
 - Schrey, David-Sebastian
 - Schöllauf, Manuel
 - Staubmann, Christoph
+
 
 # Vision
 
