@@ -1,5 +1,7 @@
 ## Pairing Matrix
 
+An up-to-date pairing matrix can be found in our [wiki](https://github.com/sw21-tug/Team_03/wiki/Pairing-Matrix).
+
 Dev 1: Gerstbauer, Daniel Herbert  
 Dev 2: Hess, Manuel  
 Dev 3: Kutschka, Lorenz  
