@@ -1,15 +1,11 @@
 package com.team03.cocktailrecipesapp
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.wearable.activity.WearableActivity
 
-class RegisterActivity : WearableActivity() {
-
+class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
-
-        // Enables Always-on
-        setAmbientEnabled()
+        setContentView(R.layout.activity_main)
     }
 }
