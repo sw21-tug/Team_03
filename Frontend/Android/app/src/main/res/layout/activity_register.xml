@@ -12,8 +12,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/inner_frame_layout_padding"
-        app:boxedEdges="all">
+        android:padding="@dimen/inner_frame_layout_padding">
 
         <LinearLayout
             android:layout_width="399dp"
@@ -57,7 +56,8 @@
                 android:id="@+id/btn_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Register" />
+                android:text="Register"
+                android:onClick="registerOnClick"/>
         </LinearLayout>
     </FrameLayout>
 </androidx.wear.widget.BoxInsetLayout>
