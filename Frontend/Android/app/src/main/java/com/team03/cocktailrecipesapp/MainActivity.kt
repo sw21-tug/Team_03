@@ -12,18 +12,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
-
     }
 
     fun loginOnClick(view: View){
         val button: Button = findViewById(R.id.btnLogin)
         button.setOnClickListener {
-
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-
         }
     }
 
