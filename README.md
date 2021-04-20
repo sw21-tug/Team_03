@@ -2,22 +2,26 @@
 
 ### Product Owner:
 
-- Reichmann, Oliver
+- Reichmann, Oliver ([@olliwho](https://github.com/olliwho))
 
 ### Scrum Master:
 
-- Umfahrer, Michael
+- Umfahrer, Michael ([@Umfi](https://github.com/Umfi))
+
+
+### Senior Developer:
+
+- Hess, Manuel ([@xsoliah](https://github.com/xsoliah))
+- Gerstbauer, Daniel Herbert ([@dansch26](https://github.com/dansch26))
 
 ### Developer:
 
-- Gerstbauer, Daniel Herbert
-- Hess, Manuel
-- Kutschka, Lorenz
-- Schaffer, Michael
-- Schnögl, Bernhard
-- Schrey, David-Sebastian
-- Schöllauf, Manuel
-- Staubmann, Christoph
+- Kutschka, Lorenz ([@znerol74](https://github.com/znerol74))
+- Schaffer, Michael ([@michaelschaffer](https://github.com/michaelschaffer))
+- Schnögl, Bernhard ([@ber-nsn](https://github.com/ber-nsn))
+- Schrey, David-Sebastian ([@dschrey](https://github.com/dschrey))
+- Schöllauf, Manuel ([@ManuelSchoellauf](https://github.com/ManuelSchoellauf))
+- Staubmann, Christoph ([@chstaub](https://github.com/chstaub))
 
 # Vision
 

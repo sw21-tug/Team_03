@@ -1,16 +1,17 @@
 package com.team03.cocktailrecipesapp
 
-import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.*
+import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 
 import org.junit.Test
 import org.junit.runner.RunWith
 
-import org.junit.Assert.*
+import org.junit.Rule
 
 
-
-import com.team03.cocktailrecipesapp.ui.login.LoginViewModel
 import com.team03.cocktailrecipesapp.ui.login.LoginActivity
 
 
@@ -24,36 +25,24 @@ import com.team03.cocktailrecipesapp.ui.login.LoginActivity
  */
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
+    @get:Rule
+    val activityRule = ActivityScenarioRule(LoginActivity::class.java)
+
+
     @Test
-
-    fun isPasswordValid(password: String): Boolean {
-        return password.length >= 5
+    fun loginDataTest(){
+        onView(withId(R.id.etUsername)).perform(typeText("Testusername"), closeSoftKeyboard())
+        onView(withId(R.id.etPassword)).perform(typeText("Testpassword"), closeSoftKeyboard())
     }
 
-    fun useAppContext()
-    {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.team03.cocktailrecipesapp", appContext.packageName)
-
-
-        val password:String = "12345678";
-        val valid = isPasswordValid(password)
-        assertEquals(true, LoginViewModel::isPasswordValid(password))
-
-    fun password()
-    {
-        (LoginViewModel(loginRepository = password))(password)
-
-
-       // onView(withId(R.id.password)).perform(click())
+    @Test
+    fun loginButton() {
+        onView(withId(R.id.btnLogin)).perform(click())
     }
 
-
-
+    @Test
+    fun registerButton() {
+        onView(withId(R.id.btnRegister)).perform(click())
     }
-
-
-
 
 }
