@@ -66,6 +66,6 @@ class ExampleInstrumentedTest {
 
     @Test
     fun fillOutRegistrationform_ErrorEmptyPasswordRepeat() {
-        Assert.assertEquals(RegisterFuncs().validateInput("John Doe", "", "password2"), -3);
+        Assert.assertEquals(RegisterFuncs().validateInput("John Doe", "password1", ""), -3);
     }
 }
