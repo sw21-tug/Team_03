@@ -71,4 +71,6 @@ create table RecipeIngredient
         foreign key (recipe_id) references Recipe (id)
 );
 
+insert into User (name, password, is_admin) values ('admin', '4aeb2000b9de5858f5e5e0b7eda52f253caf19582c67cbbb453be6987ecc1baf27d75670e39f78058fb1ebee3d16b83d1cbdc8d3628636377b2458ea5bf12ff2', 1)
+
 
