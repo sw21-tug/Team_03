@@ -12,7 +12,7 @@ import java.time.LocalDateTime
  * Local unit test
  * checking for correct parsing of the json strings recieved from server
  */
-class ExampleUnitTest {
+class serverAPIUnitTest {
 
     private val server = serverAPI();
 
@@ -115,5 +115,4 @@ class ExampleUnitTest {
         Assert.assertNotNull(answer)
         Assert.assertEquals(0, answer.success)
     }
-
 }
