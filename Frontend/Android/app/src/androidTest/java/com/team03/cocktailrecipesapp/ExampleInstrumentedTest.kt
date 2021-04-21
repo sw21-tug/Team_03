@@ -13,7 +13,7 @@ import org.junit.Rule
 
 
 import com.team03.cocktailrecipesapp.ui.login.LoginActivity
-
+import org.junit.Assert
 
 
 //"../../com.team03.cocktailrecipesapp/ui.login/LoginViewModel"
@@ -25,6 +25,11 @@ import com.team03.cocktailrecipesapp.ui.login.LoginActivity
  */
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
+
+    private fun validateInput(): Boolean {
+        return false;
+    }
+
     @get:Rule
     val activityRule = ActivityScenarioRule(LoginActivity::class.java)
 
@@ -45,4 +50,41 @@ class ExampleInstrumentedTest {
         onView(withId(R.id.btnRegister)).perform(click())
     }
 
+    @Test
+    fun fillOutRegistrationform() {
+        onView(withId(R.id.btnSwitchToLogin)).perform(click())
+        onView(withId(R.id.btnRegister)).perform(click())
+        onView(withId(R.id.txt_username)).perform(typeText("John Doe"), closeSoftKeyboard())
+        onView(withId(R.id.txt_password)).perform(typeText("password1"), closeSoftKeyboard())
+        onView(withId(R.id.txt_password_repeat)).perform(typeText("password1"), closeSoftKeyboard())
+        Assert.assertEquals(validateInput(), true);
+    }
+
+    @Test
+    fun fillOutRegistrationform_ErrorPasswordRepeat() {
+        onView(withId(R.id.btnRegister)).perform(click())
+        onView(withId(R.id.txt_username)).perform(typeText("John Doe"), closeSoftKeyboard())
+        onView(withId(R.id.txt_password)).perform(typeText("password1"), closeSoftKeyboard())
+        onView(withId(R.id.txt_password_repeat)).perform(typeText("differentPassword"), closeSoftKeyboard())
+        Assert.assertEquals(validateInput(), false);
+
+    }
+
+    @Test
+    fun fillOutRegistrationform_ErrorEmptyPassword() {
+        onView(withId(R.id.btnRegister)).perform(click())
+        onView(withId(R.id.txt_username)).perform(typeText("John Doe"), closeSoftKeyboard())
+        onView(withId(R.id.txt_password)).perform(typeText(""), closeSoftKeyboard())
+        onView(withId(R.id.txt_password_repeat)).perform(typeText("password1"), closeSoftKeyboard())
+        Assert.assertEquals(validateInput(), false);
+    }
+
+    @Test
+    fun fillOutRegistrationform_ErrorEmptyPasswordRepeat() {
+        onView(withId(R.id.btnRegister)).perform(click())
+        onView(withId(R.id.txt_username)).perform(typeText("John Doe"), closeSoftKeyboard())
+        onView(withId(R.id.txt_password)).perform(typeText("password1"), closeSoftKeyboard())
+        onView(withId(R.id.txt_password_repeat)).perform(typeText(""), closeSoftKeyboard())
+        Assert.assertEquals(validateInput(), false);
+    }
 }
