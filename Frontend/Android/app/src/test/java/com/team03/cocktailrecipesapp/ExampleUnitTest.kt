@@ -74,7 +74,7 @@ class ExampleUnitTest {
     }
 
     fun changePassword_checkAPI_call() {
-        val string = server.changePassword("old_password_has", "new_password_hash");
+        val string = server.changePassword(-1, "old_password_hash", "new_password_hash");
         val answer = Gson().fromJson(string, AnswerSuccess::class.java);
 
         Assert.assertNotNull(answer)
@@ -98,7 +98,7 @@ class ExampleUnitTest {
     }
 
     fun addRecipe_checkAPI_call() {
-        val string = server.addRecipe(1, "Freddy Krueger", 5,
+        val string = server.addRecipe(1, "Freddy Krueger", 5, 1,
                 "First put in Stroh80 in 1 2cl shot glass. Take a teaspoon and " +
                         "layer the Jaeger onto the rum. Then finally do the same with the " +
                         "Baileys. Enjoy!", listOf("Stroh80", "Jaegermeister", "Baileys"));
