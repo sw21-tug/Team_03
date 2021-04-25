@@ -3,6 +3,8 @@ package com.team03.cocktailrecipesapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.recommended_cocktail_list.*
 import kotlinx.android.synthetic.main.trending_cocktail_list.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 
@@ -13,7 +15,10 @@ class MainActivity : AppCompatActivity() {
 
 
         val recipe_list = getRecipes()
+        val recommended_recipes = getRecommendedRecipes(recipe_list)
+
         fillTrendingRecipesList(recipe_list)
+        fillRecommendedRecipesList(recommended_recipes)
     }
 
     fun fillTrendingRecipesList(recipe_list: List<Recipe>) {
@@ -23,15 +28,26 @@ class MainActivity : AppCompatActivity() {
             recipeCard.cocktail_ratings.text = it.times_rated.toString()
             recipeCard.cocktail_rating_bar.rating = it.rating
             recipeCard.cocktail_difficulty.text =  it.difficulty.toString()
-            recipeCard.cocktail_preparation_time.text = it.preptime_minutes.toString()
+            val preparation_time:String = it.preptime_minutes.toString() + " minutes"
+            recipeCard.cocktail_preparation_time.text = preparation_time
             /*recipeCard.cocktail_image*/
             trending_cocktail_list.addView(recipeCard)
         }
     }
 
+    fun fillRecommendedRecipesList(recommended_recipes: List<Recipe>) : Boolean {
+        // TODO: inflate recommeneded recipes
+        return false
+    }
+
     fun getRecipes() : List<Recipe> {
         val recipe = Recipe("cocktail XYZ", 4.0F, 2)
         val recipe_list = listOf(recipe, recipe, recipe, recipe, recipe, recipe)
+        return recipe_list
+    }
+
+    fun getRecommendedRecipes(recipe_list: List<Recipe>) : List<Recipe> {
+        // TODO: get recommended recipes (top 5 rated)
         return recipe_list
     }
 }
