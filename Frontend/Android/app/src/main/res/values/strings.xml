@@ -8,4 +8,7 @@
 
     <string name="img_time">img_time</string>
     <string name="img_difficulty">img_difficulty</string>
+    <string name="trending_recipes">Trending recipes</string>
+    <string name="see_all">See all</string>
+    <string name="recommended_for_you">Recommended for you</string>
 </resources>
