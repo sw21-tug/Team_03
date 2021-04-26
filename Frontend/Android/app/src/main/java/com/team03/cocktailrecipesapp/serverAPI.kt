@@ -1,12 +1,8 @@
 package com.team03.cocktailrecipesapp
 
 import android.content.Context
-import com.android.volley.Request
-import com.android.volley.RequestQueue
 import com.android.volley.Response
-import com.android.volley.toolbox.HttpResponse
 import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.JsonRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 
@@ -19,7 +15,6 @@ class serverAPI(context: Context)
 {
     val context_ = context
 
-
     fun register(username: String, password_hash: String, listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
     {
         val register_json = """
@@ -30,7 +25,7 @@ class serverAPI(context: Context)
             """
 
         val json = JSONObject(register_json)
-        return sendRequest(json, listener, error_listener)
+        return sendRequest(json, "register", listener, error_listener)
     }
 
     fun login(username: String, password_hash: String, listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
@@ -43,7 +38,7 @@ class serverAPI(context: Context)
             """
 
         val json = JSONObject(login_json)
-        return sendRequest(json, listener, error_listener)
+        return sendRequest(json, "login", listener, error_listener)
     }
 
     fun addRecipe(user_id: Int, name: String, preptime_minutes: Int, difficulty: Int, instruction: String, ingredient_names: List<String>, listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
@@ -71,7 +66,7 @@ class serverAPI(context: Context)
         }
 
         val json = JSONObject(add_recipe_json)
-        return sendRequest(json, listener, error_listener)
+        return sendRequest(json, "add-recipe", listener, error_listener)
     }
 
     fun rateRecipe(user_id: Int, recipe_id: Int, value: Int, listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
@@ -85,13 +80,13 @@ class serverAPI(context: Context)
             """
 
         val json = JSONObject(rate_recipe_json)
-        return sendRequest(json, listener, error_listener)
+        return sendRequest(json, "rate-recipe", listener, error_listener)
     }
 
     fun getRecipes(listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
     {
         val json = JSONObject()
-        return sendRequest(json, listener, error_listener)
+        return sendRequest(json, "get-recipes", listener, error_listener)
     }
 
     fun changePassword(user_id: Int, old_password_hash: String, new_password_hash: String, listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
@@ -105,7 +100,7 @@ class serverAPI(context: Context)
             """
 
         val json = JSONObject(change_password_json)
-        return sendRequest(json, listener, error_listener)
+        return sendRequest(json, "change-password", listener, error_listener)
     }
 
     fun deleteRecipe(user_id: Int, recipe_id: Int, listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
@@ -118,7 +113,7 @@ class serverAPI(context: Context)
             """
 
         val json = JSONObject(delete_recipe_json)
-        return sendRequest(json, listener, error_listener)
+        return sendRequest(json, "delete-recipe", listener, error_listener)
     }
 
     fun likeRecipe(user_id: Int, recipe_id: Int, listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
@@ -131,13 +126,13 @@ class serverAPI(context: Context)
             """
 
         val json = JSONObject(like_recipe_json)
-        return sendRequest(json, listener, error_listener)
+        return sendRequest(json, "like-recipe", listener, error_listener)
     }
 
-    private fun sendRequest(jsonObject: JSONObject, listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
+    private fun sendRequest(jsonObject: JSONObject, service: String, listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
     {
         val queue = Volley.newRequestQueue(context_)
-        val url = "localhost:3000"
+        val url = "http://192.168.0.24:3000/" + service;
 
         val request = JsonObjectRequest(url, jsonObject, listener, error_listener)
 
