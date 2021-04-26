@@ -14,7 +14,6 @@
 - Hess, Manuel ([@xsoliah](https://github.com/xsoliah))
 - Gerstbauer, Daniel Herbert ([@dansch26](https://github.com/dansch26))
 
-### Developer:
 
 - Kutschka, Lorenz ([@znerol74](https://github.com/znerol74))
 - Schaffer, Michael ([@michaelschaffer](https://github.com/michaelschaffer))
@@ -22,6 +21,7 @@
 - Schrey, David-Sebastian ([@dschrey](https://github.com/dschrey))
 - Schöllauf, Manuel ([@ManuelSchoellauf](https://github.com/ManuelSchoellauf))
 - Staubmann, Christoph ([@chstaub](https://github.com/chstaub))
+
 
 # Vision
 
