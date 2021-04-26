@@ -10,7 +10,6 @@ import com.android.volley.toolbox.JsonRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 
-
 /*
 * HowTo: Create object of class. To communicate with the server just call one of the methods. Pass the informations.
 * Important part is, that you have to create the Listeners before calling the methods so you can handle the response yourself.
@@ -19,6 +18,7 @@ import org.json.JSONObject
 class serverAPI(context: Context)
 {
     val context_ = context
+
 
     fun register(username: String, password_hash: String, listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
     {

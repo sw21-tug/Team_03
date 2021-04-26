@@ -1,6 +1,10 @@
 package com.team03.cocktailrecipesapp
 
+import android.content.Context
+import com.android.volley.Response
 import com.google.gson.Gson
+import com.google.gson.JsonDeserializationContext
+import org.json.JSONObject
 import org.junit.Assert
 import org.junit.Test
 
@@ -12,9 +16,9 @@ import java.time.LocalDateTime
  * Local unit test
  * checking for correct parsing of the json strings recieved from server
  */
-class serverAPIUnitTest {
+class serverAPIUnitTest(context: Context) {
 
-    private val server = serverAPI();
+    private val server = serverAPI(context);
 
     data class AnswerSuccess(
             var success: Int? = -1
@@ -30,7 +34,8 @@ class serverAPIUnitTest {
             var difficulty: Int,
             var instruction: String? = null,
             var creation_time: LocalDateTime? = null,
-            var creator_username: String? = null
+            var creator_username: String? = null,
+            var ratin: Float
     )
 
     data class AnswerRecipes(
@@ -38,8 +43,10 @@ class serverAPIUnitTest {
     )
 
     @Test
-    fun register_checkAPI_call() {
-        val string = server.register("username", "password_hash");
+    fun register_checkAPI_calls() {
+
+
+        val string = server.register("username", "password_hash", ResponseListerner<JSONObject> {}
         val answer = Gson().fromJson(string, AnswerSuccess::class.java);
 
         Assert.assertNotNull(answer)
