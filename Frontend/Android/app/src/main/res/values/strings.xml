@@ -1,5 +1,17 @@
 <resources>
     <string name="app_name">Cocktail Recipes App</string>
+    <string name="cocktail_image">cocktail image</string>
+    <string name="cocktail_name">cocktail name</string>
+    <string name="preparation_time">prep. time</string>
+    <string name="difficulty">difficulty</string>
+    <string name="cocktail_ratings">cocktail ratings</string>
+
+    <string name="img_time">img_time</string>
+    <string name="img_difficulty">img_difficulty</string>
+    <string name="trending_recipes">Trending recipes</string>
+    <string name="see_all">See all</string>
+    <string name="recommended_for_you">Recommended for you</string>
+    <string name="welcome">Welcome!</string>
     <string name="title_activity_register">RegisterActivity</string>
     <!--
     This string is used for square devices and overridden by hello_world in
@@ -10,7 +22,6 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="login_username">Username</string>
