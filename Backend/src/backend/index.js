@@ -29,7 +29,7 @@ app.use(express.json());
 app.post('/register', async (req, res) => {
   console.log("register called!");
   let name = req.body.name;
-  let password = req.body.password_hash;
+  let password = sha256(req.body.password_hash);
   // first check if user with given name already exists
   var result = await query('SELECT * FROM User WHERE name=\''+name+'\'');
   if (result.length > 0) {
@@ -57,7 +57,7 @@ app.post('/register', async (req, res) => {
 app.post('/login', async (req, res) => {
   console.log("login called!");
   let name = req.body.name;
-  let password = req.body.password_hash;
+  let password = sha256(req.body.password_hash);
     // first check if user with given name already exists
     var result = await query('SELECT * FROM User WHERE name=\''+name+'\' AND password=\''+password+'\''); 
     if (result.length > 0) {
