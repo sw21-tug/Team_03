@@ -1,7 +1,12 @@
 package com.team03.cocktailrecipesapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
+
+import com.team03.cocktailrecipesapp.ui.login.LoginActivity
 import android.view.LayoutInflater
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.recommended_cocktail_list.*
@@ -50,4 +55,10 @@ class MainActivity : AppCompatActivity() {
         // TODO: get recommended recipes (top 5 rated)
         return recipe_list
     }
+
+    fun loginOnClick(view: View){
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+    }
+
 }

@@ -24,8 +24,10 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_menu"
             android:background="@android:color/transparent"/>
+        <!-- TODO: Used avatar image as login button for now -->
         <ImageButton
             android:id="@+id/imgBtnAvatar"
+            android:onClick="loginOnClick"
             android:layout_width="48dp"
             android:layout_height="48dp"
             app:layout_constraintBottom_toBottomOf="parent"
