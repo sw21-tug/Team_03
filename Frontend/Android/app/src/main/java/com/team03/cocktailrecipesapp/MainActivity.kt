@@ -13,17 +13,29 @@ import kotlinx.android.synthetic.main.recommended_cocktail_list.*
 import kotlinx.android.synthetic.main.trending_cocktail_list.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 
+//TODO: -> move to shared preferences
+var userLoggedIn = false;
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        //TODO: -> get info from shared preferences
+        if (!userLoggedIn) {
+
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+        else {
+            setContentView(R.layout.activity_main)
 
 
-        val recipe_list = getRecipes()
-        val recommended_recipes = getRecommendedRecipes(recipe_list)
+            val recipe_list = getRecipes()
+            val recommended_recipes = getRecommendedRecipes(recipe_list)
 
-        fillTrendingRecipesList(recipe_list)
-        fillRecommendedRecipesList(recommended_recipes)
+            fillTrendingRecipesList(recipe_list)
+            fillRecommendedRecipesList(recommended_recipes)
+        }
     }
 
     fun fillTrendingRecipesList(recipe_list: List<Recipe>) {
@@ -60,5 +72,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
     }
+
 
 }
