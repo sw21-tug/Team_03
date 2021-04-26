@@ -8,12 +8,11 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert
 import org.junit.Rule
+import androidx.test.platform.app.InstrumentationRegistry
+import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.util.regex.Pattern.matches
-
-
-//"../../com.team03.cocktailrecipesapp/ui.login/LoginViewModel"
 
 /**
  * Instrumented test, which will execute on an Android device.
