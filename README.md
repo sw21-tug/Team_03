@@ -31,11 +31,10 @@ can add their own drinks, get ideas for new drinks, save recipes to their favori
 for new ideas.
 
 # Currently implementing
+- Communication between frontend and backend (Issue [#30](/../../issues/30))
 
+# Already implemented features
 - Register page (Issues [#1](/../../issues/1), [#26](/../../issues/26))
 - Login page (Issues [#2](/../../issues/2), [#27](/../../issues/27))
 - Recipe Overview (Issues [#7](/../../issues/7), [#28](/../../issues/28))
 - App Backend (Issues [#20](/../../issues/20), [#23](/../../issues/23), [#24](/../../issues/24), [#25](/../../issues/25))
-- Communication between frontend and backend (Issue [#30](/../../issues/30))
-
-# Already implemented features
