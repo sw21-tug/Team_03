@@ -19,6 +19,9 @@ import com.team03.cocktailrecipesapp.MainActivity
 
 import com.team03.cocktailrecipesapp.R
 import com.team03.cocktailrecipesapp.RegisterActivity
+import com.team03.cocktailrecipesapp.userLoggedIn
+
+//import com.team03.cocktailrecipesapp.userLoggedIn
 
 class LoginActivity : AppCompatActivity() {
 
@@ -109,11 +112,18 @@ class LoginActivity : AppCompatActivity() {
         val welcome = getString(R.string.welcome)
         val displayName = model.displayName
         // TODO : initiate successful logged in experience
+
+
         Toast.makeText(
             applicationContext,
             "$welcome $displayName",
             Toast.LENGTH_LONG
         ).show()
+
+        //TODO: sharedPreferences -> userLoggedIn = true;
+        userLoggedIn = true;
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {

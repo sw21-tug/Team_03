@@ -32,6 +32,7 @@ class ExampleInstrumentedTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
+
     data class AnswerSuccess(
         var success: Int? = -1
     )
@@ -140,31 +141,19 @@ class ExampleInstrumentedTest {
 
     @Test
     fun loginDataTest(){
-        onView(withId(R.id.btnSwitchToLogin)).perform(click())
         onView(withId(R.id.etUsername)).perform(typeText("Testusername"), closeSoftKeyboard())
         onView(withId(R.id.etPassword)).perform(typeText("Testpassword"), closeSoftKeyboard())
     }
 
-    @Test
-    fun loginButton() {
-        onView(withId(R.id.btnSwitchToLogin)).perform(click())
-        onView(withId(R.id.btnLogin)).perform(click())
-    }
-
-    @Test
-    fun registerButton() {
-        onView(withId(R.id.btnSwitchToLogin)).perform(click())
-        onView(withId(R.id.btnRegister)).perform(click())
-    }
 
     @Test
     fun fillOutRegistrationform() {
-        onView(withId(R.id.btnSwitchToLogin)).perform(click())
         onView(withId(R.id.btnRegister)).perform(click())
         onView(withId(R.id.txt_username)).perform(typeText("John Doe"), closeSoftKeyboard())
         onView(withId(R.id.txt_password)).perform(typeText("password1"), closeSoftKeyboard())
         onView(withId(R.id.txt_password_repeat)).perform(typeText("password1"), closeSoftKeyboard())
     }
+
 
     @Test
     fun fillOutRegistrationform_ErrorPasswordRepeat() {
