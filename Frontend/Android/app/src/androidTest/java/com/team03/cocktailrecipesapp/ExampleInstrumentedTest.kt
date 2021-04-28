@@ -55,6 +55,13 @@ class ExampleInstrumentedTest {
         var recipes: List<Recipe>
     )
 
+    fun util_waitResult() {
+        while (!testErrorListener.gotResponse && !testListener.gotResponse);
+
+        Assert.assertEquals(true, testListener.gotResponse);
+        Assert.assertEquals(false, testErrorListener.gotResponse);
+    }
+
     @Test
     fun register_checkAPI_calls() {
         val answer = server.register("ahmed",
@@ -62,7 +69,7 @@ class ExampleInstrumentedTest {
             testListener as Response.Listener<JSONObject>,
             testErrorListener as Response.ErrorListener);
 
-        Assert.assertEquals(0, answer)
+        util_waitResult();
     }
 
     fun login_checkAPI_call() {
@@ -71,24 +78,13 @@ class ExampleInstrumentedTest {
             testListener as Response.Listener<JSONObject>,
             testErrorListener as Response.ErrorListener);
 
-        Assert.assertEquals(0, answer)
+        util_waitResult();
     }
 
+    @Test
     fun getRecipes_checkAPI_call() {
         val answer = server.getRecipes(testListener as Response.Listener<JSONObject>, testErrorListener as Response.ErrorListener);
-
-        Assert.assertEquals(0, answer)
-
-        /*for (recipe in answer.recipes)
-        {
-            Assert.assertNotNull(recipe.creation_time);
-            Assert.assertNotNull(recipe.creator_username);
-            Assert.assertNotNull(recipe.instruction);
-            Assert.assertNotNull(recipe.name);
-
-            Assert.assertTrue(recipe.difficulty > 0)
-            Assert.assertTrue(recipe.difficulty <= 10)
-        }*/
+        util_waitResult();
     }
 
     fun changePassword_checkAPI_call() {
@@ -97,7 +93,7 @@ class ExampleInstrumentedTest {
             "new_password_hash",
             testListener as Response.Listener<JSONObject>,
             testErrorListener as Response.ErrorListener);
-        Assert.assertEquals(0, answer)
+        util_waitResult();
     }
 
     fun deleteRecipe_checkAPI_call() {
@@ -105,7 +101,7 @@ class ExampleInstrumentedTest {
             -1,
             testListener as Response.Listener<JSONObject>,
             testErrorListener as Response.ErrorListener);
-        Assert.assertEquals(0, answer)
+        util_waitResult();
     }
 
     fun likeRecipe_checkAPI_call() {
@@ -113,7 +109,7 @@ class ExampleInstrumentedTest {
             -1,
             testListener as Response.Listener<JSONObject>,
             testErrorListener as Response.ErrorListener);
-        Assert.assertEquals(0, answer)
+        util_waitResult();
     }
 
     fun addRecipe_checkAPI_call() {
@@ -128,7 +124,7 @@ class ExampleInstrumentedTest {
             testListener as Response.Listener<JSONObject>,
             testErrorListener as Response.ErrorListener);
 
-        Assert.assertEquals(0, answer)
+        util_waitResult();
     }
 
     fun rateRecipe_checkAPI_call() {
@@ -136,7 +132,7 @@ class ExampleInstrumentedTest {
             -1,
             testListener as Response.Listener<JSONObject>,
             testErrorListener as Response.ErrorListener);
-        Assert.assertEquals(0, answer)
+        util_waitResult();
     }
 
     @Test

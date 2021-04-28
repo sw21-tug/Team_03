@@ -138,7 +138,6 @@ class serverAPI(context: Context)
 
         queue.add(request)
         queue.start()
-        queue.start()
 
         return 0
     }
