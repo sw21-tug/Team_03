@@ -1,6 +1,7 @@
 package com.team03.cocktailrecipesapp.ui.login
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,11 +16,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
-import com.team03.cocktailrecipesapp.MainActivity
-
-import com.team03.cocktailrecipesapp.R
-import com.team03.cocktailrecipesapp.RegisterActivity
-import com.team03.cocktailrecipesapp.userLoggedIn
+import com.team03.cocktailrecipesapp.*
 
 //import com.team03.cocktailrecipesapp.userLoggedIn
 
@@ -90,7 +87,8 @@ class LoginActivity : AppCompatActivity() {
                     EditorInfo.IME_ACTION_DONE ->
                         loginViewModel.login(
                             username.text.toString(),
-                            password.text.toString()
+                            password.text.toString(),
+                            context
                         )
                 }
                 false
@@ -98,7 +96,7 @@ class LoginActivity : AppCompatActivity() {
 
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
+                loginViewModel.login(username.text.toString(), password.text.toString(), context)
             }
         }
     }

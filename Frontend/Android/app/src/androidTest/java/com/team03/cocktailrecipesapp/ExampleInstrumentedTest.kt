@@ -11,8 +11,6 @@ import com.android.volley.Response
 import org.json.JSONObject
 import org.junit.Assert
 import org.junit.Rule
-import androidx.test.platform.app.InstrumentationRegistry
-import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.time.LocalDateTime
@@ -57,7 +55,7 @@ class ExampleInstrumentedTest {
 
     @Test
     fun register_checkAPI_calls() {
-        val answer = server.register("ahmed",
+        val answer = server.register("daniel",
             "4aeb2000b9de5858f5e5e0b7eda52f253caf19582c67cbbb453be6987ecc1baf27d75670e39f78058fb1ebee3d16b83d1cbdc8d3628636377b2458ea5bf12ff2",
             testListener as Response.Listener<JSONObject>,
             testErrorListener as Response.ErrorListener);

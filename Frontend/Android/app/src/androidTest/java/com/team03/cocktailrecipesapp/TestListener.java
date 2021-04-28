@@ -7,6 +7,6 @@ import org.json.JSONObject;
 public class TestListener implements Response.Listener<JSONObject> {
     @Override
     public void onResponse(JSONObject response) {
-        System.out.println("Success!");
+        System.out.println(response);
     }
 }
