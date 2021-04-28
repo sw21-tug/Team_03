@@ -132,11 +132,12 @@ class serverAPI(context: Context)
     private fun sendRequest(jsonObject: JSONObject, service: String, listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
     {
         val queue = Volley.newRequestQueue(context_)
-        val url = "http://192.168.0.24:3000/" + service;
+        val url = "https://cocktail-recipe-app-backend.herokuapp.com/" + service;
 
         val request = JsonObjectRequest(url, jsonObject, listener, error_listener)
 
         queue.add(request)
+        queue.start()
         queue.start()
 
         return 0
