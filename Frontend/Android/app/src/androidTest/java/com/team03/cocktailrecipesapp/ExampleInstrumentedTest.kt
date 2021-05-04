@@ -172,6 +172,8 @@ class ExampleInstrumentedTest {
         onView(withId(R.id.txt_password_repeat)).perform(typeText("password123"), closeSoftKeyboard())
         onView(withId(R.id.btn_register)).perform(click())
 
+        Thread.sleep(2000)
+
         onView(withId(R.id.etUsername)).perform(typeText("UsernameTest123"), closeSoftKeyboard())
         onView(withId(R.id.etPassword)).perform(typeText("password123"), closeSoftKeyboard())
         onView(withId(R.id.btnLogin)).perform(click())
