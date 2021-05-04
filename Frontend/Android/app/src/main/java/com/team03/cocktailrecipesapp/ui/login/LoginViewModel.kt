@@ -6,11 +6,9 @@ import androidx.lifecycle.ViewModel
 import android.util.Patterns
 import com.team03.cocktailrecipesapp.data.LoginRepository
 import android.content.Context
-import com.team03.cocktailrecipesapp.CryptoUtils
+import android.widget.TextView
+import com.team03.cocktailrecipesapp.*
 import org.mindrot.jbcrypt.BCrypt
-
-import com.team03.cocktailrecipesapp.R
-import com.team03.cocktailrecipesapp.serverAPI
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
@@ -21,10 +19,13 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     val loginResult: LiveData<LoginResult> = _loginResult
 
     fun onSuccessfulLogin(user_id: Int) {
-        if (user_id >= 0)
-            System.out.println("Login worked!");
-        else
-            System.out.println("Login did not work!");
+        if (user_id >= 0) {
+            userId = user_id;
+            _loginResult.value = LoginResult(success = true)
+        }
+        else {
+            _loginForm.value = LoginFormState(isServerError = R.string.wrong_username_or_password)
+        }
     }
 
     fun onFailedLogin() {
@@ -48,6 +49,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
             _loginForm.value = LoginFormState(passwordError = R.string.invalid_password)
         } else {
             _loginForm.value = LoginFormState(isDataValid = true)
+            userName = username;
         }
     }
 
