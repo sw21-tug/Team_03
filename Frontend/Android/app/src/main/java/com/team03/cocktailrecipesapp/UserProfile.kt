@@ -19,7 +19,6 @@ class UserProfile : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
-        loadLanguagePreference()
         test = findViewById(R.id.txtExample)
         swtLangauge = findViewById(R.id.swtlanguage)
         loadSwitchState()
@@ -34,17 +33,11 @@ class UserProfile : AppCompatActivity() {
             }
             updateFields()
             saveSwitchState(isChecked)
-
-            updateFields()
         }
-
-
-
     }
 
     fun setLanguage(language: String)
     {
-        println("Language $language")
         val locale = Locale(language)
         Locale.setDefault(locale)
         val config = Configuration()
@@ -59,20 +52,12 @@ class UserProfile : AppCompatActivity() {
         editor.putString("Language", language).apply()
     }
 
-    fun loadLanguagePreference()
-    {
-        val shared_lang: SharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
-        val language: String? = shared_lang.getString("Language", "en")
-        if (language != null) {
-            setLanguage(language)
-        }
-    }
-
     fun saveSwitchState(state: Boolean)
     {
         val editor: SharedPreferences.Editor = getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
         editor.putBoolean("state", state).apply()
     }
+
 
     fun loadSwitchState()
     {
@@ -86,13 +71,10 @@ class UserProfile : AppCompatActivity() {
     fun updateFields() : Boolean
     {
         //TODO set all resources in the app to the right string resource
-        //test.text = resources.getString(R.string.example_text)
-        //swtLangauge.text = resources.getString(R.string.switch_language)
 
         val intent = getIntent()
         finish()
         startActivity(intent)
-
         return false
     }
 

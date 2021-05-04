@@ -1,40 +1,51 @@
 package com.team03.cocktailrecipesapp.ui.login
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import android.content.SharedPreferences
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Bundle
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.DisplayMetrics
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.team03.cocktailrecipesapp.MainActivity
-
 import com.team03.cocktailrecipesapp.R
 import com.team03.cocktailrecipesapp.RegisterActivity
 import com.team03.cocktailrecipesapp.userLoggedIn
+import java.util.*
+import kotlin.math.log
+
 
 //import com.team03.cocktailrecipesapp.userLoggedIn
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
+    lateinit var username :EditText
+    lateinit var password :EditText
+    lateinit var login :Button
+    lateinit var register :Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_login)
+        username = findViewById<EditText>(R.id.etUsername)
+        password = findViewById<EditText>(R.id.etPassword)
+        login = findViewById<Button>(R.id.btnLogin)
+        register = findViewById<Button>(R.id.btnRegister)
+        val language : String = getLanguage()
+        setLocale(language)
 
-        val username = findViewById<EditText>(R.id.etUsername)
-        val password = findViewById<EditText>(R.id.etPassword)
-        val login = findViewById<Button>(R.id.btnLogin)
         val loading = findViewById<ProgressBar>(R.id.loading)
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
@@ -103,6 +114,41 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    fun getLanguage() : String
+    {
+        val shared_lang: SharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
+        val language: String? = shared_lang.getString("Language", "en")
+        if (language != null) {
+            return language
+        }
+        return "en"
+    }
+
+    fun setLocale(lang: String) {
+        val myLocale = Locale(lang)
+        val res: Resources = resources
+        val dm: DisplayMetrics = res.getDisplayMetrics()
+        val conf: Configuration = res.getConfiguration()
+        conf.locale = myLocale
+        res.updateConfiguration(conf, dm)
+        baseContext.resources.updateConfiguration(conf, baseContext.resources.displayMetrics)
+        invalidateOptionsMenu()
+        updateFields()
+    }
+
+    fun updateFields()
+    {
+        username.hint = resources.getString(R.string.prompt_username)
+        password.hint = resources.getString(R.string.prompt_password)
+        login.text = resources.getString(R.string.action_sign_in)
+        register.text = resources.getString(R.string.register_button)
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        recreate()
+    }
+
     fun registerOnClickFromLogin(view: View){
         val intent = Intent(this, RegisterActivity::class.java)
         startActivity(intent)
@@ -129,6 +175,19 @@ class LoginActivity : AppCompatActivity() {
     private fun showLoginFailed(@StringRes errorString: Int) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
     }
+
+    fun getCreateState() : Boolean
+    {
+        val shared_lang: SharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
+        return shared_lang.getBoolean("init_login_language", false)
+    }
+
+    fun saveCreateState(state: Boolean)
+    {
+        val editor: SharedPreferences.Editor = getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
+        editor.putBoolean("init_login_language", state).apply()
+    }
+
 }
 
 /**
