@@ -163,4 +163,17 @@ class ExampleInstrumentedTest {
     fun fillOutRegistrationform_ErrorEmptyPasswordRepeat() {
         Assert.assertEquals(RegisterFuncs().validateInput("John Doe", "password1", ""), -3);
     }
+    
+    @Test
+    fun RegisteranLoginWithCorrectInput() {
+        onView(withId(R.id.btnRegister)).perform(click())
+        onView(withId(R.id.txt_username)).perform(typeText("UsernameTest123"), closeSoftKeyboard())
+        onView(withId(R.id.txt_password)).perform(typeText("password123"), closeSoftKeyboard())
+        onView(withId(R.id.txt_password_repeat)).perform(typeText("password123"), closeSoftKeyboard())
+        onView(withId(R.id.btn_register)).perform(click())
+
+        onView(withId(R.id.etUsername)).perform(typeText("UsernameTest123"), closeSoftKeyboard())
+        onView(withId(R.id.etPassword)).perform(typeText("password123"), closeSoftKeyboard())
+        onView(withId(R.id.btnLogin)).perform(click())
+    }
 }
