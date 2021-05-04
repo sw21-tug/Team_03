@@ -65,6 +65,7 @@ class ExampleInstrumentedTest {
         Assert.assertEquals(0, answer)
     }
 
+    @Test
     fun login_checkAPI_call() {
         val answer = server.login("username",
             "password_hash",
@@ -74,6 +75,7 @@ class ExampleInstrumentedTest {
         Assert.assertEquals(0, answer)
     }
 
+    @Test
     fun getRecipes_checkAPI_call() {
         val answer = server.getRecipes(testListener as Response.Listener<JSONObject>, testErrorListener as Response.ErrorListener);
 
@@ -91,6 +93,7 @@ class ExampleInstrumentedTest {
         }*/
     }
 
+    @Test
     fun changePassword_checkAPI_call() {
         val answer = server.changePassword(-1,
             "old_password_hash",
@@ -100,14 +103,16 @@ class ExampleInstrumentedTest {
         Assert.assertEquals(0, answer)
     }
 
+    @Test
     fun deleteRecipe_checkAPI_call() {
-        val answer = server.deleteRecipe(-1,
-            -1,
+        val answer = server.deleteRecipe(2,
+            6,
             testListener as Response.Listener<JSONObject>,
             testErrorListener as Response.ErrorListener);
         Assert.assertEquals(0, answer)
     }
 
+    @Test
     fun likeRecipe_checkAPI_call() {
         val answer = server.likeRecipe(-1,
             -1,
@@ -116,6 +121,7 @@ class ExampleInstrumentedTest {
         Assert.assertEquals(0, answer)
     }
 
+    @Test
     fun addRecipe_checkAPI_call() {
         val answer = server.addRecipe(1,
             "Freddy Krueger",
@@ -131,6 +137,7 @@ class ExampleInstrumentedTest {
         Assert.assertEquals(0, answer)
     }
 
+    @Test
     fun rateRecipe_checkAPI_call() {
         val answer = server.likeRecipe(-1,
             -1,
@@ -161,6 +168,11 @@ class ExampleInstrumentedTest {
     }
 
     @Test
+    fun fillOutRegistrationform_ErrorEmptyUsername() {
+        Assert.assertEquals(RegisterFuncs().validateInput("", "password1", "password2"), -1);
+    }
+
+    @Test
     fun fillOutRegistrationform_ErrorEmptyPassword() {
         Assert.assertEquals(RegisterFuncs().validateInput("John Doe", "", "password2"), -2);
     }
@@ -169,4 +181,5 @@ class ExampleInstrumentedTest {
     fun fillOutRegistrationform_ErrorEmptyPasswordRepeat() {
         Assert.assertEquals(RegisterFuncs().validateInput("John Doe", "password1", ""), -3);
     }
+
 }
