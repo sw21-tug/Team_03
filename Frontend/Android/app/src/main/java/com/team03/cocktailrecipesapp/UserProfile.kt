@@ -1,9 +1,11 @@
 package com.team03.cocktailrecipesapp
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.View
 import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +22,7 @@ class UserProfile : AppCompatActivity() {
         loadLanguagePreference()
         test = findViewById(R.id.txtExample)
         swtLangauge = findViewById(R.id.swtlanguage)
-        loadSwitchSteate()
+        loadSwitchState()
         swtLangauge.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked)
             {
@@ -32,10 +34,13 @@ class UserProfile : AppCompatActivity() {
             }
             updateFields()
             saveSwitchState(isChecked)
-        }
-        updateFields()
-    }
 
+            updateFields()
+        }
+
+
+
+    }
 
     fun setLanguage(language: String)
     {
@@ -69,7 +74,7 @@ class UserProfile : AppCompatActivity() {
         editor.putBoolean("state", state).apply()
     }
 
-    fun loadSwitchSteate()
+    fun loadSwitchState()
     {
         val shared_lang: SharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
         val state: Boolean? = shared_lang.getBoolean("state", false)
@@ -81,7 +86,21 @@ class UserProfile : AppCompatActivity() {
     fun updateFields() : Boolean
     {
         //TODO set all resources in the app to the right string resource
+        //test.text = resources.getString(R.string.example_text)
+        //swtLangauge.text = resources.getString(R.string.switch_language)
+
+        val intent = getIntent()
+        finish()
+        startActivity(intent)
+
         return false
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 
 }

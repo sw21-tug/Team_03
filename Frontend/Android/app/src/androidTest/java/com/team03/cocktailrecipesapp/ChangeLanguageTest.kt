@@ -22,4 +22,24 @@ class LanguageChangeTest
         onView(ViewMatchers.withId(R.id.txtExample)).check(ViewAssertions.matches(ViewMatchers.withText("пример теста")))
         onView(ViewMatchers.withId(R.id.swtlanguage)).check(ViewAssertions.matches(ViewMatchers.withText("Переключиться на английский язык")))
     }
+
+    @Test
+    fun changedLanguageMainActivity()
+    {
+        onView(ViewMatchers.withId(R.id.txtWelcomeUsername)).check(ViewAssertions.matches(ViewMatchers.withText("Добро пожаловать")))
+    }
+
+    @Test
+    fun changedLanguageLogin()
+    {
+        onView(ViewMatchers.withId(R.id.etUsername)).check(ViewAssertions.matches(ViewMatchers.withText("Имя пользователя")))
+    }
+
+    @Test
+    fun changedLanguageRegistry()
+    {
+        onView(ViewMatchers.withId(R.id.btn_register)).check(ViewAssertions.matches(ViewMatchers.withText("Зарегистрироваться")))
+    }
+
+
 }

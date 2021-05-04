@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
             recipeCard.cocktail_ratings.text = it.times_rated.toString()
             recipeCard.cocktail_rating_bar.rating = it.rating
             recipeCard.cocktail_difficulty.text =  it.difficulty.toString()
-            val preparation_time:String = it.preptime_minutes.toString() + " minutes"
+            val preparation_time:String = it.preptime_minutes.toString() + " " + resources.getString(R.string.minutes)
             recipeCard.cocktail_preparation_time.text = preparation_time
             /*recipeCard.cocktail_image*/
             trending_cocktail_list.addView(recipeCard)
@@ -71,6 +71,5 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, UserProfile::class.java)
             startActivity(intent)
     }
-
 
 }
