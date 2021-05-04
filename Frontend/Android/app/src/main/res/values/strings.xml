@@ -29,4 +29,7 @@
     <string name="invalid_password">Password must be at least 5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="register_button">"Register"</string>
+    <string name="example_text">Example text</string>
+    <string name="switch_language">Switch to russian</string>
+
 </resources>

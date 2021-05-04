@@ -19,7 +19,6 @@ var userLoggedIn = false;
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         //TODO: -> get info from shared preferences
         if (!userLoggedIn) {
 
@@ -69,7 +68,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun loginOnClick(view: View){
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, UserProfile::class.java)
             startActivity(intent)
     }
 

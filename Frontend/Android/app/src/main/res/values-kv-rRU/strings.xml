@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cocktail Recipes App</string>
+    <string name="example_text">пример теста</string>
+    <string name="switch_language">Переключиться на английский язык</string>
+</resources>
