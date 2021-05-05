@@ -32,11 +32,15 @@ can add their own drinks, get ideas for new drinks, save recipes to their favori
 for new ideas.
 
 # Currently implementing
-- Communication between frontend and backend (Issue [#30](/../../issues/30))
-- Russian Laguage support (Issue [#39](/../../issues/39))
+- User Log out (Issues [#51](/../../issues/51), [#56](/../../issues/56))
+- A detailed recipe view (Issues [#17](/../../issues/17), [#52](/../../issues/52))
+- Feature to add recipes (Issues [#3](/../../issues/3), [#53](/../../issues/53))
+- Feature to like recipes (Issues [#18](/../../issues/18))
 
 # Already implemented features
-- Register page (Issues [#1](/../../issues/1), [#26](/../../issues/26))
+- Register page (Issues [#1](/../../issues/1), [#26](/../../issues/26), [#40](/../../issues/42))
 - Login page (Issues [#2](/../../issues/2), [#27](/../../issues/27))
-- Recipe Overview (Issues [#7](/../../issues/7), [#28](/../../issues/28))
+- Recipe Overview (Issues [#7](/../../issues/7), [#28](/../../issues/28), [#41](/../../issues/41))
 - App Backend (Issues [#20](/../../issues/20), [#23](/../../issues/23), [#24](/../../issues/24), [#25](/../../issues/25))
+- Communication between frontend and backend (Issue [#30](/../../issues/30), [#40](/../../issues/40))
+- Russian Laguage support (Issues [#39](/../../issues/39), [#44](/../../issues/44))
