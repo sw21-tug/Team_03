@@ -144,6 +144,11 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
+        layout="@layout/error_msg_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"/>
+    <include
         layout="@layout/progress_indicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
