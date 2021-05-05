@@ -27,7 +27,9 @@
     <string name="login_password">Password</string>
     <string name="invalid_password">Password must be at least 5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="register_button">Register</string>
+    <string name="register_button">"Register"</string>
+    <string name="failed_to_load_recipes_from_server">Failed to load recipes from server…</string>
+    <string name="error">Error…</string>
     <string name="example_text">Example text</string>
     <string name="switch_language">Switch to russian</string>
     <string name="login_username">Username</string>

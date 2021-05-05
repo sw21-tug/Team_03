@@ -5,17 +5,25 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
+import com.team03.cocktailrecipesapp.recipes.GetRecipesErrorListener
+import com.team03.cocktailrecipesapp.recipes.GetRecipesListener
 
 import com.team03.cocktailrecipesapp.ui.login.LoginActivity
+
 import android.view.LayoutInflater
 import android.widget.ImageButton
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
+import com.team03.cocktailrecipesapp.recipes.Recipe
+import kotlinx.android.synthetic.main.progress_indicator.*
+import kotlinx.android.synthetic.main.error_msg_indicator.*
+
 import kotlinx.android.synthetic.main.trending_cocktail_list.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 
-//TODO: -> move to shared preferences
 var userId = 0;
 var userName = "";
 
@@ -56,35 +64,38 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun getTrendingRecipesList() {
+        val server = serverAPI(applicationContext)
+        val listener = GetRecipesListener(::onSuccessfulGetRecipes)
+        val errorListener = GetRecipesErrorListener(::onFailedGetRecipes)
+        server.getRecipes(listener, errorListener)
+    }
+
+    fun onSuccessfulGetRecipes(recipe_list: List<Recipe>) {
+        progressBar.visibility = View.GONE
+        fillTrendingRecipesList(recipe_list)
+    }
+
+    fun onFailedGetRecipes() {
+        txtViewErrorMsg.text = resources.getString(R.string.failed_to_load_recipes_from_server)
+        txtViewErrorMsgContainer.visibility = View.VISIBLE
+        Toast.makeText(applicationContext, resources.getString(R.string.failed_to_load_recipes_from_server), Toast.LENGTH_LONG).show()
+    }
+
     fun fillTrendingRecipesList(recipe_list: List<Recipe>) {
-        recipe_list.forEach() {
+        recipe_list.forEach() { recipe ->
             val recipeCard = LayoutInflater.from(this).inflate(R.layout.trending_cocktail_list_card, trending_cocktail_list, false)
-            recipeCard.cocktail_name.text = it.name
-            recipeCard.cocktail_ratings.text = it.times_rated.toString()
-            recipeCard.cocktail_rating_bar.rating = it.rating
-            recipeCard.cocktail_difficulty.text =  it.difficulty.toString()
-            val preparation_time:String = it.preptime_minutes.toString() + " " + resources.getString(R.string.minutes)
-            recipeCard.cocktail_preparation_time.text = preparation_time
-            /*recipeCard.cocktail_image*/
+            recipeCard.cocktail_name.text = recipe.name
+            recipeCard.cocktail_ratings.text = recipe.times_rated.toString()
+            recipeCard.cocktail_rating_bar.rating = recipe.rating
+            recipeCard.cocktail_difficulty.text =  recipe.difficulty.toString()
+            val preparationTime: String = recipe.preptime_minutes.toString() + " minutes"
+            recipeCard.cocktail_preparation_time.text = preparationTime
+            /* TODO: recipeCard.cocktail_image */
             trending_cocktail_list.addView(recipeCard)
         }
     }
 
-    fun fillRecommendedRecipesList(recommended_recipes: List<Recipe>) : Boolean {
-        // TODO: inflate recommeneded recipes
-        return false
-    }
-
-    fun getRecipes() : List<Recipe> {
-        val recipe = Recipe("cocktail XYZ", 4.0F, 2)
-        val recipe_list = listOf(recipe, recipe, recipe, recipe, recipe, recipe)
-        return recipe_list
-    }
-
-    fun getRecommendedRecipes(recipe_list: List<Recipe>) : List<Recipe> {
-        // TODO: get recommended recipes (top 5 rated)
-        return recipe_list
-    }
 
     fun loginOnClick(view: View){
             val intent = Intent(this, UserProfile::class.java)
