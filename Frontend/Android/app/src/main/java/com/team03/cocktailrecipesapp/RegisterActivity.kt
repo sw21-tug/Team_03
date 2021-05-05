@@ -66,7 +66,7 @@ class RegisterActivity : AppCompatActivity() {
             etUsername.error = "Should have 3 or more characters and no special characters"
         }
         else if (validateInputRet == -6) {
-            etUsername.error = "Should have 5 or more characters"
+            etPassword.error = "Should have 5 or more characters"
         }
         else
         {
