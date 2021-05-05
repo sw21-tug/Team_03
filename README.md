@@ -14,6 +14,7 @@
 - Hess, Manuel ([@xsoliah](https://github.com/xsoliah))
 - Gerstbauer, Daniel Herbert ([@dansch26](https://github.com/dansch26))
 
+### Developer:
 
 - Kutschka, Lorenz ([@znerol74](https://github.com/znerol74))
 - Schaffer, Michael ([@michaelschaffer](https://github.com/michaelschaffer))
@@ -32,6 +33,7 @@ for new ideas.
 
 # Currently implementing
 - Communication between frontend and backend (Issue [#30](/../../issues/30))
+- Russian Laguage support (Issue [#39](/../../issues/39))
 
 # Already implemented features
 - Register page (Issues [#1](/../../issues/1), [#26](/../../issues/26))

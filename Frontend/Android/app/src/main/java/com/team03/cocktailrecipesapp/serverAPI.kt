@@ -4,6 +4,7 @@ import android.content.Context
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.team03.cocktailrecipesapp.ui.login.LoginListener
 import org.json.JSONObject
 
 /*
@@ -137,7 +138,6 @@ class serverAPI(context: Context)
         val request = JsonObjectRequest(url, jsonObject, listener, error_listener)
 
         queue.add(request)
-        queue.start()
         queue.start()
 
         return 0

@@ -17,13 +17,10 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.team03.cocktailrecipesapp.MainActivity
-import com.team03.cocktailrecipesapp.R
-import com.team03.cocktailrecipesapp.RegisterActivity
-import com.team03.cocktailrecipesapp.userLoggedIn
+
 import java.util.*
 import kotlin.math.log
-
+import com.team03.cocktailrecipesapp.*
 
 //import com.team03.cocktailrecipesapp.userLoggedIn
 
@@ -47,12 +44,15 @@ class LoginActivity : AppCompatActivity() {
         setLocale(language)
 
         val loading = findViewById<ProgressBar>(R.id.loading)
+        val error = findViewById<TextView>(R.id.loginResponseMessage)
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
 
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
             val loginState = it ?: return@Observer
+
+            loading.visibility = View.INVISIBLE
 
             // disable login button unless both username / password is valid
             login.isEnabled = loginState.isDataValid
@@ -63,6 +63,14 @@ class LoginActivity : AppCompatActivity() {
             if (loginState.passwordError != null) {
                password.error = getString(loginState.passwordError)
             }
+            if (loginState.isServerError != null) {
+                error.visibility = View.VISIBLE
+                error.text = getString(loginState.isServerError)
+            }
+            if (loginState.isSuccess) {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
         })
 
         loginViewModel.loginResult.observe(this@LoginActivity, Observer {
@@ -72,8 +80,8 @@ class LoginActivity : AppCompatActivity() {
             if (loginResult.error != null) {
                 showLoginFailed(loginResult.error)
             }
-            if (loginResult.success != null) {
-                updateUiWithUser(loginResult.success)
+            if (loginResult.success) {
+                updateUiWithUser()
             }
             setResult(Activity.RESULT_OK)
 
@@ -82,10 +90,18 @@ class LoginActivity : AppCompatActivity() {
         })
 
         username.afterTextChanged {
+            if (error.visibility == View.VISIBLE)
+                error.visibility = View.INVISIBLE
+
             loginViewModel.loginDataChanged(
                 username.text.toString(),
                 password.text.toString()
             )
+        }
+
+        password.afterTextChanged {
+            if (error.visibility == View.VISIBLE)
+                error.visibility = View.INVISIBLE
         }
 
         password.apply {
@@ -101,7 +117,8 @@ class LoginActivity : AppCompatActivity() {
                     EditorInfo.IME_ACTION_DONE ->
                         loginViewModel.login(
                             username.text.toString(),
-                            password.text.toString()
+                            password.text.toString(),
+                            context
                         )
                 }
                 false
@@ -109,7 +126,7 @@ class LoginActivity : AppCompatActivity() {
 
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
+                loginViewModel.login(username.text.toString(), password.text.toString(), context)
             }
         }
     }
@@ -149,43 +166,30 @@ class LoginActivity : AppCompatActivity() {
         recreate()
     }
 
+    override fun onBackPressed() {
+    }
+
     fun registerOnClickFromLogin(view: View){
         val intent = Intent(this, RegisterActivity::class.java)
         startActivity(intent)
     }
 
-    private fun updateUiWithUser(model: LoggedInUserView) {
+    private fun updateUiWithUser() {
         val welcome = getString(R.string.welcome)
-        val displayName = model.displayName
         // TODO : initiate successful logged in experience
-
 
         Toast.makeText(
             applicationContext,
-            "$welcome $displayName",
+            "$welcome $userName",
             Toast.LENGTH_LONG
         ).show()
 
-        //TODO: sharedPreferences -> userLoggedIn = true;
-        userLoggedIn = true;
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
-    }
-
-    fun getCreateState() : Boolean
-    {
-        val shared_lang: SharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
-        return shared_lang.getBoolean("init_login_language", false)
-    }
-
-    fun saveCreateState(state: Boolean)
-    {
-        val editor: SharedPreferences.Editor = getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
-        editor.putBoolean("init_login_language", state).apply()
     }
 
 }

@@ -4,30 +4,26 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 
 import com.team03.cocktailrecipesapp.ui.login.LoginActivity
 import android.view.LayoutInflater
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.recommended_cocktail_list.*
 import kotlinx.android.synthetic.main.trending_cocktail_list.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 
 //TODO: -> move to shared preferences
-var userLoggedIn = false;
+var userId = 0;
+var userName = "";
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //TODO: -> get info from shared preferences
-        if (!userLoggedIn) {
-
+        if (userId == 0) {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
         else {
             setContentView(R.layout.activity_main)
-
 
             val recipe_list = getRecipes()
             val recommended_recipes = getRecommendedRecipes(recipe_list)
@@ -71,5 +67,4 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, UserProfile::class.java)
             startActivity(intent)
     }
-
 }

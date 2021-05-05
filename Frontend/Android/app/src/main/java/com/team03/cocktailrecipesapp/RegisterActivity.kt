@@ -1,24 +1,39 @@
 package com.team03.cocktailrecipesapp
 
 import android.content.Intent
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
+import com.team03.cocktailrecipesapp.ui.login.LoginActivity
+import kotlinx.android.synthetic.main.activity_login.*
 
 class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-
-
     }
 
-    fun login(): Boolean {
-        val intent = Intent(this, MainActivity::class.java)
+    fun onUnsuccessfullRegister(){
+        etUsername.error = "Username already in use";
+    }
+
+    fun onSuccessfullRegister(){
+        val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
+    }
+
+    fun register(username: String, password: String): Boolean {
+        val server = serverAPI(this)
+        val pwHash = CryptoUtils.getSHA512(password)
+        val listener = RegisterListener(::onSuccessfullRegister)
+        val error_listener = RegisterErrorListener(::onUnsuccessfullRegister)
+        val answer = server.register(username, pwHash,
+                listener, error_listener);
+        if (answer == 1)
+        {
+            return false
+        }
         return true
     }
 
@@ -30,6 +45,7 @@ class RegisterActivity : AppCompatActivity() {
         retVal = false;
 
         var validateInputRet: Int = RegisterFuncs().validateInput(etUsername.text.toString(), etPassword.text.toString(), etPasswordRepeated.text.toString())
+
 
         if (validateInputRet == -1) {
             etUsername.error = "Should not be blank";
@@ -46,6 +62,12 @@ class RegisterActivity : AppCompatActivity() {
         else if (validateInputRet == -4) {
             etPasswordRepeated.error = "Passwords should be the same"
         }
+        else if (validateInputRet == -5) {
+            etUsername.error = "Should have 3 or more characters and no special characters"
+        }
+        else if (validateInputRet == -6) {
+            etUsername.error = "Should have 5 or more characters"
+        }
         else
         {
             retVal = true
@@ -54,22 +76,21 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     fun registerOnClick(view: View) {
-        val btnRegister: Button = findViewById(R.id.btn_register);
-        btnRegister.setOnClickListener {
-            if (performRegister()) {
-                login();
-            }
+        if (performRegister()) {
+            val etUsername: EditText = findViewById(R.id.txt_username);
+            val etPassword: EditText = findViewById(R.id.txt_password);
+            register(etUsername.text.toString(), etPassword.text.toString());
         }
     }
 }
 
 class RegisterFuncs
 {
-    fun validateInput(unsername: String, password: String, passwordRepeat: String): Int {
-        if (unsername == "") {
+    fun validateInput(username: String, password: String, passwordRepeat: String): Int {
+        var pattern = Regex("\\w{3,}")
+        if (username == "") {
             return -1
         }
-
         else if (password == "") {
             return -2
         }
@@ -77,10 +98,18 @@ class RegisterFuncs
         else if (passwordRepeat == "") {
             return -3
         }
-
+        else if (password.length < 5)
+        {
+            return -6
+        }
         else if (passwordRepeat != password) {
             return -4
         }
+        else if (pattern.containsMatchIn(username) == false)
+        {
+            return -5
+        }
+
         else
         {
             return 0;
