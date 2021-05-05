@@ -3,6 +3,7 @@ package com.team03.cocktailrecipesapp
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,28 +23,35 @@ import kotlinx.android.synthetic.main.error_msg_indicator.*
 
 import kotlinx.android.synthetic.main.trending_cocktail_list.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
+import java.util.*
 
 var userId = 0;
 var userName = "";
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : SharedPreferencesActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        super.onStart()
+        var language = shared.getString("Language", "")
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.setLocale(locale)
+        baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
+    }
 
+    override fun onStart() {
+        super.onStart()
         // try to get a previously saved userId
-        val shared: SharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
         if (userId == 0) {
             userId = shared.getInt("userId", 0);
         }
-
         if (userId == 0) {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
         else {
-            val shared_editor: SharedPreferences.Editor = getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
             shared_editor.putInt("userId", userId).apply()
-
             setContentView(R.layout.activity_main)
 
             // change profile picture according to selected language
@@ -90,8 +98,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-    fun loginOnClick(view: View){
+    fun profilePictureOnClick(view: View){
             val intent = Intent(this, UserProfile::class.java)
             startActivity(intent)
     }

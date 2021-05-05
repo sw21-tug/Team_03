@@ -4,6 +4,8 @@
     <string name="example_text">пример теста</string>
     <string name="switch_language">Переключиться на английский язык</string>
     <string name="register_button">Зарегистрироваться</string>
+    <string name="failed_to_load_recipes_from_server">Не удалось загрузить рецепты с сервера</string>
+    <string name="error">Ошибка</string>
     <string name="login_failed">Не удалось войти в систему</string>
     <string name="invalid_password">Пароль должен состоять не менее чем из 5 символов</string>
     <string name="login_password">Пароль</string>
@@ -24,4 +26,6 @@
     <string name="prompt_username">Имя пользователя</string>
     <string name="prompt_repeat_password">Повторите пароль</string>
     <string name="minutes"> минут</string>
+    <string name="wrong_username_or_password">Неправильное имя пользователя или пароль</string>
+    <string name="logout_button_text">выход</string>
 </resources>
