@@ -16,6 +16,7 @@ import com.team03.cocktailrecipesapp.ui.login.LoginActivity
 import android.widget.ImageButton
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
 import com.team03.cocktailrecipesapp.recipes.Recipe
 import kotlinx.android.synthetic.main.progress_indicator.*
 import kotlinx.android.synthetic.main.error_msg_indicator.*
@@ -29,6 +30,8 @@ var userName = "";
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
 
         // try to get a previously saved userId
         val shared: SharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
@@ -56,6 +59,11 @@ class MainActivity : AppCompatActivity() {
             }
             getTrendingRecipesList()
         }
+    }
+
+    fun onClickAddRecipe(view: View) {
+        val intent = Intent(this, AddRecipeActivity::class.java)
+        startActivity(intent)
     }
 
     fun getTrendingRecipesList() {
