@@ -28,6 +28,7 @@ var userName = "";
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
 
         // try to get a previously saved userId
