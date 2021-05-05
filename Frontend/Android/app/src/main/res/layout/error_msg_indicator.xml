@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/txtViewErrorMsgContainer"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginVertical="12dp"
+    android:gravity="center_horizontal"
+    android:visibility="gone">
+        <TextView
+            android:id="@+id/txtViewErrorMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/error"
+            android:textColor="@color/accent_color"
+            android:textSize="16sp"/>
+</LinearLayout>

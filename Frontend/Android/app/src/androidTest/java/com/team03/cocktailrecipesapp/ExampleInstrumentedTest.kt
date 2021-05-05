@@ -70,6 +70,7 @@ class ExampleInstrumentedTest {
         util_waitResult();
     }
 
+    @Test
     fun login_checkAPI_call() {
         val answer = server.login("username",
             "password_hash",
@@ -85,6 +86,7 @@ class ExampleInstrumentedTest {
         util_waitResult();
     }
 
+    @Test
     fun changePassword_checkAPI_call() {
         val answer = server.changePassword(-1,
             "old_password_hash",
@@ -94,6 +96,7 @@ class ExampleInstrumentedTest {
         util_waitResult();
     }
 
+    @Test
     fun deleteRecipe_checkAPI_call() {
         val answer = server.deleteRecipe(-1,
             -1,
@@ -102,6 +105,7 @@ class ExampleInstrumentedTest {
         util_waitResult();
     }
 
+    @Test
     fun likeRecipe_checkAPI_call() {
         val answer = server.likeRecipe(-1,
             -1,
@@ -110,6 +114,7 @@ class ExampleInstrumentedTest {
         util_waitResult();
     }
 
+    @Test
     fun addRecipe_checkAPI_call() {
         val answer = server.addRecipe(1,
             "Freddy Krueger",
@@ -125,6 +130,7 @@ class ExampleInstrumentedTest {
         util_waitResult();
     }
 
+    @Test
     fun rateRecipe_checkAPI_call() {
         val answer = server.likeRecipe(-1,
             -1,
@@ -155,6 +161,11 @@ class ExampleInstrumentedTest {
     }
 
     @Test
+    fun fillOutRegistrationform_ErrorEmptyUsername() {
+        Assert.assertEquals(RegisterFuncs().validateInput("", "password1", "password2"), -1);
+    }
+
+    @Test
     fun fillOutRegistrationform_ErrorEmptyPassword() {
         Assert.assertEquals(RegisterFuncs().validateInput("John Doe", "", "password2"), -2);
     }
@@ -163,7 +174,7 @@ class ExampleInstrumentedTest {
     fun fillOutRegistrationform_ErrorEmptyPasswordRepeat() {
         Assert.assertEquals(RegisterFuncs().validateInput("John Doe", "password1", ""), -3);
     }
-    
+
     @Test
     fun RegisteranLoginWithCorrectInput() {
         onView(withId(R.id.btnRegister)).perform(click())
@@ -178,4 +189,5 @@ class ExampleInstrumentedTest {
         onView(withId(R.id.etPassword)).perform(typeText("password123"), closeSoftKeyboard())
         onView(withId(R.id.btnLogin)).perform(click())
     }
+
 }
