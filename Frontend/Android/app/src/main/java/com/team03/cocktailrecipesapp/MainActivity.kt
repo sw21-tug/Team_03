@@ -12,13 +12,18 @@ import com.team03.cocktailrecipesapp.recipes.GetRecipesErrorListener
 import com.team03.cocktailrecipesapp.recipes.GetRecipesListener
 
 import com.team03.cocktailrecipesapp.ui.login.LoginActivity
+
+import android.view.LayoutInflater
+import android.widget.ImageButton
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import com.team03.cocktailrecipesapp.recipes.Recipe
 import kotlinx.android.synthetic.main.progress_indicator.*
 import kotlinx.android.synthetic.main.error_msg_indicator.*
+
 import kotlinx.android.synthetic.main.trending_cocktail_list.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 
-//TODO: -> move to shared preferences
 var userId = 0;
 var userName = "";
 
@@ -26,8 +31,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // try to get a previously saved userId
+        val shared: SharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
         if (userId == 0) {
-            val shared: SharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
             userId = shared.getInt("userId", 0);
         }
 
@@ -41,8 +47,20 @@ class MainActivity : AppCompatActivity() {
 
             setContentView(R.layout.activity_main)
 
-            // Get recipes from server and inflate list
-            getTrendingRecipesList()
+            // change profile picture according to selected language
+            val language = shared.getString("Language", "");
+            var avatarImgae = findViewById<ImageButton>(R.id.imgBtnAvatar);
+            if (language.equals("kv")) {
+                avatarImgae.setBackground(ContextCompat.getDrawable(applicationContext, R.drawable.russian_avatar ));
+            } else {
+                avatarImgae.setBackground(ContextCompat.getDrawable(applicationContext, R.drawable.default_avatar ));
+            }
+
+            val recipe_list = getRecipes()
+            val recommended_recipes = getRecommendedRecipes(recipe_list)
+
+            fillTrendingRecipesList(recipe_list)
+            fillRecommendedRecipesList(recommended_recipes)
         }
     }
 
