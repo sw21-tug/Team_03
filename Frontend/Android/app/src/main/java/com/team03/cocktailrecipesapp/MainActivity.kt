@@ -16,11 +16,15 @@ import com.team03.cocktailrecipesapp.ui.login.LoginActivity
 import android.widget.ImageButton
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
+import androidx.core.view.get
+import androidx.core.view.size
 import com.team03.cocktailrecipesapp.recipes.Recipe
 import kotlinx.android.synthetic.main.progress_indicator.*
 import kotlinx.android.synthetic.main.error_msg_indicator.*
+import kotlinx.android.synthetic.main.recommended_cocktail_list.view.*
 
 import kotlinx.android.synthetic.main.trending_cocktail_list.*
+import kotlinx.android.synthetic.main.trending_cocktail_list.view.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 
 var userId = 0;
@@ -85,8 +89,16 @@ class MainActivity : AppCompatActivity() {
             recipeCard.cocktail_difficulty.text =  recipe.difficulty.toString()
             val preparationTime: String = recipe.preptime_minutes.toString() + " minutes"
             recipeCard.cocktail_preparation_time.text = preparationTime
+            //recipeCard.cocktail_id.text = recipe.recipe_id
+            recipeCard.cocktail_id.text = "4" // Just hardcoded value until we get the real id
+
+            addClickListener(recipeCard, trending_cocktail_list.size)
+
             /* TODO: recipeCard.cocktail_image */
             trending_cocktail_list.addView(recipeCard)
+
+
+
         }
     }
 
@@ -95,4 +107,31 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, UserProfile::class.java)
             startActivity(intent)
     }
+
+    fun addClickListener(recipeCard: View, index: Int){
+
+        recipeCard.imageView.setOnClickListener { openDetails(recipeCard) }
+        recipeCard.linearLayout.setOnClickListener { openDetails(recipeCard) }
+        /*recipeCard.cocktail_name.setOnClickListener { openDetails(recipeCard) }
+        recipeCard.cocktail_difficulty.setOnClickListener { openDetails(recipeCard) }
+        recipeCard.cocktail_preparation_time.setOnClickListener { openDetails(recipeCard) }
+        recipeCard.cocktail_rating_bar.setOnClickListener { openDetails(recipeCard) }
+        recipeCard.cocktail_ratings.setOnClickListener { openDetails(recipeCard) }
+        recipeCard.cocktail_id.setOnClickListener { openDetails(recipeCard) }
+        recipeCard.cocktail_id.setOnClickListener { openDetails(recipeCard) }*/
+
+    }
+
+    fun openDetails(recipeCard : View)
+    {
+        val intent = Intent(this, CocktailDetailActivity::class.java)
+        var bundle = Bundle()
+
+        bundle.putInt("cocktail_id", Integer.valueOf(recipeCard.cocktail_id.text.toString()))
+        intent.putExtras(bundle)
+        startActivity(intent)
+
+    }
+
+
 }
