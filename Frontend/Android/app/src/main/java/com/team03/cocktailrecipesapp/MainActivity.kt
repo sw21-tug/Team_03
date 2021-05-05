@@ -9,6 +9,9 @@ import android.view.View
 
 import com.team03.cocktailrecipesapp.ui.login.LoginActivity
 import android.view.LayoutInflater
+import android.widget.ImageButton
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.trending_cocktail_list.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 
@@ -20,8 +23,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // try to get a previously saved userId
+        val shared: SharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
         if (userId == 0) {
-            val shared: SharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
             userId = shared.getInt("userId", 0);
         }
 
@@ -34,6 +38,15 @@ class MainActivity : AppCompatActivity() {
             shared_editor.putInt("userId", userId).apply()
 
             setContentView(R.layout.activity_main)
+
+            // change profile picture according to selected language
+            val language = shared.getString("Language", "");
+            var avatarImgae = findViewById<ImageButton>(R.id.imgBtnAvatar);
+            if (language.equals("kv")) {
+                avatarImgae.setBackground(ContextCompat.getDrawable(applicationContext, R.drawable.russian_avatar ));
+            } else {
+                avatarImgae.setBackground(ContextCompat.getDrawable(applicationContext, R.drawable.default_avatar ));
+            }
 
             val recipe_list = getRecipes()
             val recommended_recipes = getRecommendedRecipes(recipe_list)
