@@ -26,24 +26,24 @@ import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 var userId = 0;
 var userName = "";
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : SharedPreferencesActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
 
+    override fun onStart() {
+        super.onStart()
         // try to get a previously saved userId
-        val shared: SharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
         if (userId == 0) {
             userId = shared.getInt("userId", 0);
         }
-
         if (userId == 0) {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
         else {
-            val shared_editor: SharedPreferences.Editor = getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
             shared_editor.putInt("userId", userId).apply()
-
             setContentView(R.layout.activity_main)
 
             // change profile picture according to selected language
@@ -90,8 +90,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-    fun loginOnClick(view: View){
+    fun profilePictureOnClick(view: View){
             val intent = Intent(this, UserProfile::class.java)
             startActivity(intent)
     }

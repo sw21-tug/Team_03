@@ -68,8 +68,7 @@ class LoginActivity : AppCompatActivity() {
                 error.text = getString(loginState.isServerError)
             }
             if (loginState.isSuccess) {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                onBackPressed()
             }
         })
 
@@ -144,9 +143,9 @@ class LoginActivity : AppCompatActivity() {
     fun setLocale(lang: String) {
         val myLocale = Locale(lang)
         val res: Resources = resources
-        val dm: DisplayMetrics = res.getDisplayMetrics()
-        val conf: Configuration = res.getConfiguration()
-        conf.locale = myLocale
+        val dm: DisplayMetrics = res.displayMetrics
+        val conf: Configuration = res.configuration
+        conf.setLocale(myLocale)
         res.updateConfiguration(conf, dm)
         baseContext.resources.updateConfiguration(conf, baseContext.resources.displayMetrics)
         invalidateOptionsMenu()
