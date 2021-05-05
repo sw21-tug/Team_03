@@ -9,28 +9,15 @@ data class AnswerUserID(
     var message: String
 )
 
-class LoginListener : Response.Listener<JSONObject?> {
+class LoginListener : Response.Listener<JSONObject> {
+    private var onSuccess : ((Int) -> Unit);
 
-    private var onSuccess : (() -> Unit)? = null
-
-    constructor(function: (() -> Unit)?){
-        onSuccess = function;
+    constructor(_onSuccess: ((Int) -> Unit)){
+        onSuccess = _onSuccess;
     }
 
-    private var user_id = 0;
-    private var message = "";
-    override fun onResponse(response: JSONObject?) {
+    override fun onResponse(response: JSONObject) {
         val answer = Gson().fromJson(response.toString(), AnswerUserID::class.java)
-        user_id = answer.user_id;
-        message = answer.message;
-        onSuccess();
-    }
-
-    fun getUserId() : Int {
-        return user_id;
-    }
-
-    fun getMessage() : String {
-        return message;
+        onSuccess.invoke(answer.user_id);
     }
 }

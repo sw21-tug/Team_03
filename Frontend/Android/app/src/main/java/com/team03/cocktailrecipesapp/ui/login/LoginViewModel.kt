@@ -5,12 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
 import com.team03.cocktailrecipesapp.data.LoginRepository
-import com.team03.cocktailrecipesapp.data.Result
 import android.content.Context
+import android.widget.TextView
+import com.team03.cocktailrecipesapp.*
 import org.mindrot.jbcrypt.BCrypt
-
-import com.team03.cocktailrecipesapp.R
-import com.team03.cocktailrecipesapp.serverAPI
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
@@ -21,35 +19,27 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     val loginResult: LiveData<LoginResult> = _loginResult
 
     fun onSuccessfulLogin(user_id: Int) {
-        System.out.println("Henlo Woarld\n");
+        if (user_id >= 0) {
+            userId = user_id;
+            _loginResult.value = LoginResult(success = true)
+        }
+        else {
+            _loginForm.value = LoginFormState(isServerError = R.string.wrong_username_or_password)
+        }
+    }
 
+    fun onFailedLogin() {
+        System.out.println("Login did not work!");
     }
 
     fun login(username: String, password: String, context: Context) {
         // can be launched in a separate asynchronous job
-        val password_hash = BCrypt.hashpw(password, BCrypt.gensalt());
-        val listener = LoginListener(onSuccessfulLogin);
-        val error_listener = LoginErrorListener();
+        val password_hash = CryptoUtils.getSHA512(password);
+        val listener = LoginListener(::onSuccessfulLogin);
+        val error_listener = LoginErrorListener(::onFailedLogin);
 
         val server = serverAPI(context);
         server.login(username, password_hash, listener, error_listener)
-
-        /*if(!listener.getMessage().equals("success")) {
-            //TODO print listener.getMessage()
-            assert(true);
-        }
-
-
-
-
-        if (result is Result.Success) {
-            _loginResult.value = LoginResult(success = LoggedInUserView(displayName = result.data.displayName))
-            //TODO: check in user exists, return userToken, set userToken
-
-
-        } else {
-            _loginResult.value = LoginResult(error = R.string.login_failed)
-        }*/
     }
 
     fun loginDataChanged(username: String, password: String) {
@@ -59,6 +49,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
             _loginForm.value = LoginFormState(passwordError = R.string.invalid_password)
         } else {
             _loginForm.value = LoginFormState(isDataValid = true)
+            userName = username;
         }
     }
 

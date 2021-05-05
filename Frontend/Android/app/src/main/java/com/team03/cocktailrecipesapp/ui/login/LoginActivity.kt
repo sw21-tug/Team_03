@@ -1,7 +1,6 @@
 package com.team03.cocktailrecipesapp.ui.login
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -12,10 +11,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
 import com.team03.cocktailrecipesapp.*
 
 //import com.team03.cocktailrecipesapp.userLoggedIn
@@ -33,12 +29,15 @@ class LoginActivity : AppCompatActivity() {
         val password = findViewById<EditText>(R.id.etPassword)
         val login = findViewById<Button>(R.id.btnLogin)
         val loading = findViewById<ProgressBar>(R.id.loading)
+        val error = findViewById<TextView>(R.id.loginResponseMessage)
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
 
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
             val loginState = it ?: return@Observer
+
+            loading.visibility = View.INVISIBLE
 
             // disable login button unless both username / password is valid
             login.isEnabled = loginState.isDataValid
@@ -49,6 +48,14 @@ class LoginActivity : AppCompatActivity() {
             if (loginState.passwordError != null) {
                password.error = getString(loginState.passwordError)
             }
+            if (loginState.isServerError != null) {
+                error.visibility = View.VISIBLE
+                error.text = getString(loginState.isServerError)
+            }
+            if (loginState.isSuccess) {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
         })
 
         loginViewModel.loginResult.observe(this@LoginActivity, Observer {
@@ -58,8 +65,8 @@ class LoginActivity : AppCompatActivity() {
             if (loginResult.error != null) {
                 showLoginFailed(loginResult.error)
             }
-            if (loginResult.success != null) {
-                updateUiWithUser(loginResult.success)
+            if (loginResult.success) {
+                updateUiWithUser()
             }
             setResult(Activity.RESULT_OK)
 
@@ -68,10 +75,18 @@ class LoginActivity : AppCompatActivity() {
         })
 
         username.afterTextChanged {
+            if (error.visibility == View.VISIBLE)
+                error.visibility = View.INVISIBLE
+
             loginViewModel.loginDataChanged(
                 username.text.toString(),
                 password.text.toString()
             )
+        }
+
+        password.afterTextChanged {
+            if (error.visibility == View.VISIBLE)
+                error.visibility = View.INVISIBLE
         }
 
         password.apply {
@@ -101,25 +116,24 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+    }
+
     fun registerOnClickFromLogin(view: View){
         val intent = Intent(this, RegisterActivity::class.java)
         startActivity(intent)
     }
 
-    private fun updateUiWithUser(model: LoggedInUserView) {
+    private fun updateUiWithUser() {
         val welcome = getString(R.string.welcome)
-        val displayName = model.displayName
         // TODO : initiate successful logged in experience
-
 
         Toast.makeText(
             applicationContext,
-            "$welcome $displayName",
+            "$welcome $userName",
             Toast.LENGTH_LONG
         ).show()
 
-        //TODO: sharedPreferences -> userLoggedIn = true;
-        userLoggedIn = true;
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }

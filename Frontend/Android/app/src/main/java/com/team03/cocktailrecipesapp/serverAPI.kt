@@ -29,7 +29,7 @@ class serverAPI(context: Context)
         return sendRequest(json, "register", listener, error_listener)
     }
 
-    fun login(username: String, password_hash: String, listener: LoginListener, error_listener: Response.ErrorListener) : Int
+    fun login(username: String, password_hash: String, listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
     {
         val login_json = """
             {

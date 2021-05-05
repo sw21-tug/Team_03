@@ -5,10 +5,7 @@ import android.content.SharedPreferences
  */
 public class LoggedInUserView(
     //val sharedPreferences: SharedPreferences = this.sharedPreferences(String)
-    val displayName: String
 
     //... other data fields that may be accessible to the UI
-
-
 
 )
