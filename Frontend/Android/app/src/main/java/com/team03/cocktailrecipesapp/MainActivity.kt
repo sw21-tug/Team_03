@@ -1,6 +1,8 @@
 package com.team03.cocktailrecipesapp
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,12 +25,20 @@ var userName = "";
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //TODO: -> get info from shared preferences
+
+        if (userId == 0) {
+            val shared: SharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
+            userId = shared.getInt("userId", 0);
+        }
+
         if (userId == 0) {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
         else {
+            val shared_editor: SharedPreferences.Editor = getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
+            shared_editor.putInt("userId", userId).apply()
+
             setContentView(R.layout.activity_main)
 
             // Get recipes from server and inflate list
