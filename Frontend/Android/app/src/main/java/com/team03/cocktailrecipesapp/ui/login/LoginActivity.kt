@@ -24,7 +24,7 @@ import com.team03.cocktailrecipesapp.*
 
 //import com.team03.cocktailrecipesapp.userLoggedIn
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : SharedPreferencesActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
     lateinit var username :EditText
@@ -34,20 +34,21 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
 
+    override fun onStart() {
+        super.onStart()
         setContentView(R.layout.activity_login)
         username = findViewById<EditText>(R.id.etUsername)
         password = findViewById<EditText>(R.id.etPassword)
         login = findViewById<Button>(R.id.btnLogin)
         register = findViewById<Button>(R.id.btnRegister)
-        val language : String = getLanguage()
-        setLocale(language)
 
         val loading = findViewById<ProgressBar>(R.id.loading)
         val error = findViewById<TextView>(R.id.loginResponseMessage)
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
-            .get(LoginViewModel::class.java)
+                .get(LoginViewModel::class.java)
 
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
             val loginState = it ?: return@Observer
@@ -61,7 +62,7 @@ class LoginActivity : AppCompatActivity() {
                 username.error = getString(loginState.usernameError)
             }
             if (loginState.passwordError != null) {
-               password.error = getString(loginState.passwordError)
+                password.error = getString(loginState.passwordError)
             }
             if (loginState.isServerError != null) {
                 error.visibility = View.VISIBLE
@@ -93,8 +94,8 @@ class LoginActivity : AppCompatActivity() {
                 error.visibility = View.INVISIBLE
 
             loginViewModel.loginDataChanged(
-                username.text.toString(),
-                password.text.toString()
+                    username.text.toString(),
+                    password.text.toString()
             )
         }
 
@@ -106,8 +107,8 @@ class LoginActivity : AppCompatActivity() {
         password.apply {
             afterTextChanged {
                 loginViewModel.loginDataChanged(
-                    username.text.toString(),
-                    password.text.toString()
+                        username.text.toString(),
+                        password.text.toString()
                 )
             }
 
@@ -115,9 +116,9 @@ class LoginActivity : AppCompatActivity() {
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
                         loginViewModel.login(
-                            username.text.toString(),
-                            password.text.toString(),
-                            context
+                                username.text.toString(),
+                                password.text.toString(),
+                                context
                         )
                 }
                 false
@@ -128,36 +129,6 @@ class LoginActivity : AppCompatActivity() {
                 loginViewModel.login(username.text.toString(), password.text.toString(), context)
             }
         }
-    }
-
-    fun getLanguage() : String
-    {
-        val shared_lang: SharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
-        val language: String? = shared_lang.getString("Language", "en")
-        if (language != null) {
-            return language
-        }
-        return "en"
-    }
-
-    fun setLocale(lang: String) {
-        val myLocale = Locale(lang)
-        val res: Resources = resources
-        val dm: DisplayMetrics = res.displayMetrics
-        val conf: Configuration = res.configuration
-        conf.setLocale(myLocale)
-        res.updateConfiguration(conf, dm)
-        baseContext.resources.updateConfiguration(conf, baseContext.resources.displayMetrics)
-        invalidateOptionsMenu()
-        updateFields()
-    }
-
-    fun updateFields()
-    {
-        username.hint = resources.getString(R.string.prompt_username)
-        password.hint = resources.getString(R.string.prompt_password)
-        login.text = resources.getString(R.string.action_sign_in)
-        register.text = resources.getString(R.string.register_button)
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {

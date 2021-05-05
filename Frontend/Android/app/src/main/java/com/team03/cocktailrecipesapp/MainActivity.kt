@@ -3,6 +3,7 @@ package com.team03.cocktailrecipesapp
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,14 +23,21 @@ import kotlinx.android.synthetic.main.error_msg_indicator.*
 
 import kotlinx.android.synthetic.main.trending_cocktail_list.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
+import java.util.*
 
 var userId = 0;
 var userName = "";
 
 class MainActivity : SharedPreferencesActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        super.onStart()
+        var language = shared.getString("Language", "")
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.setLocale(locale)
+        baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
     }
 
     override fun onStart() {

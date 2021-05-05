@@ -18,24 +18,25 @@ class UserProfile : SharedPreferencesActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_profile)
-
-        test = findViewById(R.id.txtExample)
-        swtLangauge = findViewById(R.id.swtlanguage)
 
     }
 
     override fun onStart() {
         super.onStart()
-        loadSwitchState()
-        swtLangauge.setOnCheckedChangeListener { _, isChecked ->
+        setContentView(R.layout.activity_user_profile)
+
+        test = findViewById(R.id.txtExample)
+        swtLangauge = findViewById(R.id.swtlanguage)
+
+        val language: String? = shared.getString("Language", "")
+        swtLangauge.isChecked = language.equals("kv")
+        swtLangauge.setOnCheckedChangeListener() { _, isChecked ->
             if (isChecked) {
                 setLanguage("kv")
             } else {
                 setLanguage("en")
             }
-            updateFields()
-            saveSwitchState(isChecked)
+            onStart()
         }
     }
 
@@ -45,42 +46,10 @@ class UserProfile : SharedPreferencesActivity() {
         val config = Configuration()
         config.setLocale(locale)
         baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
-        saveLanguagePreference(language)
-    }
-
-    fun saveLanguagePreference(language: String) {
-        val editor: SharedPreferences.Editor =
-            getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
-        editor.putString("Language", language).apply()
-    }
-
-    fun saveSwitchState(state: Boolean) {
-        val editor: SharedPreferences.Editor =
-            getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
-        editor.putBoolean("state", state).apply()
-    }
-
-
-    fun loadSwitchState() {
-        val shared_lang: SharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
-        val state: Boolean? = shared_lang.getBoolean("state", false)
-        if (state != null) {
-            swtLangauge.isChecked = state
-        }
-    }
-
-    fun updateFields(): Boolean {
-        //TODO set all resources in the app to the right string resource
-
-//        val intent = getIntent()
-//        finish()
-//        startActivity(intent)
-        onStart()
-        return false
+        shared_editor.putString("Language", language).apply()
     }
 
     fun onLogoutPressed(view: View) {
-        println("Perform Logout!")
         shared_editor.putInt("userId", 0).apply()
         userId = 0
         onBackPressed()
