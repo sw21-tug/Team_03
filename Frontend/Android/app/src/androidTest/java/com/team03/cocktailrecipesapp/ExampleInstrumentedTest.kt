@@ -11,8 +11,6 @@ import com.android.volley.Response
 import org.json.JSONObject
 import org.junit.Assert
 import org.junit.Rule
-import androidx.test.platform.app.InstrumentationRegistry
-import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.time.LocalDateTime
@@ -55,14 +53,21 @@ class ExampleInstrumentedTest {
         var recipes: List<Recipe>
     )
 
+    fun util_waitResult() {
+        while (!testErrorListener.gotResponse && !testListener.gotResponse);
+
+        Assert.assertEquals(true, testListener.gotResponse);
+        Assert.assertEquals(false, testErrorListener.gotResponse);
+    }
+
     @Test
     fun register_checkAPI_calls() {
-        val answer = server.register("ahmed",
+        val answer = server.register("daniel",
             "4aeb2000b9de5858f5e5e0b7eda52f253caf19582c67cbbb453be6987ecc1baf27d75670e39f78058fb1ebee3d16b83d1cbdc8d3628636377b2458ea5bf12ff2",
             testListener as Response.Listener<JSONObject>,
             testErrorListener as Response.ErrorListener);
 
-        Assert.assertEquals(0, answer)
+        util_waitResult();
     }
 
     @Test
@@ -72,25 +77,13 @@ class ExampleInstrumentedTest {
             testListener as Response.Listener<JSONObject>,
             testErrorListener as Response.ErrorListener);
 
-        Assert.assertEquals(0, answer)
+        util_waitResult();
     }
 
     @Test
     fun getRecipes_checkAPI_call() {
         val answer = server.getRecipes(testListener as Response.Listener<JSONObject>, testErrorListener as Response.ErrorListener);
-
-        Assert.assertEquals(0, answer)
-
-        /*for (recipe in answer.recipes)
-        {
-            Assert.assertNotNull(recipe.creation_time);
-            Assert.assertNotNull(recipe.creator_username);
-            Assert.assertNotNull(recipe.instruction);
-            Assert.assertNotNull(recipe.name);
-
-            Assert.assertTrue(recipe.difficulty > 0)
-            Assert.assertTrue(recipe.difficulty <= 10)
-        }*/
+        util_waitResult();
     }
 
     @Test
@@ -100,16 +93,16 @@ class ExampleInstrumentedTest {
             "new_password_hash",
             testListener as Response.Listener<JSONObject>,
             testErrorListener as Response.ErrorListener);
-        Assert.assertEquals(0, answer)
+        util_waitResult();
     }
 
     @Test
     fun deleteRecipe_checkAPI_call() {
-        val answer = server.deleteRecipe(2,
-            6,
+        val answer = server.deleteRecipe(-1,
+            -1,
             testListener as Response.Listener<JSONObject>,
             testErrorListener as Response.ErrorListener);
-        Assert.assertEquals(0, answer)
+        util_waitResult();
     }
 
     @Test
@@ -118,7 +111,7 @@ class ExampleInstrumentedTest {
             -1,
             testListener as Response.Listener<JSONObject>,
             testErrorListener as Response.ErrorListener);
-        Assert.assertEquals(0, answer)
+        util_waitResult();
     }
 
     @Test
@@ -134,7 +127,7 @@ class ExampleInstrumentedTest {
             testListener as Response.Listener<JSONObject>,
             testErrorListener as Response.ErrorListener);
 
-        Assert.assertEquals(0, answer)
+        util_waitResult();
     }
 
     @Test
@@ -143,7 +136,7 @@ class ExampleInstrumentedTest {
             -1,
             testListener as Response.Listener<JSONObject>,
             testErrorListener as Response.ErrorListener);
-        Assert.assertEquals(0, answer)
+        util_waitResult();
     }
 
     @Test
@@ -180,6 +173,21 @@ class ExampleInstrumentedTest {
     @Test
     fun fillOutRegistrationform_ErrorEmptyPasswordRepeat() {
         Assert.assertEquals(RegisterFuncs().validateInput("John Doe", "password1", ""), -3);
+    }
+
+    @Test
+    fun RegisteranLoginWithCorrectInput() {
+        onView(withId(R.id.btnRegister)).perform(click())
+        onView(withId(R.id.txt_username)).perform(typeText("UsernameTest123"), closeSoftKeyboard())
+        onView(withId(R.id.txt_password)).perform(typeText("password123"), closeSoftKeyboard())
+        onView(withId(R.id.txt_password_repeat)).perform(typeText("password123"), closeSoftKeyboard())
+        onView(withId(R.id.btn_register)).perform(click())
+
+        Thread.sleep(2000)
+
+        onView(withId(R.id.etUsername)).perform(typeText("UsernameTest123"), closeSoftKeyboard())
+        onView(withId(R.id.etPassword)).perform(typeText("password123"), closeSoftKeyboard())
+        onView(withId(R.id.btnLogin)).perform(click())
     }
 
 }

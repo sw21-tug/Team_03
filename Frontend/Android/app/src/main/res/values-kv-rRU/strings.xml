@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cocktail Recipes App</string>
+    <string name="example_text">пример теста</string>
+    <string name="switch_language">Переключиться на английский язык</string>
+    <string name="register_button">Зарегистрироваться</string>
+    <string name="login_failed">Не удалось войти в систему</string>
+    <string name="invalid_password">Пароль должен состоять не менее чем из 5 символов</string>
+    <string name="login_password">Пароль</string>
+    <string name="login_username">Имя пользователя</string>
+    <string name="invalid_username">Недействительное имя пользователя</string>
+    <string name="action_sign_in_short">Войти</string>
+    <string name="action_sign_in">Войти</string>
+    <string name="prompt_password">Пароль</string>
+    <string name="welcome">Добро пожаловать</string>
+    <string name="recommended_for_you">Рекомендуется для вас</string>
+    <string name="see_all">Смотреть все</string>
+    <string name="trending_recipes">Модные рецепты</string>
+    <string name="cocktail_ratings">рейтинги коктейлей</string>
+    <string name="difficulty">трудность</string>
+    <string name="preparation_time">время подготовки</string>
+    <string name="cocktail_name">название коктейля</string>
+    <string name="cocktail_image">изображение коктейля</string>
+    <string name="prompt_username">Имя пользователя</string>
+    <string name="prompt_repeat_password">Повторите пароль</string>
+    <string name="minutes"> минут</string>
+</resources>

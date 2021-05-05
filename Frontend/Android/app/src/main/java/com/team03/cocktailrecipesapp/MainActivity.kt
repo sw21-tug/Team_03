@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import com.team03.cocktailrecipesapp.recipes.GetRecipesErrorListener
 import com.team03.cocktailrecipesapp.recipes.GetRecipesListener
+
 import com.team03.cocktailrecipesapp.ui.login.LoginActivity
 import com.team03.cocktailrecipesapp.recipes.Recipe
 import kotlinx.android.synthetic.main.progress_indicator.*
@@ -16,15 +17,14 @@ import kotlinx.android.synthetic.main.trending_cocktail_list.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 
 //TODO: -> move to shared preferences
-var userLoggedIn = false;
+var userId = 0;
+var userName = "";
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         //TODO: -> get info from shared preferences
-        if (!userLoggedIn) {
-
+        if (userId == 0) {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
@@ -70,9 +70,7 @@ class MainActivity : AppCompatActivity() {
 
 
     fun loginOnClick(view: View){
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, UserProfile::class.java)
             startActivity(intent)
     }
-
-
 }
