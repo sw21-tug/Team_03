@@ -13,7 +13,6 @@ import com.team03.cocktailrecipesapp.recipes.GetRecipesListener
 
 import com.team03.cocktailrecipesapp.ui.login.LoginActivity
 
-import android.view.LayoutInflater
 import android.widget.ImageButton
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
@@ -55,12 +54,7 @@ class MainActivity : AppCompatActivity() {
             } else {
                 avatarImgae.setBackground(ContextCompat.getDrawable(applicationContext, R.drawable.default_avatar ));
             }
-
-            val recipe_list = getRecipes()
-            val recommended_recipes = getRecommendedRecipes(recipe_list)
-
-            fillTrendingRecipesList(recipe_list)
-            fillRecommendedRecipesList(recommended_recipes)
+            getTrendingRecipesList()
         }
     }
 
