@@ -91,8 +91,8 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun loginOnClick(view: View){
-            val intent = Intent(this, UserProfile::class.java)
-            startActivity(intent)
+    fun profilePictureOnClick(view: View){
+        val intent = Intent(this, UserProfile::class.java)
+        startActivity(intent)
     }
 }

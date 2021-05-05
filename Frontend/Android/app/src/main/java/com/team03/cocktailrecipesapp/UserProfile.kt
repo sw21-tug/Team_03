@@ -19,8 +19,10 @@ class UserProfile : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
+
         test = findViewById(R.id.txtExample)
         swtLangauge = findViewById(R.id.swtlanguage)
+
         loadSwitchState()
         swtLangauge.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked)

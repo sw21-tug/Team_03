@@ -27,7 +27,7 @@
         <!-- TODO: Used avatar image as login button for now -->
         <ImageButton
             android:id="@+id/imgBtnAvatar"
-            android:onClick="loginOnClick"
+            android:onClick="profilePictureOnClick"
             android:layout_width="48dp"
             android:layout_height="48dp"
             app:layout_constraintBottom_toBottomOf="parent"
