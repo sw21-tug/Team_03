@@ -1,34 +1,24 @@
 package com.team03.cocktailrecipesapp
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
-import com.team03.cocktailrecipesapp.recipes.GetRecipesErrorListener
-import com.team03.cocktailrecipesapp.recipes.GetRecipesListener
-
-import com.team03.cocktailrecipesapp.ui.login.LoginActivity
-
-import android.widget.ImageButton
+import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.core.view.size
-import com.team03.cocktailrecipesapp.recipes.Recipe
-import kotlinx.android.synthetic.main.progress_indicator.*
-import kotlinx.android.synthetic.main.error_msg_indicator.*
-
-import kotlinx.android.synthetic.main.trending_cocktail_list.*
+import com.team03.cocktailrecipesapp.error_listener.GetRecipesErrorListener
+import com.team03.cocktailrecipesapp.listener.GetRecipesListener
+import com.team03.cocktailrecipesapp.listener.Recipe
+import com.team03.cocktailrecipesapp.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 import java.util.*
 
-var userId = 0;
-var userName = "";
-
 class MainActivity : SharedPreferencesActivity() {
+    lateinit var progressBar: ProgressBar
+    lateinit var recipesLayout: LinearLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         super.onStart()
@@ -54,6 +44,9 @@ class MainActivity : SharedPreferencesActivity() {
             shared_editor.putInt("userId", userId).apply()
             setContentView(R.layout.activity_main)
 
+            progressBar = findViewById(R.id.progressbar);
+            recipesLayout = findViewById(R.id.trending_cocktail_list)
+
             // change profile picture according to selected language
             val language = shared.getString("Language", "");
             var avatarImgae = findViewById<ImageButton>(R.id.imgBtnAvatar);
@@ -68,39 +61,41 @@ class MainActivity : SharedPreferencesActivity() {
 
     fun getTrendingRecipesList() {
         val server = serverAPI(applicationContext)
-        val listener = GetRecipesListener(::onSuccessfulGetRecipes)
-        val errorListener = GetRecipesErrorListener(::onFailedGetRecipes)
+        val listener =
+            GetRecipesListener(::onSuccessfulGetRecipes)
+        val errorListener =
+            GetRecipesErrorListener(
+                ::onFailedGetRecipes
+            )
         server.getRecipes(listener, errorListener)
     }
 
     fun onSuccessfulGetRecipes(recipe_list: List<Recipe>) {
-        progressBar.visibility = View.GONE
         fillTrendingRecipesList(recipe_list)
+        progressBar.visibility = View.INVISIBLE;
+        recipesLayout.visibility = View.VISIBLE
     }
 
     fun onFailedGetRecipes() {
-        txtViewErrorMsg.text = resources.getString(R.string.failed_to_load_recipes_from_server)
-        txtViewErrorMsgContainer.visibility = View.VISIBLE
+        progressBar.visibility = View.INVISIBLE;
+        recipesLayout.visibility = View.INVISIBLE
         Toast.makeText(applicationContext, resources.getString(R.string.failed_to_load_recipes_from_server), Toast.LENGTH_LONG).show()
     }
 
     fun fillTrendingRecipesList(recipe_list: List<Recipe>) {
         recipe_list.forEach() { recipe ->
-            val recipeCard = LayoutInflater.from(this).inflate(R.layout.trending_cocktail_list_card, trending_cocktail_list, false)
+            val recipeCard = LayoutInflater.from(this).inflate(R.layout.trending_cocktail_list_card, recipesLayout, false)
             recipeCard.cocktail_name.text = recipe.name
             recipeCard.cocktail_ratings.text = recipe.times_rated.toString()
             recipeCard.cocktail_rating_bar.rating = recipe.rating
             recipeCard.cocktail_difficulty.text =  recipe.difficulty.toString()
-            val preparationTime: String = recipe.preptime_minutes.toString() + " minutes"
+            val preparationTime: String = recipe.preptime_minutes.toString() + getString(R.string.minutes)
             recipeCard.cocktail_preparationtime.text = preparationTime
             recipeCard.cocktail_id.text = recipe.id.toString()
-            addClickListener(recipeCard, trending_cocktail_list.size)
+            addClickListener(recipeCard, recipesLayout.size)
 
             /* TODO: recipeCard.cocktail_image */
-            trending_cocktail_list.addView(recipeCard)
-
-
-
+            recipesLayout.addView(recipeCard)
         }
     }
 
@@ -113,14 +108,6 @@ class MainActivity : SharedPreferencesActivity() {
 
         recipeCard.imageView.setOnClickListener { openDetails(recipeCard) }
         recipeCard.linearLayout.setOnClickListener { openDetails(recipeCard) }
-        /*recipeCard.cocktail_name.setOnClickListener { openDetails(recipeCard) }
-        recipeCard.cocktail_difficulty.setOnClickListener { openDetails(recipeCard) }
-        recipeCard.cocktail_preparation_time.setOnClickListener { openDetails(recipeCard) }
-        recipeCard.cocktail_rating_bar.setOnClickListener { openDetails(recipeCard) }
-        recipeCard.cocktail_ratings.setOnClickListener { openDetails(recipeCard) }
-        recipeCard.cocktail_id.setOnClickListener { openDetails(recipeCard) }
-        recipeCard.cocktail_id.setOnClickListener { openDetails(recipeCard) }*/
-
     }
 
     fun openDetails(recipeCard : View)
@@ -131,8 +118,5 @@ class MainActivity : SharedPreferencesActivity() {
         bundle.putInt("cocktail_id", Integer.valueOf(recipeCard.cocktail_id.text.toString()))
         intent.putExtras(bundle)
         startActivity(intent)
-
     }
-
-
 }

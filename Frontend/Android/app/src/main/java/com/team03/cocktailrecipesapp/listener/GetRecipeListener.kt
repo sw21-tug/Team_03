@@ -1,10 +1,8 @@
-package com.team03.cocktailrecipesapp.recipes
+package com.team03.cocktailrecipesapp.listener
 
 import com.android.volley.Response
 import com.google.gson.Gson
 import org.json.JSONObject
-import java.text.DateFormat
-import kotlin.reflect.KFunction1
 
 
 data class Ingrediant(
@@ -30,12 +28,11 @@ data class RecipeDetail(
     var is_mine: Int,
     var my_rating: Int,
     var rating: Float
-
-   // Response { recipe: [ { name: <str>, preptime_minutes: <int>, difficulty: <int>, instruction: <str>,
+)
+// Response { recipe: [ { name: <str>, preptime_minutes: <int>, difficulty: <int>, instruction: <str>,
    // ingredients: [ { id: <int>, name: <str>, amount: <int> } ], creation_time: <datetime>, creator_username: <str>,
    // creator_id: <int>, liked: <int>, (0 or 1) is_mine: <int>, (0 or 1), my_rating: <int> (0 = not rated, 1-5) rating, <float> } ] }
-
-) {
+{
     override fun toString(): String {
         return "RecipeDetail(name='$name', preptime_minutes=$preptime_minutes, " +
                 "difficulty=$difficulty, instruction='$instruction', ingredients=$ingredients,  " +

@@ -1,9 +1,9 @@
-package com.team03.cocktailrecipesapp.recipes
+package com.team03.cocktailrecipesapp.error_listener
 
 import com.android.volley.Response
 import com.android.volley.VolleyError
 
-class GetRecipesErrorListener : Response.ErrorListener
+class GetRecipeErrorListener : Response.ErrorListener
 {
     private var onFailure: () -> Unit
 

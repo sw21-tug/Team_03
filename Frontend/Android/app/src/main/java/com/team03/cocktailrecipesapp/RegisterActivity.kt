@@ -4,9 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
-import androidx.appcompat.app.AppCompatActivity
+import com.team03.cocktailrecipesapp.error_listener.RegisterErrorListener
+import com.team03.cocktailrecipesapp.listener.RegisterListener
 import com.team03.cocktailrecipesapp.ui.login.LoginActivity
-import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_login.etUsername
 
 class RegisterActivity : SharedPreferencesActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +28,8 @@ class RegisterActivity : SharedPreferencesActivity() {
         val server = serverAPI(this)
         val pwHash = CryptoUtils.getSHA512(password)
         val listener = RegisterListener(::onSuccessfullRegister)
-        val error_listener = RegisterErrorListener(::onUnsuccessfullRegister)
+        val error_listener =
+            RegisterErrorListener(::onUnsuccessfullRegister)
         val answer = server.register(username, pwHash,
                 listener, error_listener);
         if (answer == 1)

@@ -1,28 +1,18 @@
 package com.team03.cocktailrecipesapp.ui.login
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.res.Configuration
-import android.content.res.Resources
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.DisplayMetrics
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-
-import java.util.*
-import kotlin.math.log
 import com.team03.cocktailrecipesapp.*
-
-//import com.team03.cocktailrecipesapp.userLoggedIn
 
 class LoginActivity : SharedPreferencesActivity() {
 
@@ -39,10 +29,10 @@ class LoginActivity : SharedPreferencesActivity() {
     override fun onStart() {
         super.onStart()
         setContentView(R.layout.activity_login)
-        username = findViewById<EditText>(R.id.etUsername)
-        password = findViewById<EditText>(R.id.etPassword)
-        login = findViewById<Button>(R.id.btnLogin)
-        register = findViewById<Button>(R.id.btnRegister)
+        username = findViewById(R.id.etUsername)
+        password = findViewById(R.id.etPassword)
+        login = findViewById(R.id.btnLogin)
+        register = findViewById(R.id.btnRegister)
 
         val loading = findViewById<ProgressBar>(R.id.loading)
         val error = findViewById<TextView>(R.id.loginResponseMessage)
@@ -161,7 +151,6 @@ class LoginActivity : SharedPreferencesActivity() {
     private fun showLoginFailed(@StringRes errorString: Int) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
     }
-
 }
 
 /**
