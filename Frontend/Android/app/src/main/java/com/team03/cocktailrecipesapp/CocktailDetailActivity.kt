@@ -3,9 +3,17 @@ package com.team03.cocktailrecipesapp
 import com.team03.cocktailrecipesapp.recipes.*
 import kotlinx.android.synthetic.main.progress_indicator.*
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_cocktail_detail.*
+import kotlinx.android.synthetic.main.trending_cocktail_list_card.*
+import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_difficulty
+import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_name
+import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_rating_bar
+import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_ratings
 
 class CocktailDetailActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cocktail_detail)
@@ -20,17 +28,24 @@ class CocktailDetailActivity : AppCompatActivity() {
 
     fun getRecipe(recipe_id: Int) {
         val server = serverAPI(applicationContext)
-        //val listener = GetRecipeListener(::onSuccessfulGetRecipe)
-        //val errorListener = GetRecipeErrorListener(::onFailedGetRecipe)
-        //server.getRecipe(recipe_id, userId,listener, errorListener)
+        val listener = GetRecipeListener(::onSuccessfulGetRecipe)
+        val errorListener = GetRecipeErrorListener(::onFailedGetRecipe)
+        server.getRecipe(recipe_id, userId,listener, errorListener)
     }
 
-   /* fun onSuccessfulGetRecipe(recipe: RecipeDetail) {
+    fun onSuccessfulGetRecipe(recipe: RecipeDetail) {
         //progressBar.visibility = View.GONE
-        println("Got recipe from server!")
+        //println("Got recipe from server!")
         //println(recipe.toString())
 
-    }*/
+        cocktail_name.text = recipe.name
+        cocktail_difficulty.text = recipe.difficulty.toString()
+        cocktail_rating_bar.rating = recipe.rating
+
+
+
+
+    }
 
     fun onFailedGetRecipe() {
         println("Failed to get recipe from server!")

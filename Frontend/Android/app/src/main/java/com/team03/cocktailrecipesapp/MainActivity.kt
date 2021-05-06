@@ -89,8 +89,7 @@ class MainActivity : AppCompatActivity() {
             recipeCard.cocktail_difficulty.text =  recipe.difficulty.toString()
             val preparationTime: String = recipe.preptime_minutes.toString() + " minutes"
             recipeCard.cocktail_preparation_time.text = preparationTime
-            //recipeCard.cocktail_id.text = recipe.recipe_id
-            recipeCard.cocktail_id.text = "4" // Just hardcoded value until we get the real id
+            recipeCard.cocktail_id.text = recipe.id.toString()
 
             addClickListener(recipeCard, trending_cocktail_list.size)
 
