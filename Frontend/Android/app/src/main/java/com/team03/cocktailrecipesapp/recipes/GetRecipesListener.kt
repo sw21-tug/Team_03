@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import org.json.JSONObject
 
 data class Recipe(
+    var id: Int,
     var name: String,
     var preptime_minutes: Int,
     var difficulty: Int,
@@ -14,7 +15,7 @@ data class Recipe(
     var rating: Float,
     var times_rated: Int
 ) { override fun toString(): String {
-        return "RecipeTest(name='$name', preptime_minutes=$preptime_minutes, difficulty=$difficulty," +
+        return "RecipeTest(id='$id', name='$name', preptime_minutes=$preptime_minutes, difficulty=$difficulty," +
                 "instruction='$instruction', creation_time='$creation_time'," +
                 "creator_username='$creator_username'," + "rating=$rating, times_rated=$times_rated)"
     }

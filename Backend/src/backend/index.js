@@ -3,21 +3,28 @@ var mysql = require('mysql2');
 var sha512 = require('js-sha512').sha512;
 const util = require('util');
 
-const DB_PW = process.env.MYSQL_ROOT_PASSWORD || 5000;
+const DB_USER = process.env.MYSQL_USER || "root";
+const DB_PW = process.env.MYSQL_PASSWORD || "root";
+const DB_NAME = process.env.MYSQL_DATABASE || "example_db";
+const DB_SERVER = process.env.MYSQL_SERVER || "mysqldb";
 
-var con = mysql.createConnection({
-  host: "mysqldb",
-  database: "example_db",
-  user: "root",
-  password: DB_PW
-});
+function connectDB() {
+  var con = mysql.createConnection({
+    host: DB_SERVER,
+    database: DB_NAME,
+    user: DB_USER,
+    password: DB_PW
+  });
 
-const query = util.promisify(con.query).bind(con);
+  con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+  });
 
-con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-});
+  return con;
+}
+
+
 
 const express = require('express');
 const { runInNewContext } = require('vm');
@@ -28,6 +35,9 @@ app.use(express.json());
 
 app.post('/register', async (req, res) => {
   console.log("register called!");
+  var con = connectDB();
+  const query = util.promisify(con.query).bind(con);
+
   let name = req.body.name;
   let password = req.body.password_hash;
   // first check if user with given name already exists
@@ -56,6 +66,9 @@ app.post('/register', async (req, res) => {
 
 app.post('/login', async (req, res) => {
   console.log("login called!");
+  var con = connectDB();
+  const query = util.promisify(con.query).bind(con);
+
   let name = req.body.name;
   let password = req.body.password_hash;
     // first check if user with given name already exists
@@ -78,14 +91,37 @@ app.post('/login', async (req, res) => {
     }
 });
 
-app.get('/get-recipes', async (req, res) => {
-  console.log("get-recipes called!");
+app.post('/get-ingredients', async (req, res) => {
+  console.log("get-ingredients called!");
+  var con = connectDB();
+  const query = util.promisify(con.query).bind(con);
+
   // select all recipes
-  var result = await query('SELECT r.name as recipe_name, r.preptime_minutes, r.difficulty, r.instruction, r.created_at, u.name as user_name, SUM(r2.value) / SUM(1) as rating FROM Recipe r JOIN User u on r.creator_id = u.id JOIN Rating r2 on r.id = r2.recipe_id GROUP BY r.name, r.preptime_minutes, r.difficulty, r.instruction, r.created_at, u.name');
+  var result = await query('SELECT * FROM Ingredient');
   
   var out = [];
   for (var i in result) {
     out.push({
+      name: result[i].name,
+    });
+  }
+
+  var finalJson = { "ingredients": out };
+  res.send(finalJson);
+});
+
+app.post('/get-recipes', async (req, res) => {
+  console.log("get-recipes called!");
+  var con = connectDB();
+  const query = util.promisify(con.query).bind(con);
+
+  // select all recipes
+  var result = await query('SELECT r.id, r.name as recipe_name, r.preptime_minutes, r.difficulty, r.instruction, r.created_at, u.name as user_name, SUM(r2.value) / SUM(1) as rating FROM Recipe r JOIN User u on r.creator_id = u.id LEFT JOIN Rating r2 on r.id = r2.recipe_id GROUP BY r.id, r.name, r.preptime_minutes, r.difficulty, r.instruction, r.created_at, u.name');
+  
+  var out = [];
+  for (var i in result) {
+    out.push({
+      id: result[i].id,
       name: result[i].recipe_name,
       preptime_minutes: result[i].preptime_minutes,
       difficulty: result[i].difficulty,
@@ -96,11 +132,83 @@ app.get('/get-recipes', async (req, res) => {
     });
   }
 
-  res.send(out);
+  var finalJson = { "recipes": out };
+  res.send(finalJson);
+});
+
+app.post('/get-recipe', async (req, res) => {
+  console.log("get-recipe called!");
+  var con = connectDB();
+  const query = util.promisify(con.query).bind(con);
+
+  let recipe_id = req.body.recipe_id;
+  let user_id = req.body.user_id;
+
+  var recipe = await query('SELECT * FROM Recipe WHERE id=\''+recipe_id+'\'');
+  if (recipe.length == 0) {
+    // user or recipe not found!
+    res.send({
+      success: false,
+      message: "Recipe with id="+recipe_id+" not found"
+    });
+    return;
+  }
+
+  // is liked?
+  var liked_result = await query('SELECT COUNT(*) as hasLiked FROM Favourite WHERE user_id = ' + user_id + ' and recipe_id = ' + recipe_id);
+  let hasLiked = liked_result[0].hasLiked;
+
+  // get my rating
+  var myRating_result = await query('SELECT value FROM Rating WHERE user_id = ' + user_id + ' and recipe_id = ' + recipe_id);
+  var myRating = null;
+  for (var i in myRating_result) {
+    myRating = myRating_result[i].value; 
+  }
+
+  // get ingredients
+  var ingr_result = await query('SELECT i.id, i.name, amount FROM RecipeIngredient ri JOIN Ingredient i ON i.id = ri.ingredient_id WHERE ri.recipe_id = ' + recipe_id);
+
+  var ingredient = [];
+  for (var i in ingr_result) {
+    ingredient.push({
+        id: ingr_result[i].id,
+        name: ingr_result[i].name,
+        amount: ingr_result[i].amount,
+      });
+  }
+
+  // get receipt
+  var result = await query('SELECT r.name as recipe_name, r.preptime_minutes, r.difficulty, r.instruction, r.created_at, u.name as user_name, u.id as user_id, SUM(r2.value) / SUM(1) as rating FROM Recipe r JOIN User u on r.creator_id = u.id LEFT JOIN Rating r2 on r.id = r2.recipe_id WHERE r.id = ' + recipe_id + ' GROUP BY r.name, r.preptime_minutes, r.difficulty, r.instruction, r.created_at, u.name');
+  
+  var isMine = 0;
+  if (result[0].user_id == user_id) {
+    isMine = 1;
+  }
+
+  var receip = {
+    name: result[0].recipe_name,
+    preptime_minutes: result[0].preptime_minutes,
+    difficulty: result[0].difficulty,
+    instruction: result[0].instruction,
+    ingredients: ingredient,
+    creation_time: result[0].created_at,
+    creator_user: result[0].user_name,
+    creator_id: result[0].user_id,
+    liked: hasLiked,
+    is_mine: isMine, 
+    my_rating: myRating,
+    rating: result[0].rating
+  };
+  
+  var finalJson = { "recipe": receip };
+  res.send(finalJson);
 });
 
 app.post('/add-recipe', async (req, res) => {
   console.log("add-recipe called!");
+  var con = connectDB();
+  const query = util.promisify(con.query).bind(con);
+
   let user_id = req.body.user_id;
   let name = req.body.name;
   let preptime_minutes = req.body.preptime_minutes;
@@ -151,6 +259,9 @@ app.post('/add-recipe', async (req, res) => {
 
 app.post('/rate-recipe', async (req, res) => {
   console.log("rate-recipe called!");
+  var con = connectDB();
+  const query = util.promisify(con.query).bind(con);
+
   let user_id = req.body.user_id;
   let recipe_id = req.body.recipe_id;
   let value = req.body.value;
@@ -199,6 +310,10 @@ app.post('/rate-recipe', async (req, res) => {
 });
 
 app.post('/change-password', async (req, res) => {
+  console.log("change password called!");
+  var con = connectDB();
+  const query = util.promisify(con.query).bind(con);
+
   let user_id = req.body.user_id;
   let old_password_hash = req.body.old_password_hash;
   let new_password_hash = req.body.new_password_hash;
@@ -229,6 +344,10 @@ app.post('/change-password', async (req, res) => {
 });
 
 app.post('/delete-recipe', async (req, res) => {
+  console.log("delete receip called!");
+  var con = connectDB();
+  const query = util.promisify(con.query).bind(con);
+
   let user_id = req.body.user_id;
   let recipe_id = req.body.recipe_id;
   
@@ -274,6 +393,10 @@ app.post('/delete-recipe', async (req, res) => {
 });
 
 app.post('/like-recipe', async (req, res) => {
+  console.log("like called!");
+  var con = connectDB();
+  const query = util.promisify(con.query).bind(con);
+
   let user_id = req.body.user_id;
   let recipe_id = req.body.recipe_id;
   
@@ -313,6 +436,10 @@ app.post('/like-recipe', async (req, res) => {
 });
 
 app.post('/unlike-recipe', async (req, res) => {
+  console.log("unlike called!");
+  var con = connectDB();
+  const query = util.promisify(con.query).bind(con);
+
   let user_id = req.body.user_id;
   let recipe_id = req.body.recipe_id;
   
@@ -351,7 +478,7 @@ app.post('/unlike-recipe', async (req, res) => {
   });
 });
 
-const port = process.env.NODEJS_LOCAL_PORT || 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
 	console.log(`Worker: process ${process.pid} is up on port ${port}`);
 });
