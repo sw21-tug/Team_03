@@ -1,7 +1,6 @@
 package com.team03.cocktailrecipesapp
 
 import android.content.Context
-import com.team03.cocktailrecipesapp.recipes.*
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +9,11 @@ import android.widget.BaseAdapter
 import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_cocktail_detail.*
-import kotlinx.android.synthetic.main.trending_cocktail_list_card.*
+import com.team03.cocktailrecipesapp.error_listener.GetRecipeErrorListener
+import com.team03.cocktailrecipesapp.listener.GetRecipeListener
+import com.team03.cocktailrecipesapp.listener.Ingrediant
+import com.team03.cocktailrecipesapp.listener.RecipeDetail
+import kotlinx.android.synthetic.main.activity_cocktail_detail.cocktail_preparation_time
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_difficulty
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_name
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_rating_bar
@@ -75,7 +77,8 @@ class CocktailDetailActivity : AppCompatActivity() {
 
     fun getRecipe(recipe_id: Int) {
         val server = serverAPI(applicationContext)
-        val listener = GetRecipeListener(::onSuccessfulGetRecipe)
+        val listener =
+            GetRecipeListener(::onSuccessfulGetRecipe)
         val errorListener = GetRecipeErrorListener(::onFailedGetRecipe)
         server.getRecipe(recipe_id, userId, listener, errorListener)
     }

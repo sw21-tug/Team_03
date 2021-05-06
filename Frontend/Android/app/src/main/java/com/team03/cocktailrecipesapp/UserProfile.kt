@@ -1,31 +1,17 @@
 package com.team03.cocktailrecipesapp
 
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
 import android.content.res.Configuration
-import android.os.Bundle
 import android.view.View
 import android.widget.Switch
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import java.util.*
 
 class UserProfile : SharedPreferencesActivity() {
-
-    lateinit var test: TextView
     lateinit var swtLangauge: Switch
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onStart() {
         super.onStart()
         setContentView(R.layout.activity_user_profile)
 
-        test = findViewById(R.id.txtExample)
         swtLangauge = findViewById(R.id.swtlanguage)
 
         val language: String? = shared.getString("Language", "")
