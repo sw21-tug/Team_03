@@ -106,7 +106,7 @@
                     tools:ignore="RtlSymmetry" />
 
                 <TextView
-                    android:id="@+id/cocktail_preparation_time"
+                    android:id="@+id/cocktail_preparationtime"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

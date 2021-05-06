@@ -19,28 +19,32 @@
         style="@android:style/Widget.Holo.RatingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="22dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
         android:progressBackgroundTint="@android:color/darker_gray"
         android:progressTint="@color/accent_color"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="241dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
     <TextView
         android:id="@+id/cocktail_ratings"
         android:layout_width="170dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:layout_weight="1"
         android:paddingStart="12dp"
         android:text="@string/cocktail_ratings"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/cocktail_rating_bar"
-        tools:layout_editor_absoluteY="241dp" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
     <TextView
         android:id="@+id/cocktail_name"
         android:layout_width="409dp"
         android:layout_height="42dp"
         android:layout_marginVertical="8dp"
+        android:layout_marginTop="12dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:text="@string/cocktail_name"
@@ -50,12 +54,13 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="275dp" />
+        app:layout_constraintTop_toBottomOf="@+id/cocktail_ratings" />
 
     <TextView
         android:id="@+id/cocktail_difficulty"
         android:layout_width="118dp"
-        android:layout_height="22dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="14dp"
         android:layout_weight="1"
         android:gravity="center"
         android:text="@string/difficulty"
@@ -65,12 +70,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/cocktail_preparation_time"
-        app:layout_constraintTop_toTopOf="@+id/cocktail_preparation_time" />
+        app:layout_constraintTop_toBottomOf="@+id/cocktail_name" />
+
 
     <TextView
         android:id="@+id/cocktail_preparation_time"
         android:layout_width="113dp"
-        android:layout_height="23dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="12dp"
         android:layout_weight="1"
         android:gravity="center"
         android:paddingEnd="12dp"
@@ -80,9 +87,37 @@
         app:layout_constraintEnd_toStartOf="@+id/cocktail_difficulty"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="RtlSymmetry"
-        tools:layout_editor_absoluteY="327dp" />
+        app:layout_constraintTop_toBottomOf="@+id/cocktail_name"
+        tools:ignore="RtlSymmetry" />
 
+    <TextView
+        android:id="@+id/ingrediants"
+        android:layout_width="409dp"
+        android:layout_height="42dp"
+        android:layout_marginVertical="8dp"
+        android:layout_marginTop="16dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="@string/ingrediants"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cocktail_preparation_time" />
+
+    <ListView
+        android:id="@+id/recipe_list_view"
+        android:layout_width="416dp"
+        android:layout_height="277dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ingrediants"
+        app:layout_constraintVertical_bias="0.056" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

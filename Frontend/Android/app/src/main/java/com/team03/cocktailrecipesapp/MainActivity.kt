@@ -14,17 +14,13 @@ import com.team03.cocktailrecipesapp.recipes.GetRecipesListener
 import com.team03.cocktailrecipesapp.ui.login.LoginActivity
 
 import android.widget.ImageButton
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
-import androidx.core.view.get
 import androidx.core.view.size
 import com.team03.cocktailrecipesapp.recipes.Recipe
 import kotlinx.android.synthetic.main.progress_indicator.*
 import kotlinx.android.synthetic.main.error_msg_indicator.*
-import kotlinx.android.synthetic.main.recommended_cocktail_list.view.*
 
 import kotlinx.android.synthetic.main.trending_cocktail_list.*
-import kotlinx.android.synthetic.main.trending_cocktail_list.view.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 
 var userId = 0;
@@ -88,9 +84,8 @@ class MainActivity : AppCompatActivity() {
             recipeCard.cocktail_rating_bar.rating = recipe.rating
             recipeCard.cocktail_difficulty.text =  recipe.difficulty.toString()
             val preparationTime: String = recipe.preptime_minutes.toString() + " minutes"
-            recipeCard.cocktail_preparation_time.text = preparationTime
+            recipeCard.cocktail_preparationtime.text = preparationTime
             recipeCard.cocktail_id.text = recipe.id.toString()
-
             addClickListener(recipeCard, trending_cocktail_list.size)
 
             /* TODO: recipeCard.cocktail_image */
