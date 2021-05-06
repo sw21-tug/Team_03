@@ -188,7 +188,7 @@ class ExampleInstrumentedTest {
 
         onView(withId(R.id.etUsername)).perform(typeText("UsernameTest123"), closeSoftKeyboard())
         onView(withId(R.id.etPassword)).perform(typeText("password123"), closeSoftKeyboard())
-        onView(withId(R.id.btnLogin)).perform(click())
+        onView(withId(R.id.btnBack)).perform(click())
     }
 
     @Test
@@ -207,6 +207,6 @@ class ExampleInstrumentedTest {
         onView(withId(R.id.logoutButton)).perform(click())
 
         // check if we are in login page
-        onView(withId(R.id.btnLogin)).check(matches(isDisplayed()))
+        onView(withId(R.id.btnBack)).check(matches(isDisplayed()))
     }
 }

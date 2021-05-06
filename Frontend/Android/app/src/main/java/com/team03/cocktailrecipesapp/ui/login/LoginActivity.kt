@@ -31,7 +31,7 @@ class LoginActivity : SharedPreferencesActivity() {
         setContentView(R.layout.activity_login)
         username = findViewById(R.id.etUsername)
         password = findViewById(R.id.etPassword)
-        login = findViewById(R.id.btnLogin)
+        login = findViewById(R.id.btnBack)
         register = findViewById(R.id.btnRegister)
 
         val loading = findViewById<ProgressBar>(R.id.loading)
