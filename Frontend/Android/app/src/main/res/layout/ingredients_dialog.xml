@@ -55,7 +55,8 @@
             android:backgroundTint="@color/accent_color"
             app:layout_constraintBottom_toBottomOf="@+id/layout_ingredients_list"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:onClick="onClickAddIngredients"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

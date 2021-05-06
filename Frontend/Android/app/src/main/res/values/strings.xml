@@ -29,6 +29,7 @@
     <string name="login_failed">"Login failed"</string>
     <string name="register_button">"Register"</string>
     <string name="failed_to_load_recipes_from_server">Failed to load recipes from server…</string>
+    <string name="failed_to_add_recipe">Failed to add recipe. Check your internet connection or try later.</string>
     <string name="failed_to_load_ingredients_from_server">Failed to load ingredients from server…</string>
     <string name="error">Error…</string>
     <string name="example_text">Example text</string>
