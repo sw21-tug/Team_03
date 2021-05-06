@@ -1,0 +1,89 @@
+[
+	{
+		url: "/register",
+		parameters: {
+			name: "str",
+			password: "str"
+		},
+		return: {
+			success: "bool"
+		}
+	},
+	{
+		url: "/login",
+		parameters: {
+			name: "str",
+			password_hash: "str"
+		},
+		return: {
+			user_id: "int"
+		}
+	},
+	{
+		url: "/add-recipe",
+		parameters: {
+			name: "str",
+			preptime_minutes: "int",
+			difficulty: "int",
+			instruction: "str",
+			ingredient_names: "list<str>"
+		},
+		return: {
+			success: "bool"
+		}
+	},
+	{
+		url: "/rate-recipe",
+		parameters: {
+			user_id: "int",
+			recipe_id: "int",
+			value: "int"
+		},
+		return: {
+			success: "bool"
+		}
+	},
+	{
+		url: "/get-recipes",
+		return: [
+			{
+				name: "str",
+				preptime_minutes: "int",
+				difficulty: "int",
+				instruction: "str",
+				creation_time: "datetime",
+				creator_username: "str"
+			}
+		]
+	},
+	{
+		url: "/change-password",
+		parameters: {
+			old_password_hash: "str",
+			new_password_hash: "str"
+		},
+		return: {
+			success: "bool"
+		}
+	},
+	{
+		url: "/delete-recipe",
+		parameters: {
+			user_id: "int",
+			recipe_id: "int"
+		},
+		return: {
+			success: "bool"
+		}
+	},
+	{
+		url: "/like-recipe",
+		parameters: {
+			user_id: "int",
+			recipe_id: "int"
+		},
+		return: {
+			success: "bool"
+		}
+	}
+]

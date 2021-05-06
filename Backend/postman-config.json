@@ -1,0 +1,191 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Team03-Backend",
+		"_postman_id": "b130c831-9d96-a4b9-5aa5-78bd0647bd50",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"url": "http://localhost:3000/register",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"test_user2\",\n\t\"password_hash\": \"4aeb2000b9de5858f5e5e0b7eda52f253caf19582c67cbbb453be6987ecc1baf27d75670e39f78058fb1ebee3d16b83d1cbdc8d3628636377b2458ea5bf12ff2\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"url": "http://localhost:3000/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"test_user2\",\n\t\"password_hash\": \"4aeb2000b9de5858f5e5e0b7eda52f253caf19582c67cbbb453be6987ecc1baf27d75670e39f78058fb1ebee3d16b83d1cbdc8d3628636377b2458ea5bf12ff2\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Recipes",
+			"request": {
+				"url": "http://localhost:3000/get-recipes",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\tname: <str>, \n\tpreptime_minutes: <int>, difficulty: <int>, instruction: <str>, creation_time: <datetime>, creator_username: <str> }\t\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add-Recipe",
+			"request": {
+				"url": "http://localhost:3000/add-recipe",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user_id\": 15,\n\t\"name\": \"Tequila\",\n\t\"preptime_minutes\": 15,\n\t\"difficulty\": 3,\n\t\"instruction\": \"Ex the whole bottle!\",\n\t\"ingredient_names\": [\"Vodka\", \"Lemon-Soda\", \"Sugar\"]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Rate-Recipe",
+			"request": {
+				"url": "http://localhost:3000/rate-recipe",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user_id\": 1, \n\t\"recipe_id\": 1, \n\t\"value\": 4\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Change-Password",
+			"request": {
+				"url": "http://localhost:3000/change-password",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user_id\": 1,\n\t\"old_password_hash\": \"4aeb2000b9de5858f5e5e0b7eda52f253caf19582c67cbbb453be6987ecc1baf27d75670e39f78058fb1ebee3d16b83d1cbdc8d3628636377b2458ea5bf12ff1\",\n\t\"new_password_hash\": \"4aeb2000b9de5858f5e5e0b7eda52f253caf19582c67cbbb453be6987ecc1baf27d75670e39f78058fb1ebee3d16b83d1cbdc8d3628636377b2458ea5bf12ff2\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete-Recipe",
+			"request": {
+				"url": "http://localhost:3000/delete-recipe",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"recipe_id\": 40,\n\t\"user_id\": 17\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Like-Recipe",
+			"request": {
+				"url": "http://localhost:3000/like-recipe",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user_id\": 1,\n\t\"recipe_id\": 1\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Unlike-Recipe",
+			"request": {
+				"url": "http://localhost:3000/unlike-recipe",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user_id\": 1,\n\t\"recipe_id\": 1\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CocktailDetailActivity">
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="409dp"
+        android:layout_height="227dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_cocktail_image" />
+
+    <RatingBar
+        android:id="@+id/cocktail_rating_bar"
+        style="@android:style/Widget.Holo.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:progressBackgroundTint="@android:color/darker_gray"
+        android:progressTint="@color/accent_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+
+    <TextView
+        android:id="@+id/cocktail_ratings"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_weight="1"
+        android:paddingStart="12dp"
+        android:text="@string/cocktail_ratings"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/cocktail_rating_bar"
+        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+
+    <TextView
+        android:id="@+id/cocktail_name"
+        android:layout_width="409dp"
+        android:layout_height="42dp"
+        android:layout_marginVertical="8dp"
+        android:layout_marginTop="12dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="@string/cocktail_name"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cocktail_ratings" />
+
+    <TextView
+        android:id="@+id/cocktail_difficulty"
+        android:layout_width="118dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="14dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="@string/difficulty"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/cocktail_preparation_time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cocktail_preparation_time"
+        app:layout_constraintTop_toBottomOf="@+id/cocktail_name" />
+
+
+    <TextView
+        android:id="@+id/cocktail_preparation_time"
+        android:layout_width="113dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="12dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:paddingEnd="12dp"
+        android:text="@string/preparation_time"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/cocktail_difficulty"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cocktail_name"
+        tools:ignore="RtlSymmetry" />
+
+    <TextView
+        android:id="@+id/ingrediants"
+        android:layout_width="409dp"
+        android:layout_height="42dp"
+        android:layout_marginVertical="8dp"
+        android:layout_marginTop="16dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="@string/ingrediants"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cocktail_preparation_time" />
+
+    <ListView
+        android:id="@+id/recipe_list_view"
+        android:layout_width="416dp"
+        android:layout_height="277dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ingrediants"
+        app:layout_constraintVertical_bias="0.056" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

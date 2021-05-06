@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Cocktail Recipes App</string>
+    <string name="cocktail_image">cocktail image</string>
+    <string name="cocktail_name">cocktail name</string>
+    <string name="ingrediants">Ingrediants</string>
+    <string name="preparation_time">prep. time</string>
+    <string name="difficulty">difficulty</string>
+    <string name="cocktail_ratings">cocktail ratings</string>
+    <string name="ml" translatable="false">ml</string>
+
+
+    <string name="img_time">img_time</string>
+    <string name="img_difficulty">img_difficulty</string>
+    <string name="trending_recipes">Trending recipes</string>
+    <string name="see_all">See all</string>
+    <string name="recommended_for_you">Recommended for you</string>
+    <string name="welcome">Welcome</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="prompt_username">Username</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="login_password">Password</string>
+    <string name="invalid_password">Password must be at least 5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="register_button">"Register"</string>
+    <string name="failed_to_load_recipes_from_server">Failed to load recipes from server…</string>
+    <string name="error">Error…</string>
+    <string name="switch_language">Switch to russian</string>
+    <string name="login_username">Username</string>
+    <string name="prompt_repeat_password">Repeat password</string>
+    <string name="minutes"> minutes</string>
+    <string name="back">←</string>
+    <string name="wrong_username_or_password">Wrong username or password</string>
+    <string name="logout_button_text">Logout</string>
+</resources>
