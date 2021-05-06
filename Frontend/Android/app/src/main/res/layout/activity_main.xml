@@ -148,11 +148,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"/>
-
     <include
         layout="@layout/progress_indicator"
         android:layout_width="match_parent"
-        android:layout_height="346dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp" />
     <include
         layout="@layout/trending_cocktail_list"
@@ -169,7 +168,8 @@
         android:layout_margin="16dp"
         android:contentDescription="@string/add_recipe_button"
         android:onClick="onClickAddRecipe"
-        android:src="@drawable/add_recipe" />
+        android:src="@drawable/add_recipe"
+        android:backgroundTint="@color/accent_color"/>
 
 
 </LinearLayout>

@@ -90,6 +90,12 @@ class serverAPI(context: Context)
         return sendRequest(json, "get-recipes", listener, error_listener)
     }
 
+    fun getIngredients(listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
+    {
+        val json = JSONObject()
+        return sendRequest(json, "get-ingredients", listener, error_listener)
+    }
+
     fun changePassword(user_id: Int, old_password_hash: String, new_password_hash: String, listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
     {
         val change_password_json = """

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,102 +10,171 @@
     android:layout_marginHorizontal="12dp"
     android:layout_marginVertical="12dp">
 
-
-    <TextView
-        android:id="@+id/txtAddRecipe"
-        android:text="@string/add_a_new_recipe"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:textColor="@android:color/black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_gravity="center_horizontal"/>
-
-    <EditText
-        android:id="@+id/etRecipeName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="96dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
-        android:hint="@string/recipe_name"
-        android:inputType="text"
-        />
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
-        android:layout_marginHorizontal="12dp"
-        android:layout_marginVertical="12dp">
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/layout_btn_add_recipe">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/txtAddRecipe"
+            android:text="@string/add_a_new_recipe"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginVertical="8dp"
+            android:orientation="vertical">
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/minutes"/>
-            <NumberPicker
-                android:id="@+id/timer_picker_minutes"
+                android:text="@string/cocktail_name"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginRight="80dp"/>
+                android:layout_marginBottom="8dp" />
+            <EditText
+                android:id="@+id/etRecipeName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/recipe_name"
+                android:inputType="text"/>
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginVertical="8dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginEnd="80dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/minutes"
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"/>
+                <NumberPicker
+                    android:id="@+id/timer_picker_minutes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/difficulty"
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"/>
+                <NumberPicker
+                    android:id="@+id/difficulty_picker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginVertical="8dp">
+            <TextView
+                android:text="@string/cocktail_description"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp" />
+            <EditText
+                android:id="@+id/etRecipeDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/recipe_description"
+                android:inputType="textMultiLine"
+                android:maxLines="4"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            >
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginVertical="8dp">
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/difficulty"/>
-            <NumberPicker
-                android:id="@+id/difficulty_picker"
+                android:text="@string/cocktail_ingredients"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp" />
+            <Button
+                android:id="@+id/btnManageIngredients"
+                android:text="@string/manage_ingredients"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:backgroundTint="@color/accent_color"
+                android:onClick="onClickManageIngredients"/>
+
         </LinearLayout>
-
-
-
-
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/etRecipDescription"
+
+    <!-- add button layout-->
+    <LinearLayout
+        android:id="@+id/layout_btn_add_recipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:hint="@string/recipe_description"
-        android:inputType="text"
-        android:maxLines="20"
-        android:minLines="1"
-        />
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <Button
+            android:id="@+id/btnAddRecipe"
+            android:text="@string/add_recipe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:backgroundTint="@color/accent_color" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btnAddRecipe"
-        android:text="@string/add_recipe"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="96dp"
-        android:layout_marginEnd="24dp"
-        android:gravity="bottom"/>
-
-
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
