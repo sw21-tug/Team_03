@@ -32,7 +32,6 @@ can add their own drinks, get ideas for new drinks, save recipes to their favori
 for new ideas.
 
 # Currently implementing
-- User Log out (Issues [#51](/../../issues/51), [#56](/../../issues/56))
 - A detailed recipe view (Issues [#17](/../../issues/17), [#52](/../../issues/52))
 - Feature to add recipes (Issues [#3](/../../issues/3), [#53](/../../issues/53))
 - Feature to like recipes (Issues [#18](/../../issues/18))
@@ -44,3 +43,4 @@ for new ideas.
 - App Backend (Issues [#20](/../../issues/20), [#23](/../../issues/23), [#24](/../../issues/24), [#25](/../../issues/25))
 - Communication between frontend and backend (Issue [#30](/../../issues/30), [#40](/../../issues/40))
 - Russian Laguage support (Issues [#39](/../../issues/39), [#44](/../../issues/44))
+- User Log out (Issues [#51](/../../issues/51), [#56](/../../issues/56))
