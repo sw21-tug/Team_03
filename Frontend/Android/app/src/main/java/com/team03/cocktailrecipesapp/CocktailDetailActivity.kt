@@ -98,6 +98,7 @@ class CocktailDetailActivity : AppCompatActivity() {
         cocktail_rating_bar.rating = recipe.rating
         cocktail_preparation_time.text = recipe.preptime_minutes.toString() + " " + getString(R.string.minutes)
         cocktail_instruction.text = recipe.instruction
+        isLiked = (recipe.liked == 1)
 
 
 
@@ -187,7 +188,6 @@ class CocktailDetailActivity : AppCompatActivity() {
             isLiked = false
             System.out.println("disliked\n")
         }
-
     }
 
     fun like(user_id: Int, recipe_id: Int): Boolean {
