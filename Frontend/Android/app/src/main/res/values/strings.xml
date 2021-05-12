@@ -49,4 +49,11 @@
     <string name="cocktail_description">cocktail description</string>
     <string name="manage_ingredients">Manage ingredients</string>
     <string name="add_ingredients">Add ingredients</string>
+    <string name="should_not_be_blank">Should not be blank</string>
+    <string name="passwords_should_be_the_same">Passwords should be the same</string>
+    <string name="username_to_less_characters">Should have 3 or more characters and no special characters</string>
+    <string name="password_to_less_characters">Should have 5 or more characters</string>
+    <string name="no_ingredients_selected">Your Cocktail has no ingredients</string>
+
+
 </resources>

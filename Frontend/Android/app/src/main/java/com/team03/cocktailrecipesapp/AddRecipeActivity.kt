@@ -46,7 +46,6 @@ class AddRecipeActivity : AppCompatActivity() {
         {
             ingredients_pub = data.getStringArrayListExtra("pickedingredients")
         }
-        ingredients_pub?.forEach { println(it) }
     }
 
     fun onClickAddRecipe(view: View) {
@@ -61,7 +60,16 @@ class AddRecipeActivity : AppCompatActivity() {
         val preperation_time: Int = timer_picker_minutes.value
         val difficulty: Int = difficulty_picker.value
 
-        server.addRecipe(shared.getInt("userId", 0), recipe_name, preperation_time, difficulty,
-            recipe_description, ingredients_pub.orEmpty(), listener, errorListener)
+        if (ingredients_pub.orEmpty().isEmpty())
+        {
+            Toast.makeText(applicationContext, resources.getString(R.string.no_ingredients_selected), Toast.LENGTH_LONG).show()
+        }
+        else
+        {
+            server.addRecipe(shared.getInt("userId", 0), recipe_name, preperation_time, difficulty,
+                recipe_description, ingredients_pub.orEmpty(), listener, errorListener)
+        }
+
+
     }
 }

@@ -1,6 +1,8 @@
 package com.team03.cocktailrecipesapp
 
 import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
@@ -14,6 +16,13 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.time.LocalDateTime
+import android.app.Activity
+import androidx.test.espresso.Espresso.onData
+import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
+import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
+import androidx.test.runner.lifecycle.Stage
+import org.hamcrest.CoreMatchers.*
+import org.hamcrest.Matchers.hasEntry
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -52,6 +61,21 @@ class ExampleInstrumentedTest {
     data class AnswerRecipes(
         var recipes: List<Recipe>
     )
+
+    fun login() {
+        var currentActivity: Activity? = null
+        getInstrumentation().runOnMainSync { run { currentActivity = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED).elementAtOrNull(0) } }
+
+        if (currentActivity?.localClassName == "LoginActivity")
+        {
+            onView(withId(R.id.etUsername)).perform(typeText("daniel"), closeSoftKeyboard())
+            onView(withId(R.id.etPassword)).perform(typeText("1234qwer"), closeSoftKeyboard())
+            onView(withId(R.id.btnLogin)).perform(click())
+        }
+        else
+        {
+        }
+    }
 
     fun util_waitResult() {
         while (!testErrorListener.gotResponse && !testListener.gotResponse);
@@ -183,11 +207,67 @@ class ExampleInstrumentedTest {
         onView(withId(R.id.txt_password_repeat)).perform(typeText("password123"), closeSoftKeyboard())
         onView(withId(R.id.btn_register)).perform(click())
 
-        Thread.sleep(2000)
+        Thread.sleep(500)
 
         onView(withId(R.id.etUsername)).perform(typeText("UsernameTest123"), closeSoftKeyboard())
         onView(withId(R.id.etPassword)).perform(typeText("password123"), closeSoftKeyboard())
         onView(withId(R.id.btnLogin)).perform(click())
+    }
+
+    @Test
+    fun AddNewRecipeWithNoIngredients() {
+        login()
+        onView(withId(R.id.add_recipe_button)).perform(click())
+        onView(withId(R.id.etRecipeName)).perform(typeText("Recipe Without Ingredients"), closeSoftKeyboard())
+        onView(withId(R.id.etRecipeDescription)).perform(typeText("This Recipe has no Ingredients."), closeSoftKeyboard())
+
+        onView(withId(R.id.btnManageIngredients)).perform(click())
+        Thread.sleep(500)
+        onView(withId(R.id.btnConfirmIngredients)).perform(click())
+
+        onView(withId(R.id.difficulty_picker)).perform(swipeDown())
+        onView(withId(R.id.timer_picker_minutes)).perform(swipeDown())
+        onView(withId(R.id.btnAddRecipe)).perform(click())
+    }
+
+    @Test
+    fun AddNewRecipeTryWithoutIngredientsAddAfter() {
+        login()
+        onView(withId(R.id.add_recipe_button)).perform(click())
+        onView(withId(R.id.etRecipeName)).perform(typeText("Recipe Without Ingredients"), closeSoftKeyboard())
+        onView(withId(R.id.etRecipeDescription)).perform(typeText("This Recipe has no Ingredients."), closeSoftKeyboard())
+
+        onView(withId(R.id.difficulty_picker)).perform(swipeDown())
+        onView(withId(R.id.timer_picker_minutes)).perform(swipeDown())
+
+
+        onView(withId(R.id.btnManageIngredients)).perform(click())
+        Thread.sleep(500)
+
+        //onData(anything()).atPosition(1).perform(click());
+
+        onView(withId(R.id.btnConfirmIngredients)).perform(click())
+
+        onView(withId(R.id.btnAddRecipe)).perform(click())
+
+
+    }
+
+    @Test
+    fun AddNewRecipe() {
+
+        onView(withId(R.id.add_recipe_button)).perform(click())
+        onView(withId(R.id.etRecipeName)).perform(typeText("Recipe Without Ingredients"), closeSoftKeyboard())
+        onView(withId(R.id.etRecipeDescription)).perform(typeText("This Recipe has no Ingredients."), closeSoftKeyboard())
+
+        onView(withId(R.id.btnManageIngredients)).perform(click())
+        Thread.sleep(500)
+        onView(withId(R.id.btnConfirmIngredients)).perform(click())
+
+        onView(withId(R.id.difficulty_picker)).perform(swipeDown())
+        onView(withId(R.id.timer_picker_minutes)).perform(swipeDown())
+        onView(withId(R.id.btnAddRecipe)).perform(click())
+
     }
 
 }

@@ -60,6 +60,7 @@ class AddIngredientsActivity : AppCompatActivity() {
                 picked_ingredients.add(ingredient.ingredientItem.text.toString())
             }
         }
+
         // Send result of selected ingredients back to previous activity
         val intent = Intent()
         intent.putStringArrayListExtra ("pickedingredients", picked_ingredients as ArrayList<String>)
