@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.team03.cocktailrecipesapp.error_listener.GetRecipeErrorListener
+import com.team03.cocktailrecipesapp.listener.DeleteRecipeListener
 import com.team03.cocktailrecipesapp.listener.GetRecipeListener
 import com.team03.cocktailrecipesapp.listener.Ingrediant
 import com.team03.cocktailrecipesapp.listener.RecipeDetail
@@ -21,7 +22,6 @@ import kotlinx.android.synthetic.main.progress_indicator.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_difficulty
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_name
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_rating_bar
-import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 
 
 class RecipeAdapter(private val context: Context,
@@ -56,10 +56,10 @@ class RecipeAdapter(private val context: Context,
         // Get subtitle element
         val ingrediant_name = rowView.findViewById(R.id.ingrediant_name) as TextView
 
-        val recipe = getItem(position) as Ingrediant
+        val ingrediant = getItem(position) as Ingrediant
 
-        ingrediant_name.text = recipe.name
-        ingrediant_amount.text = recipe.amount.toString()
+        ingrediant_name.text = ingrediant.name
+        ingrediant_amount.text = ingrediant.amount.toString()
 
         return rowView
     }
@@ -67,22 +67,38 @@ class RecipeAdapter(private val context: Context,
 }
 
 class CocktailDetailActivity : AppCompatActivity() {
+    var recipe_id: Int = -1;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cocktail_detail)
 
         val b = intent.extras
-        var recipe_id = -1 // or other values
 
         if (b != null) recipe_id = b.getInt("cocktail_id")
 
         setInvisibleWhileLoading()
 
-        getRecipe(recipe_id, b)
+        getRecipe(b)
     }
 
-    fun getRecipe(recipe_id: Int, bundle: Bundle?) {
+    fun onSuccessfulDeleteRecipe() {
+        onBackPressed();
+    }
+
+    fun onFailedDeleteRecipe() {
+        Toast.makeText(applicationContext, resources.getString(R.string.failed_to_delete_recipe), Toast.LENGTH_LONG).show()
+    }
+
+    fun deleteRecipe(view: View) {
+        val server = serverAPI(applicationContext)
+        val listener =
+                DeleteRecipeListener(::onSuccessfulDeleteRecipe)
+        val errorListener = GetRecipeErrorListener(::onFailedDeleteRecipe)
+        server.deleteRecipe(userId, recipe_id, listener, errorListener)
+    }
+
+    fun getRecipe(bundle: Bundle?) {
         val server = serverAPI(applicationContext)
         val listener =
             GetRecipeListener(::onSuccessfulGetRecipe)
@@ -98,8 +114,8 @@ class CocktailDetailActivity : AppCompatActivity() {
         cocktail_rating_bar.rating = recipe.rating
         cocktail_preparation_time.text = recipe.preptime_minutes.toString() + " " + getString(R.string.minutes)
         cocktail_instruction.text = recipe.instruction
-
-
+        if (recipe.is_mine == 1)
+            delete_recipe_button.visibility = View.VISIBLE;
 
         var listView = findViewById<ListView>(R.id.recipe_list_view)
         val adapter = RecipeAdapter(this, recipe.ingredients)
@@ -128,8 +144,7 @@ class CocktailDetailActivity : AppCompatActivity() {
 
     fun backToMainscreen(view: View)
     {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+        onBackPressed();
     }
 
     fun setInvisibleWhileLoading()
@@ -168,7 +183,4 @@ class CocktailDetailActivity : AppCompatActivity() {
 
         progressbar.visibility = View.INVISIBLE
     }
-
-
-
 }

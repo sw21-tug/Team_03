@@ -6,13 +6,13 @@ import org.json.JSONObject
 
 
 data class Ingrediant(
-        var id: Int,
-        var name: String,
-        var amount: Int
+    var id: Int,
+    var name: String,
+    var amount: Int
 )
 
 data class RecipeResponse(
-        var recipe: RecipeDetail
+    var recipe: RecipeDetail
 )
 
 data class RecipeDetail(
