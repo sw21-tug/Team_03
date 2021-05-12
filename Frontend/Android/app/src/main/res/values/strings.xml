@@ -40,4 +40,8 @@
     <string name="wrong_username_or_password">Wrong username or password</string>
     <string name="logout_button_text">Logout</string>
     <string name="failed_to_delete_recipe">Failed to delete the recipe</string>
+    <string name="dialog_delete_recipe">Are you sure you want to delete this recipe?</string>
+    <string name="dialog_delete_recipe_delete">Yes</string>
+    <string name="dialog_delete_recipe_cancel">No</string>
+
 </resources>
