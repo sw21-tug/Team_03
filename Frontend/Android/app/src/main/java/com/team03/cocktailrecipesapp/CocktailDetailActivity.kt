@@ -13,15 +13,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.team03.cocktailrecipesapp.error_listener.GetRecipeErrorListener
-import com.team03.cocktailrecipesapp.listener.GetRecipeListener
-import com.team03.cocktailrecipesapp.listener.Ingrediant
-import com.team03.cocktailrecipesapp.listener.RecipeDetail
+import com.team03.cocktailrecipesapp.listener.*
 import kotlinx.android.synthetic.main.activity_cocktail_detail.*
 import kotlinx.android.synthetic.main.progress_indicator.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_difficulty
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_name
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_rating_bar
-import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 
 
 class RecipeAdapter(private val context: Context,
@@ -68,17 +65,18 @@ class RecipeAdapter(private val context: Context,
 
 class CocktailDetailActivity : AppCompatActivity() {
 
+    var recipe_id = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cocktail_detail)
         val b = intent.extras
-        var recipe_id = -1 // or other values
 
         if (b != null) recipe_id = b.getInt("cocktail_id")
-
         setInvisibleWhileLoading()
 
         getRecipe(recipe_id, b)
+
     }
 
     fun getRecipe(recipe_id: Int, bundle: Bundle?) {
@@ -103,6 +101,7 @@ class CocktailDetailActivity : AppCompatActivity() {
         var listView = findViewById<ListView>(R.id.recipe_list_view)
         val adapter = RecipeAdapter(this, recipe.ingredients)
         listView.adapter = adapter
+
 
         setVisibleAfterLoading()
 
@@ -168,6 +167,7 @@ class CocktailDetailActivity : AppCompatActivity() {
         progressbar.visibility = View.INVISIBLE
     }
 
+
     fun rateRecipe(view: View)
     {
         //Todo: Implement rating
@@ -179,4 +179,26 @@ class CocktailDetailActivity : AppCompatActivity() {
         return false;
     }
 
+    fun onSuccessfulRateRecipe() {
+        println("Successfully rated recipe");
+    }
+
+    fun onFailedRateRecipe() {
+        println("Failed to rate recipe");
+    }
+
+    fun rateRecipe(ratingValue: Int) {
+        val server = serverAPI(applicationContext)
+        val listener =
+                RateRecipeListener(::onSuccessfulRateRecipe)
+        val errorListener = RateRecipeErrorListener(::onFailedRateRecipe)
+        //server.rateRecipe(user_id, recipe_id, value, listener, errorListener)
+        println("user id: " + userId + "rec id:" + recipe_id );
+
+        server.rateRecipe(userId, recipe_id, ratingValue, listener, errorListener);
+
+    }
+
 }
+
+
