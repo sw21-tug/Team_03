@@ -1,8 +1,6 @@
 package com.team03.cocktailrecipesapp
 
 import com.android.volley.Response
-import com.google.gson.Gson
-import com.team03.cocktailrecipesapp.ui.login.AnswerUserID
 import org.json.JSONObject
 
 class RegisterListener : Response.Listener<JSONObject> {
@@ -13,7 +11,6 @@ class RegisterListener : Response.Listener<JSONObject> {
     }
 
     override fun onResponse(response: JSONObject) {
-        //val answer = Gson().fromJson(response.toString(), AnswerUserID::class.java)
         onSuccessfullRegister.invoke();
     }
 }

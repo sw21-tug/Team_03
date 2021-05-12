@@ -190,5 +190,4 @@
             android:src="@drawable/add_recipe"
             android:backgroundTint="@color/accent_color"/>
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
