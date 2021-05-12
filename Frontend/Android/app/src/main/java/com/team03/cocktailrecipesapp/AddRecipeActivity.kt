@@ -1,10 +1,11 @@
 package com.team03.cocktailrecipesapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_add_recipe.*
+import java.util.ArrayList
 
 
 class AddRecipeActivity : AppCompatActivity() {
@@ -22,5 +23,9 @@ class AddRecipeActivity : AppCompatActivity() {
     fun onClickManageIngredients(view: View) {
         val intent = Intent(this, AddIngredientsActivity::class.java)
         startActivity(intent)
+
+
+
+
     }
 }
