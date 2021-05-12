@@ -171,11 +171,12 @@
         android:id="@+id/imageButtonLike"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:backgroundTint="#00FFFFFF"
         android:onClick="likeOnClick"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView8"
-        app:srcCompat="@drawable/hearth_empty"
-        android:scaleType="centerCrop"/>
+        app:srcCompat="@drawable/hearth_empty" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
