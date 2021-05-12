@@ -2,9 +2,12 @@
     <string name="app_name">Cocktail Recipes App</string>
     <string name="cocktail_image">cocktail image</string>
     <string name="cocktail_name">cocktail name</string>
+    <string name="ingrediants">Ingredients</string>
     <string name="preparation_time">prep. time</string>
     <string name="difficulty">difficulty</string>
     <string name="cocktail_ratings">cocktail ratings</string>
+    <string name="ml" translatable="false">ml</string>
+
 
     <string name="img_time">img_time</string>
     <string name="img_difficulty">img_difficulty</string>
@@ -17,7 +20,6 @@
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.
     -->
-    <string name="hello_world">Hello Square World!</string>
     <string name="prompt_username">Username</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in</string>
@@ -30,11 +32,11 @@
     <string name="register_button">"Register"</string>
     <string name="failed_to_load_recipes_from_server">Failed to load recipes from server…</string>
     <string name="error">Error…</string>
-    <string name="example_text">Example text</string>
     <string name="switch_language">Switch to russian</string>
     <string name="login_username">Username</string>
     <string name="prompt_repeat_password">Repeat password</string>
     <string name="minutes"> minutes</string>
-    <string name="wrong_username_or_password">"Wrong username or password"</string>
     <string name="back">←</string>
+    <string name="wrong_username_or_password">Wrong username or password</string>
+    <string name="logout_button_text">Logout</string>
 </resources>

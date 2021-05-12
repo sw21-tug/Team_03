@@ -1,8 +1,6 @@
-package com.team03.cocktailrecipesapp
+package com.team03.cocktailrecipesapp.listener
 
 import com.android.volley.Response
-import com.google.gson.Gson
-import com.team03.cocktailrecipesapp.ui.login.AnswerUserID
 import org.json.JSONObject
 
 class RegisterListener : Response.Listener<JSONObject> {

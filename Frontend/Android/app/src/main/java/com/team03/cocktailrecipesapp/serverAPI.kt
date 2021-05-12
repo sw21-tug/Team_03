@@ -4,7 +4,6 @@ import android.content.Context
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.team03.cocktailrecipesapp.ui.login.LoginListener
 import org.json.JSONObject
 
 /*
@@ -88,6 +87,18 @@ class serverAPI(context: Context)
     {
         val json = JSONObject()
         return sendRequest(json, "get-recipes", listener, error_listener)
+    }
+
+    fun getRecipe(recipe_id: Int, user_id: Int, listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
+    {
+        val get_recipe_json = """
+            {
+                "recipe_id": """" + recipe_id + """",
+                "user_id": """" + user_id + """"
+            }
+            """
+        val json = JSONObject(get_recipe_json)
+        return sendRequest(json, "get-recipe", listener, error_listener)
     }
 
     fun changePassword(user_id: Int, old_password_hash: String, new_password_hash: String, listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int

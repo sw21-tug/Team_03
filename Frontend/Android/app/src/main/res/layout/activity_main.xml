@@ -27,7 +27,7 @@
         <!-- TODO: Used avatar image as login button for now -->
         <ImageButton
             android:id="@+id/imgBtnAvatar"
-            android:onClick="loginOnClick"
+            android:onClick="profilePictureOnClick"
             android:layout_width="48dp"
             android:layout_height="48dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -144,15 +144,10 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
-        layout="@layout/error_msg_indicator"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"/>
-    <include
         layout="@layout/progress_indicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"/>
+        android:layout_marginHorizontal="12dp" />
     <include
         layout="@layout/trending_cocktail_list"
         android:layout_width="match_parent"
