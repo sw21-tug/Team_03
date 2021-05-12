@@ -2,7 +2,7 @@
     <string name="app_name">Cocktail Recipes App</string>
     <string name="cocktail_image">cocktail image</string>
     <string name="cocktail_name">cocktail name</string>
-    <string name="ingrediants">Ingrediants</string>
+    <string name="ingrediants">Ingredients</string>
     <string name="preparation_time">prep. time</string>
     <string name="difficulty">difficulty</string>
     <string name="cocktail_ratings">cocktail ratings</string>

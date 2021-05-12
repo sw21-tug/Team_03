@@ -116,6 +116,12 @@ class MainActivity : SharedPreferencesActivity() {
         var bundle = Bundle()
 
         bundle.putInt("cocktail_id", Integer.valueOf(recipeCard.cocktail_id.text.toString()))
+        bundle.putString("cocktail_name", recipeCard.cocktail_name.text.toString())
+        bundle.putString("cocktail_ratings", recipeCard.cocktail_ratings.text.toString())
+        bundle.putFloat("cocktail_rating_bar", recipeCard.cocktail_rating_bar.rating)
+        bundle.putString("cocktail_difficulty", recipeCard.cocktail_difficulty.text.toString())
+        bundle.putString("preparation_time", recipeCard.cocktail_preparationtime.text.toString())
+
         intent.putExtras(bundle)
         startActivity(intent)
     }
