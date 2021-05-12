@@ -213,6 +213,7 @@ class ExampleInstrumentedTest {
     @Test
     fun LikeRecipeTest() {
         Thread.sleep(5000)
+        Thread.sleep(5000)
         onView(withId(R.id.imageButtonLike)).perform(click())
         Thread.sleep(5000)
         onView(withId(R.id.imageButtonLike)).perform(click())
