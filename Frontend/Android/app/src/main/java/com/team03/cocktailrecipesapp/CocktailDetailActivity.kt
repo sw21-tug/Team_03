@@ -71,7 +71,6 @@ class CocktailDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cocktail_detail)
-
         val b = intent.extras
         var recipe_id = -1 // or other values
 
@@ -169,6 +168,15 @@ class CocktailDetailActivity : AppCompatActivity() {
         progressbar.visibility = View.INVISIBLE
     }
 
+    fun rateRecipe(view: View)
+    {
+        //Todo: Implement rating
+    }
 
+    fun sendRating(): Boolean
+    {
+        //Todo: Check if user filled out rating alert and clicked send
+        return false;
+    }
 
 }
