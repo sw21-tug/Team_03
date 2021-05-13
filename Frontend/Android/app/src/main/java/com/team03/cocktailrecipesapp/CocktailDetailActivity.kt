@@ -12,6 +12,9 @@ import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
+import com.team03.cocktailrecipesapp.dialogs.DeleteRecipeDialogFragment
+import com.team03.cocktailrecipesapp.error_listener.DeleteRecipeErrorListener
 import com.team03.cocktailrecipesapp.error_listener.GetRecipeErrorListener
 import com.team03.cocktailrecipesapp.listener.DeleteRecipeListener
 import com.team03.cocktailrecipesapp.listener.GetRecipeListener
@@ -90,12 +93,21 @@ class CocktailDetailActivity : AppCompatActivity() {
         Toast.makeText(applicationContext, resources.getString(R.string.failed_to_delete_recipe), Toast.LENGTH_LONG).show()
     }
 
-    fun deleteRecipe(view: View) {
-        val server = serverAPI(applicationContext)
+    fun deleteRecipe(view: View)
+    {
+        var deleteRecipeDialog = DeleteRecipeDialogFragment()
+        deleteRecipeDialog.recipe_id = recipe_id
+        deleteRecipeDialog.server = serverAPI(applicationContext)
+        deleteRecipeDialog.succesListener = DeleteRecipeListener (::onSuccessfulDeleteRecipe)
+        deleteRecipeDialog.errorListener = DeleteRecipeErrorListener(::onFailedDeleteRecipe)
+
+        deleteRecipeDialog.show(this.supportFragmentManager, "")
+
+        /*val server = serverAPI(applicationContext)
         val listener =
                 DeleteRecipeListener(::onSuccessfulDeleteRecipe)
         val errorListener = GetRecipeErrorListener(::onFailedDeleteRecipe)
-        server.deleteRecipe(userId, recipe_id, listener, errorListener)
+        server.deleteRecipe(userId, recipe_id, listener, errorListener)*/
     }
 
     fun getRecipe(bundle: Bundle?) {
