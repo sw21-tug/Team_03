@@ -22,7 +22,7 @@ data class RecipeDetail(
     var instruction: String,
     var ingredients: List<Ingrediant>,
     var creation_time: String,
-    var creator_username: String,
+    var creator_user: String,
     var creator_id: Int,
     var liked: Int,
     var is_mine: Int,
@@ -36,7 +36,7 @@ data class RecipeDetail(
     override fun toString(): String {
         return "RecipeDetail(name='$name', preptime_minutes=$preptime_minutes, " +
                 "difficulty=$difficulty, instruction='$instruction', ingredients=$ingredients,  " +
-                "creation_time=$creation_time, creator_username='$creator_username', creator_id=$creator_id," +
+                "creation_time=$creation_time, creator_username='$creator_user', creator_id=$creator_id," +
                 " liked=$liked, is_mine=$is_mine, my_rating=$my_rating, rating=$rating)"
     }
 }

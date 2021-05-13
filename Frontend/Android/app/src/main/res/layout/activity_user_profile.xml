@@ -4,32 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserProfile">
+    tools:context=".UserProfileActivity">
 
-    <Switch
-        android:id="@+id/swtlanguage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="129dp"
-        android:layout_marginTop="234dp"
-        android:layout_marginEnd="130dp"
-        android:checked="false"
-        android:showText="false"
-        android:text="@string/switch_language"
-        app:layout_constraintEnd_toEndOf="parent"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/user_profile_back_button"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="47dp"
+        android:layout_height="44dp"
+        android:layout_gravity="start"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:enabled="true"
+        android:foreground="?attr/actionModeCloseDrawable"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:checked="false" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/logoutButton"
+    <ImageView
+        android:id="@+id/user_profile_image"
+        android:layout_width="127dp"
+        android:layout_height="127dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_profile_back_button" />
+
+    <TextView
+        android:id="@+id/user_profile_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/logout_button_text"
-        android:onClick="onLogoutPressed"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/user_profile_image"
+        app:layout_constraintStart_toEndOf="@+id/user_profile_image"
+        app:layout_constraintTop_toTopOf="@+id/user_profile_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

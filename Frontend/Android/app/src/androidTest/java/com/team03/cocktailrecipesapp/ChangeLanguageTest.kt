@@ -1,6 +1,5 @@
 package com.team03.cocktailrecipesapp
 
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
@@ -14,7 +13,7 @@ import org.junit.runner.RunWith
 class LanguageChangeTest
 {
     @get:Rule
-    val activityRule = ActivityScenarioRule(UserProfile::class.java)
+    val activityRule = ActivityScenarioRule(UserSettingsActivity::class.java)
 
     @Test
     fun changedLanguageTest()

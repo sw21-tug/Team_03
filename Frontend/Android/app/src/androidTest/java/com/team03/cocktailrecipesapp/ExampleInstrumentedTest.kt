@@ -255,4 +255,17 @@ class ExampleInstrumentedTest {
 
         onView(withId(R.id.delete_recipe_button)).check(matches(not(isDisplayed())))
     }
+
+    @Test
+    fun VisitUserProfileTest() {
+        PerformLoginAsNonAdmin()
+        Thread.sleep(2000)
+        onView(withText("testi")).perform(scrollTo())
+        onView(withText("testi")).perform(click())
+        Thread.sleep(2000)
+        onView(withId(R.id.cocktail_creator_username)).perform(click())
+        Thread.sleep(2000)
+        onView(withId(R.id.user_profile_image)).check(matches(isDisplayed()))
+        onView(withId(R.id.user_profile_username)).check(matches(isDisplayed()))
+    }
 }

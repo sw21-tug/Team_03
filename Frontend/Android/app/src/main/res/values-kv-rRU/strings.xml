@@ -32,4 +32,8 @@
     <string name="dialog_delete_recipe">Вы уверены, что хотите удалить этот рецепт?</string>
     <string name="dialog_delete_recipe_delete">Да</string>
     <string name="dialog_delete_recipe_cancel">Нет</string>
+    <string name="change_password">Изменить пароль</string>
+    <string name="old_password">Старый пароль</string>
+    <string name="new_password">Новый пароль</string>
+    <string name="cocktail_creator">создатель</string>
 </resources>
