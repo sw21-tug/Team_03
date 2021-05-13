@@ -39,4 +39,8 @@
     <string name="back">←</string>
     <string name="wrong_username_or_password">Wrong username or password</string>
     <string name="logout_button_text">Logout</string>
+    <string name="rate_this_cocktail">Rate this cocktail</string>
+    <string name="cancel">Cancel</string>
+    <string name="send">Send</string>
+    <string name="rate">Rate</string>
 </resources>

@@ -28,4 +28,8 @@
     <string name="ingrediants">ингредиенты</string>
     <string name="wrong_username_or_password">Неправильное имя пользователя или пароль</string>
     <string name="logout_button_text">выход</string>
+    <string name="rate_this_cocktail">Посмотрите коктейль</string>
+    <string name="cancel">Отмена</string>
+    <string name="send">Отправить</string>
+    <string name="rate">Тариф</string>
 </resources>

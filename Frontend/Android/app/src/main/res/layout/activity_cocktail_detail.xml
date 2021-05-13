@@ -9,6 +9,7 @@
     tools:context=".CocktailDetailActivity">
 
     <include
+        android:id="@+id/include"
         layout="@layout/progress_indicator"
         android:layout_width="401dp"
         android:layout_height="wrap_content"
@@ -44,6 +45,7 @@
         android:layout_marginTop="12dp"
         android:progressBackgroundTint="@android:color/darker_gray"
         android:progressTint="@color/accent_color"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
@@ -174,11 +176,22 @@
         android:layout_marginBottom="16dp"
         android:background="@color/accent_color"
         android:onClick="rateRecipe"
+        android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.955"
-        app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_rate" />
+
+    <TextView
+        android:id="@+id/tvRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rate"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/imgBtnRate"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

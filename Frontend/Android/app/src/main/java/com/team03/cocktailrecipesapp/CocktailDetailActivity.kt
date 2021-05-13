@@ -3,14 +3,12 @@ package com.team03.cocktailrecipesapp
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.media.Rating
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.ListView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.team03.cocktailrecipesapp.error_listener.GetRecipeErrorListener
 import com.team03.cocktailrecipesapp.listener.*
@@ -66,11 +64,14 @@ class RecipeAdapter(private val context: Context,
 class CocktailDetailActivity : AppCompatActivity() {
 
     var recipe_id = 0
+//    lateinit var imgBtnRate : ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cocktail_detail)
         val b = intent.extras
+//        imgBtnRate = findViewById(R.id.imgBtnRate)
+
 
         if (b != null) recipe_id = b.getInt("cocktail_id")
         setInvisibleWhileLoading()
@@ -170,7 +171,8 @@ class CocktailDetailActivity : AppCompatActivity() {
 
     fun rateRecipe(view: View)
     {
-        //Todo: Implement rating
+        val ratingDialog = RatingDialog()
+        ratingDialog.show(supportFragmentManager, "ratingDialog")
     }
 
     fun sendRating(): Boolean
@@ -187,7 +189,8 @@ class CocktailDetailActivity : AppCompatActivity() {
         println("Failed to rate recipe");
     }
 
-    fun rateRecipe(ratingValue: Int) {
+    fun rateRecipe() {
+        val ratingValue = RatingDialog().ratingResult
         val server = serverAPI(applicationContext)
         val listener =
                 RateRecipeListener(::onSuccessfulRateRecipe)
@@ -196,9 +199,7 @@ class CocktailDetailActivity : AppCompatActivity() {
         println("user id: " + userId + "rec id:" + recipe_id );
 
         server.rateRecipe(userId, recipe_id, ratingValue, listener, errorListener);
-
     }
-
 }
 
 
