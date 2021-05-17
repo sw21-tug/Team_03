@@ -178,12 +178,10 @@ class CocktailDetailActivity : AppCompatActivity() {
     fun onSuccessfullLike(){
         var imgLike = findViewById<ImageButton>(R.id.imageButtonLike);
         if(!isLiked) {
-            //TODO change russian to the final heart icon
             imgLike.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.heart_filled ));
             isLiked = true
             System.out.println("liked\n")
         } else {
-            //TODO change russian to the final heart icon
             imgLike.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.hearth_empty ));
             isLiked = false
             System.out.println("disliked\n")
@@ -195,7 +193,20 @@ class CocktailDetailActivity : AppCompatActivity() {
         val listener = LikeListener(::onSuccessfullLike)
         val error_listener = LikeErrorListener(::onUnsuccessfullLike)
         val answer = server.likeRecipe(user_id, recipe_id,
-                listener, error_listener);
+            listener, error_listener);
+        if (answer == 1)
+        {
+            return false
+        }
+        return true
+    }
+
+    fun unlike(user_id: Int, recipe_id: Int): Boolean {
+        val server = serverAPI(this)
+        val listener = LikeListener(::onSuccessfullLike)
+        val error_listener = LikeErrorListener(::onUnsuccessfullLike)
+        val answer = server.unlikeRecipe(user_id, recipe_id,
+            listener, error_listener);
         if (answer == 1)
         {
             return false
@@ -204,9 +215,18 @@ class CocktailDetailActivity : AppCompatActivity() {
     }
 
     fun likeOnClick(view: View) {
-        run {
-            System.out.println("onclick\n")
-            like(1, 1);
+        if(isLiked){
+            run {
+                System.out.println("onclick unLike (is liked)\n")
+                like(1, 1);
+            }
+
+        }
+        else{
+            run {
+                System.out.println("onclick Like (is not liked)\n")
+                unlike(1, 1);
+            }
         }
     }
 
