@@ -177,12 +177,10 @@ class CocktailDetailActivity : AppCompatActivity() {
     fun onSuccessfullLike(){
         var imgLike = findViewById<ImageButton>(R.id.imageButtonLike);
         if(!isLiked) {
-            //TODO change russian to the final heart icon
             imgLike.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.heart_filled ));
             isLiked = true
             System.out.println("liked\n")
         } else {
-            //TODO change russian to the final heart icon
             imgLike.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.hearth_empty ));
             isLiked = false
             System.out.println("disliked\n")
