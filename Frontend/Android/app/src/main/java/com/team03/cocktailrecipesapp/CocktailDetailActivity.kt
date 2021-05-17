@@ -64,16 +64,19 @@ class RecipeAdapter(private val context: Context,
 
 }
 
-class CocktailDetailActivity : AppCompatActivity() {
+class CocktailDetailActivity : SharedPreferencesActivity() {
 
     var isLiked = false;
+    var user_id = 0;
+    var recipe_id = 0;
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cocktail_detail)
 
         val b = intent.extras
-        var recipe_id = -1 // or other values
+        recipe_id = -1 // or other values
 
         if (b != null) recipe_id = b.getInt("cocktail_id")
 
@@ -98,7 +101,16 @@ class CocktailDetailActivity : AppCompatActivity() {
         cocktail_rating_bar.rating = recipe.rating
         cocktail_preparation_time.text = recipe.preptime_minutes.toString() + " " + getString(R.string.minutes)
         cocktail_instruction.text = recipe.instruction
-        isLiked = (recipe.liked == 1)
+        user_id = shared.getInt("userId",0)
+        if (recipe.liked != 0)
+        {
+            isLiked = true
+            var imgLike = findViewById<ImageButton>(R.id.imageButtonLike);
+            imgLike.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.heart_filled ))
+        }
+
+
+
 
 
 
@@ -180,11 +192,9 @@ class CocktailDetailActivity : AppCompatActivity() {
         if(!isLiked) {
             imgLike.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.heart_filled ));
             isLiked = true
-            System.out.println("liked\n")
         } else {
             imgLike.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.hearth_empty ));
             isLiked = false
-            System.out.println("disliked\n")
         }
     }
 
@@ -217,15 +227,13 @@ class CocktailDetailActivity : AppCompatActivity() {
     fun likeOnClick(view: View) {
         if(isLiked){
             run {
-                System.out.println("onclick unLike (is liked)\n")
-                like(1, 1);
+                unlike(user_id, recipe_id);
             }
 
         }
         else{
             run {
-                System.out.println("onclick Like (is not liked)\n")
-                unlike(1, 1);
+                like(user_id, recipe_id);
             }
         }
     }

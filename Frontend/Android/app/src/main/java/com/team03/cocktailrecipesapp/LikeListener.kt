@@ -12,8 +12,8 @@ data class AnswerSuccess(
 class LikeListener : Response.Listener<JSONObject> {
     private var onSuccessfullLike : (() -> Unit);
 
-    constructor(_onSuccessfullRegister: (() -> Unit)){
-        onSuccessfullLike = _onSuccessfullRegister;
+    constructor(_onSuccessfullLike: (() -> Unit)){
+        onSuccessfullLike = _onSuccessfullLike;
     }
 
     override fun onResponse(response: JSONObject) {
