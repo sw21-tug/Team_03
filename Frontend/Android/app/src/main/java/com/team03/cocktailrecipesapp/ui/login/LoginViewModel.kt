@@ -1,14 +1,14 @@
 package com.team03.cocktailrecipesapp.ui.login
 
+import android.content.Context
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import android.util.Patterns
-import com.team03.cocktailrecipesapp.data.LoginRepository
-import android.content.Context
-import android.widget.TextView
 import com.team03.cocktailrecipesapp.*
-import org.mindrot.jbcrypt.BCrypt
+import com.team03.cocktailrecipesapp.data.LoginRepository
+import com.team03.cocktailrecipesapp.error_listener.LoginErrorListener
+import com.team03.cocktailrecipesapp.listener.LoginListener
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
@@ -35,7 +35,8 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     fun login(username: String, password: String, context: Context) {
         // can be launched in a separate asynchronous job
         val password_hash = CryptoUtils.getSHA512(password);
-        val listener = LoginListener(::onSuccessfulLogin);
+        val listener =
+            LoginListener(::onSuccessfulLogin);
         val error_listener = LoginErrorListener(::onFailedLogin);
 
         val server = serverAPI(context);

@@ -23,28 +23,28 @@
             android:layout_marginHorizontal="12dp"
             android:layout_marginVertical="12dp">
 
-            <ImageButton
-                android:id="@+id/imgBtnMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleX="1.5"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_menu"
-                android:background="@android:color/transparent"/>
-            <!-- TODO: Used avatar image as login button for now -->
-            <ImageButton
-                android:id="@+id/imgBtnAvatar"
-                android:onClick="loginOnClick"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:background="@drawable/default_avatar"
-                android:scaleType="centerCrop"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageButton
+            android:id="@+id/imgBtnMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="1.5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_menu"
+            android:background="@android:color/transparent"/>
+        <!-- TODO: Used avatar image as login button for now -->
+        <ImageButton
+            android:id="@+id/imgBtnAvatar"
+            android:onClick="profilePictureOnClick"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/default_avatar"
+            android:scaleType="centerCrop"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
