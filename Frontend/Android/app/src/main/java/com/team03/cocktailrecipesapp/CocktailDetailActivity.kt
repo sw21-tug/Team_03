@@ -2,22 +2,30 @@ package com.team03.cocktailrecipesapp
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
-import android.media.Rating
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.team03.cocktailrecipesapp.error_listener.GetRecipeErrorListener
 import com.team03.cocktailrecipesapp.listener.*
 import kotlinx.android.synthetic.main.activity_cocktail_detail.*
 import kotlinx.android.synthetic.main.progress_indicator.*
+import kotlinx.android.synthetic.main.rating_layout.view.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_difficulty
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_name
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_rating_bar
 
+
+public interface RatingInterface  {
+    fun onSelectedData(rating: Int);
+
+
+}
 
 class RecipeAdapter(private val context: Context,
                     private val dataSource: List<Ingrediant>) : BaseAdapter() {
@@ -61,9 +69,10 @@ class RecipeAdapter(private val context: Context,
 
 }
 
-class CocktailDetailActivity : AppCompatActivity() {
+class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
 
     var recipe_id = 0
+    var my_rating = 0
 //    lateinit var imgBtnRate : ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,10 +105,10 @@ class CocktailDetailActivity : AppCompatActivity() {
         cocktail_rating_bar.rating = recipe.rating
         cocktail_preparation_time.text = recipe.preptime_minutes.toString() + " " + getString(R.string.minutes)
         cocktail_instruction.text = recipe.instruction
+        my_rating = recipe.my_rating
 
 
-
-        var listView = findViewById<ListView>(R.id.recipe_list_view)
+        val listView = findViewById<ListView>(R.id.recipe_list_view)
         val adapter = RecipeAdapter(this, recipe.ingredients)
         listView.adapter = adapter
 
@@ -171,14 +180,16 @@ class CocktailDetailActivity : AppCompatActivity() {
 
     fun rateRecipe(view: View)
     {
-        val ratingDialog = RatingDialog()
-        ratingDialog.show(supportFragmentManager, "ratingDialog")
-    }
+        if (my_rating == 0)
+        {
+            val ratingDialog = RatingDialog()
+            ratingDialog.show(supportFragmentManager, "ratingDialog")
+        }
+        else
+        {
+            showAlreadyVotedDialog()
+        }
 
-    fun sendRating(): Boolean
-    {
-        //Todo: Check if user filled out rating alert and clicked send
-        return false;
     }
 
     fun onSuccessfulRateRecipe() {
@@ -189,17 +200,32 @@ class CocktailDetailActivity : AppCompatActivity() {
         println("Failed to rate recipe");
     }
 
-    fun rateRecipe() {
-        val ratingValue = RatingDialog().ratingResult
+    fun rateRecipe(ratingValue: Int) {
         val server = serverAPI(applicationContext)
         val listener =
                 RateRecipeListener(::onSuccessfulRateRecipe)
         val errorListener = RateRecipeErrorListener(::onFailedRateRecipe)
-        //server.rateRecipe(user_id, recipe_id, value, listener, errorListener)
-        println("user id: " + userId + "rec id:" + recipe_id );
-
         server.rateRecipe(userId, recipe_id, ratingValue, listener, errorListener);
+
     }
+
+    override fun onSelectedData(rating: Int) {
+        rateRecipe(rating);
+    }
+
+    fun showAlreadyVotedDialog(){
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setTitle(resources.getString(R.string.already_voted_title))
+        builder.setMessage(resources.getString(R.string.already_voted_text))
+
+        builder.setNeutralButton(resources.getString(R.string.already_voted_ok), DialogInterface.OnClickListener { dialog, which ->
+            dialog.dismiss()
+        })
+
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.show()
+    }
+
 }
 
 

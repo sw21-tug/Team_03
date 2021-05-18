@@ -35,7 +35,7 @@
     <string name="switch_language">Switch to russian</string>
     <string name="login_username">Username</string>
     <string name="prompt_repeat_password">Repeat password</string>
-    <string name="minutes"> minutes</string>
+    <string name="minutes">min</string>
     <string name="back">←</string>
     <string name="wrong_username_or_password">Wrong username or password</string>
     <string name="logout_button_text">Logout</string>
@@ -43,4 +43,7 @@
     <string name="cancel">Cancel</string>
     <string name="send">Send</string>
     <string name="rate">Rate</string>
+    <string name="already_voted_ok">Okay</string>
+    <string name="already_voted_title">Already voted!</string>
+    <string name="already_voted_text">You already voted for this cocktail!</string>
 </resources>
