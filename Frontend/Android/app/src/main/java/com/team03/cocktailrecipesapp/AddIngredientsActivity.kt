@@ -2,6 +2,7 @@ package com.team03.cocktailrecipesapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -10,13 +11,11 @@ import androidx.core.view.forEach
 import com.team03.cocktailrecipesapp.recipes.GetIngredientsErrorListener
 import com.team03.cocktailrecipesapp.recipes.GetIngredientsListener
 import com.team03.cocktailrecipesapp.recipes.Ingredient
-import com.team03.cocktailrecipesapp.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.error_msg_indicator.*
 import kotlinx.android.synthetic.main.ingredients_item.view.*
 import kotlinx.android.synthetic.main.ingredients_list.*
 import kotlinx.android.synthetic.main.progress_indicator.*
-import kotlinx.android.synthetic.main.trending_cocktail_list.*
-import java.util.ArrayList
+import java.util.*
 
 class AddIngredientsActivity : AppCompatActivity() {
 
@@ -36,10 +35,11 @@ class AddIngredientsActivity : AppCompatActivity() {
     }
 
     fun onSuccessfulGetIngredient(ingredients: List<Ingredient>) {
-        progressBar.visibility = View.GONE
+        progressbar.visibility = View.GONE
         ingredients.forEach { ingredient ->
             val ingredientView = LayoutInflater.from(this).inflate(R.layout.ingredients_item, ingredientsList, false)
-            ingredientView.ingredientItem.text = ingredient.name
+            ingredientView.ingredientItemCheckbox.text = ingredient.name
+            ingredientView.ingredientUnit.text = "E"    // ingredient.unit TODO
             ingredientsList.addView(ingredientView)
         }
     }
@@ -54,16 +54,26 @@ class AddIngredientsActivity : AppCompatActivity() {
 
     fun onClickAddIngredients(view: View) {
         val picked_ingredients: MutableList<String> = mutableListOf()
+        val picked_ingredients_amount: MutableList<Int> = mutableListOf()
         ingredientsList.forEach { ingredient ->
-            if(ingredient.ingredientItem.isChecked)
+            if(ingredient.ingredientItemCheckbox.isChecked)
             {
-                picked_ingredients.add(ingredient.ingredientItem.text.toString())
+                if (ingredient.etIngredientAmount.text.toString().isEmpty())
+                {
+                    Toast.makeText(applicationContext, resources.getString(R.string.ingredient_has_no_amount), Toast.LENGTH_LONG).show()
+                    return
+                }
+                val ingredientName = ingredient.ingredientItemCheckbox.text.toString()
+                val ingredientAmount = Integer.valueOf(ingredient.etIngredientAmount.text.toString())
+                picked_ingredients.add(ingredientName)
+                picked_ingredients_amount.add(ingredientAmount)
             }
         }
 
         // Send result of selected ingredients back to previous activity
         val intent = Intent()
         intent.putStringArrayListExtra ("pickedingredients", picked_ingredients as ArrayList<String>)
+        intent.putIntegerArrayListExtra ("pickedingredientsamount", picked_ingredients_amount as ArrayList<Int>)
         setResult(RESULT_OK, intent)
         finish()
     }

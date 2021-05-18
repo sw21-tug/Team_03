@@ -33,6 +33,7 @@
     <string name="failed_to_load_recipes_from_server">Failed to load recipes from server…</string>
     <string name="failed_to_add_recipe">Failed to add recipe. Check your internet connection or try later.</string>
     <string name="failed_to_load_ingredients_from_server">Failed to load ingredients from server…</string>
+    <string name="ingredient_has_no_amount">Ingredient has no amount!</string>
     <string name="error">Error…</string>
     <string name="switch_language">Switch to russian</string>
     <string name="login_username">Username</string>
@@ -55,7 +56,8 @@
     <string name="username_to_less_characters">Should have 3 or more characters and no special characters</string>
     <string name="password_to_less_characters">Should have 5 or more characters</string>
     <string name="no_ingredients_selected">Your Cocktail has no ingredients</string>
-    <string name="back">←</string>
-    <string name="wrong_username_or_password">Wrong username or password</string>
+    <string name="back" translatable="false">←</string>
     <string name="logout_button_text">Logout</string>
+    <string name="ingredient_amount">Enter amount</string>
+    <string name="unit">Unit</string>
 </resources>

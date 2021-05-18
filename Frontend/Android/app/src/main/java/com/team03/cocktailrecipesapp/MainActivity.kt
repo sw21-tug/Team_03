@@ -7,10 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.core.content.ContextCompat
+import androidx.core.view.size
 import com.team03.cocktailrecipesapp.error_listener.GetRecipesErrorListener
 import com.team03.cocktailrecipesapp.listener.GetRecipesListener
+import com.team03.cocktailrecipesapp.listener.Recipe
 import com.team03.cocktailrecipesapp.ui.login.LoginActivity
-import com.team03.cocktailrecipesapp.recipes.Recipe
 import kotlinx.android.synthetic.main.progress_indicator.*
 import kotlinx.android.synthetic.main.error_msg_indicator.*
 

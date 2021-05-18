@@ -33,9 +33,7 @@
     <string name="title_activity_register">Зарегистрироваться</string>
     <string name="img_time">изображение времени</string>
     <string name="img_difficulty">изображение сложности</string>
-    <string name="error">Ошибка…</string>
     <string name="add_recipe_button">Добавлять</string>
-    <string name="wrong_username_or_password">Неправильный логин или пароль</string>
     <string name="add_a_new_recipe">Добавить новый рецепт</string>
     <string name="add_ingredients_to_recipe">Добавьте ингредиенты в свой рецепт</string>
     <string name="add_recipe">Добавить рецепт</string>
@@ -46,7 +44,6 @@
     <string name="cocktail_description">описание коктейля</string>
     <string name="manage_ingredients">Управляйте ингредиентами</string>
     <string name="add_ingredients">Добавьте ингредиенты</string>
-    <string name="failed_to_load_recipes_from_server">Не удалось загрузить рецепты с сервера…</string>
     <string name="failed_to_add_recipe">Не удалось добавить рецепт. Проверьте подключение к Интернету или попробуйте позже.</string>
     <string name="failed_to_load_ingredients_from_server">Не удалось загрузить ингредиенты с сервера…</string>
     <string name="should_not_be_blank">Не должно быть пустым</string>

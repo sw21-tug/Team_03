@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Editable
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,8 @@ const val RESULT_INGREDIENTS = 10
 class AddRecipeActivity : AppCompatActivity() {
 
     var ingredients_pub: List<String>? = null
+    var ingredients_pub_amount: List<Int>? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +48,7 @@ class AddRecipeActivity : AppCompatActivity() {
         if (data != null && resultCode == RESULT_OK && requestCode == RESULT_INGREDIENTS)
         {
             ingredients_pub = data.getStringArrayListExtra("pickedingredients")
+            ingredients_pub_amount = data.getIntegerArrayListExtra("pickedingredientsamount")
         }
     }
 
