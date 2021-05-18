@@ -51,4 +51,7 @@
     <string name="username_to_less_characters">Должно быть 3 или более символов и никаких специальных символов</string>
     <string name="password_to_less_characters">Должно быть 5 или более символов</string>
     <string name="no_ingredients_selected">В вашем коктейле нет ингредиентов</string>
+    <string name="ingredient_amount">Введите сумму</string>
+    <string name="unit">Единица</string>
+    <string name="ingredient_has_no_amount">Ингредиент не имеет количества!</string>
 </resources>

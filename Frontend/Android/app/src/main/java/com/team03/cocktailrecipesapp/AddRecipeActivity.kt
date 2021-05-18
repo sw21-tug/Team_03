@@ -70,10 +70,10 @@ class AddRecipeActivity : AppCompatActivity() {
         }
         else
         {
+            // TODO: also add ingredients_pub_amount
             server.addRecipe(shared.getInt("userId", 0), recipe_name, preperation_time, difficulty,
                 recipe_description, ingredients_pub.orEmpty(), listener, errorListener)
         }
-
 
     }
 }

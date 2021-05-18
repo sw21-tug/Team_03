@@ -58,13 +58,21 @@ class AddIngredientsActivity : AppCompatActivity() {
         ingredientsList.forEach { ingredient ->
             if(ingredient.ingredientItemCheckbox.isChecked)
             {
+                // TODO: check if amount is not empty
+                    /*
                 if (ingredient.etIngredientAmount.text.toString().isEmpty())
                 {
                     Toast.makeText(applicationContext, resources.getString(R.string.ingredient_has_no_amount), Toast.LENGTH_LONG).show()
                     return
                 }
+                */
                 val ingredientName = ingredient.ingredientItemCheckbox.text.toString()
-                val ingredientAmount = Integer.valueOf(ingredient.etIngredientAmount.text.toString())
+                var ingredientAmount: Int = 0;
+                if (ingredient.etIngredientAmount.text.toString().isNotEmpty())
+                {
+                    ingredientAmount = Integer.valueOf(ingredient.etIngredientAmount.text.toString())
+                }
+
                 picked_ingredients.add(ingredientName)
                 picked_ingredients_amount.add(ingredientAmount)
             }

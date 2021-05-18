@@ -1,29 +1,27 @@
 package com.team03.cocktailrecipesapp
 
+import android.app.Activity
 import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
 import androidx.test.core.app.ApplicationProvider
+import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
+import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
+import androidx.test.runner.lifecycle.Stage
 import com.android.volley.Response
+import org.hamcrest.CoreMatchers.*
 import org.json.JSONObject
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.time.LocalDateTime
-import android.app.Activity
-import androidx.test.espresso.Espresso.onData
-import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
-import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
-import androidx.test.runner.lifecycle.Stage
-import org.hamcrest.CoreMatchers.*
-import org.hamcrest.Matchers.hasEntry
+
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -250,43 +248,94 @@ class ExampleInstrumentedTest {
     }
 
     @Test
-    fun AddNewRecipeTryWithoutIngredientsAddAfter() {
+    fun AddNewRecipeTryWithoutIngredientsAddIngredientsAfter() {
         login()
         onView(withId(R.id.add_recipe_button)).perform(click())
         onView(withId(R.id.etRecipeName)).perform(typeText("Recipe Without Ingredients"), closeSoftKeyboard())
+        onView(withId(R.id.btnManageIngredients)).perform(click())
+        Thread.sleep(1000)
+
+        onView(withText("Vodka")).check(matches(isNotChecked())).perform(click())
+        onView(withText("Cola")).check(matches(isNotChecked())).perform(click())
+
+        onView(withId(R.id.btnConfirmIngredients)).perform(click())
+
         onView(withId(R.id.etRecipeDescription)).perform(typeText("This Recipe has no Ingredients."), closeSoftKeyboard())
 
         onView(withId(R.id.difficulty_picker)).perform(swipeDown())
         onView(withId(R.id.timer_picker_minutes)).perform(swipeDown())
 
+        onView(withId(R.id.btnAddRecipe)).perform(click())
+    }
 
-        onView(withId(R.id.btnManageIngredients)).perform(click())
-        Thread.sleep(500)
+    @Test
+    fun AddNewRecipeTryAddingIngredientsMultipleTime() {
+        login()
+        onView(withId(R.id.add_recipe_button)).perform(click())
+        onView(withId(R.id.etRecipeName)).perform(typeText("Recipe Without Ingredients"), closeSoftKeyboard())
 
-        //onData(anything()).atPosition(1).perform(click());
+        for (i in 0..5)
+        {
+            onView(withId(R.id.btnManageIngredients)).perform(click())
+            Thread.sleep(1000)
 
-        onView(withId(R.id.btnConfirmIngredients)).perform(click())
+            onView(withText("Vodka")).check(matches(isNotChecked())).perform(click())
+            onView(withText("Cola")).check(matches(isNotChecked())).perform(click())
+            onView(withText("Beer")).check(matches(isNotChecked())).perform(click())
+
+            onView(withId(R.id.btnConfirmIngredients)).perform(click())
+        }
+
+
+        onView(withId(R.id.etRecipeDescription)).perform(typeText("This Recipe has no Ingredients."), closeSoftKeyboard())
+
+        onView(withId(R.id.difficulty_picker)).perform(swipeDown())
+        onView(withId(R.id.timer_picker_minutes)).perform(swipeDown())
 
         onView(withId(R.id.btnAddRecipe)).perform(click())
-
-
     }
 
     @Test
     fun AddNewRecipe() {
-
+        login();
         onView(withId(R.id.add_recipe_button)).perform(click())
         onView(withId(R.id.etRecipeName)).perform(typeText("Recipe Without Ingredients"), closeSoftKeyboard())
         onView(withId(R.id.etRecipeDescription)).perform(typeText("This Recipe has no Ingredients."), closeSoftKeyboard())
 
         onView(withId(R.id.btnManageIngredients)).perform(click())
         Thread.sleep(500)
+        onView(withText("Vodka")).check(matches(isNotChecked())).perform(click())
+        onView(withText("Cola")).check(matches(isNotChecked())).perform(click())
+        onView(withText("Beer")).check(matches(isNotChecked())).perform(click())
         onView(withId(R.id.btnConfirmIngredients)).perform(click())
 
         onView(withId(R.id.difficulty_picker)).perform(swipeDown())
         onView(withId(R.id.timer_picker_minutes)).perform(swipeDown())
         onView(withId(R.id.btnAddRecipe)).perform(click())
 
+    }
+
+    @Test
+    fun AddNewRecipes() {
+        login();
+        for (i in 0..3)
+        {
+            onView(withId(R.id.add_recipe_button)).perform(click())
+            onView(withId(R.id.etRecipeName)).perform(typeText("Recipe Without Ingredients"), closeSoftKeyboard())
+            onView(withId(R.id.etRecipeDescription)).perform(typeText("This Recipe has no Ingredients."), closeSoftKeyboard())
+
+            onView(withId(R.id.btnManageIngredients)).perform(click())
+            Thread.sleep(500)
+            onView(withText("Vodka")).check(matches(isNotChecked())).perform(click())
+            onView(withText("Cola")).check(matches(isNotChecked())).perform(click())
+            onView(withText("Beer")).check(matches(isNotChecked())).perform(click())
+            onView(withId(R.id.btnConfirmIngredients)).perform(click())
+
+            onView(withId(R.id.difficulty_picker)).perform(swipeDown())
+            onView(withId(R.id.timer_picker_minutes)).perform(swipeDown())
+            onView(withId(R.id.btnAddRecipe)).perform(click())
+            Thread.sleep(1000)
+        }
     }
 
 }
