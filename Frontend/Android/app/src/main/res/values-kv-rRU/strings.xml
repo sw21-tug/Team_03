@@ -54,4 +54,19 @@
     <string name="ingredient_amount">Введите сумму</string>
     <string name="unit">Единица</string>
     <string name="ingredient_or_Unit_has_no_amount">Ингредиент не имеет количества или единицы измерения!</string>
+    <string name="failed_to_delete_recipe">Не удалось удалить рецепт</string>
+    <string name="dialog_delete_recipe">Вы уверены, что хотите удалить этот рецепт?</string>
+    <string name="dialog_delete_recipe_delete">Да</string>
+    <string name="dialog_delete_recipe_cancel">Нет</string>
+    <string name="change_password">Изменить пароль</string>
+    <string name="old_password">Старый пароль</string>
+    <string name="new_password">Новый пароль</string>
+    <string name="cocktail_creator">создатель</string>
+    <string name="rate_this_cocktail">Посмотрите коктейль</string>
+    <string name="cancel">Отмена</string>
+    <string name="send">Отправить</string>
+    <string name="rate">Тариф</string>
+    <string name="already_voted_ok">Хорошо</string>
+    <string name="already_voted_title">Уже проголосовал!</string>
+    <string name="already_voted_text">Вы уже проголосовали за этот коктейль!</string>
 </resources>

@@ -1,12 +1,11 @@
 package com.team03.cocktailrecipesapp
 
-import android.widget.Switch
 import org.junit.Assert
 import org.junit.Test
 
 class LanguageSettingTest {
 
-    var userProfile = UserProfile()
+    var userProfile = UserSettingsActivity()
     @Test
     fun callChangeLanguage()
     {

@@ -5,12 +5,12 @@ import android.view.View
 import android.widget.Switch
 import java.util.*
 
-class UserProfile : SharedPreferencesActivity() {
+class UserSettingsActivity : SharedPreferencesActivity() {
     lateinit var swtLangauge: Switch
 
     override fun onStart() {
         super.onStart()
-        setContentView(R.layout.activity_user_profile)
+        setContentView(R.layout.activity_user_settings)
 
         swtLangauge = findViewById(R.id.swtlanguage)
 

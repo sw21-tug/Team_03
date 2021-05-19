@@ -9,6 +9,7 @@
     tools:context=".CocktailDetailActivity">
 
     <include
+        android:id="@+id/include"
         layout="@layout/progress_indicator"
         android:layout_width="401dp"
         android:layout_height="wrap_content"
@@ -44,6 +45,7 @@
         android:layout_marginTop="12dp"
         android:progressBackgroundTint="@android:color/darker_gray"
         android:progressTint="@color/accent_color"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
@@ -166,6 +168,73 @@
         android:onClick="backToMainscreen"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imgBtnRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@color/accent_color"
+        android:onClick="rateRecipe"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_rate" />
+
+    <TextView
+        android:id="@+id/tvRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rate"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/imgBtnRate"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageButton
+        android:id="@+id/delete_recipe_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#00FFFFFF"
+        android:onClick="deleteRecipe"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/cocktail_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/include"
+        app:srcCompat="@drawable/ic_baseline_delete_forever_24" />
+
+    <TextView
+        android:id="@+id/cocktail_creator_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/cocktail_creator"
+        app:layout_constraintStart_toEndOf="@+id/cocktail_rating_bar"
+        app:layout_constraintTop_toTopOf="@+id/cocktail_rating_bar" />
+
+    <TextView
+        android:id="@+id/cocktail_creator_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/cocktail_creator_text"
+        app:layout_constraintTop_toTopOf="@+id/cocktail_creator_text" />
+
+    <ImageButton
+        android:id="@+id/imageButtonLike"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:backgroundTint="#00FFFFFF"
+        android:onClick="likeOnClick"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView8"
+        app:srcCompat="@drawable/hearth_empty" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

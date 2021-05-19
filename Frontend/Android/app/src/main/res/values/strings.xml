@@ -38,8 +38,24 @@
     <string name="switch_language">Switch to russian</string>
     <string name="login_username">Username</string>
     <string name="prompt_repeat_password">Repeat password</string>
-    <string name="minutes"> minutes</string>
-    <string name="wrong_username_or_password">"Wrong username or password"</string>
+    <string name="minutes">min.</string>
+    <string name="wrong_username_or_password">Wrong username or password</string>
+    <string name="logout_button_text">Logout</string>
+    <string name="rate_this_cocktail">Rate this cocktail</string>
+    <string name="cancel">Cancel</string>
+    <string name="send">Send</string>
+    <string name="rate">Rate</string>
+    <string name="already_voted_ok">Okay</string>
+    <string name="already_voted_title">Already voted!</string>
+    <string name="already_voted_text">You already voted for this cocktail!</string>
+    <string name="failed_to_delete_recipe">Failed to delete the recipe</string>
+    <string name="dialog_delete_recipe">Are you sure you want to delete this recipe?</string>
+    <string name="dialog_delete_recipe_delete">Yes</string>
+    <string name="dialog_delete_recipe_cancel">No</string>
+    <string name="change_password">Change password</string>
+    <string name="old_password">Old password</string>
+    <string name="new_password">New password</string>
+    <string name="cocktail_creator">creator</string>
     <string name="add_recipe_button">add</string>
     <string name="add_a_new_recipe">Add a new recipe</string>
     <string name="add_ingredients_to_recipe">Add ingredients to your recipe</string>
@@ -57,7 +73,6 @@
     <string name="password_to_less_characters">Should have 5 or more characters</string>
     <string name="no_ingredients_selected">Your Cocktail has no ingredients</string>
     <string name="back" translatable="false">←</string>
-    <string name="logout_button_text">Logout</string>
     <string name="ingredient_amount">Enter amount</string>
     <string name="unit">Unit</string>
 </resources>

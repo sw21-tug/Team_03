@@ -156,6 +156,20 @@ class serverAPI(context: Context)
         return sendRequest(json, "like-recipe", listener, error_listener)
     }
 
+    
+    fun unlikeRecipe(user_id: Int, recipe_id: Int, listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
+    {
+        val unlike_recipe_json = """
+            {
+                "user_id": """" + user_id.toString() + """",
+                "recipe_id": """" + recipe_id.toString() + """"
+            }
+            """
+
+        val json = JSONObject(unlike_recipe_json)
+        return sendRequest(json, "unlike-recipe", listener, error_listener)
+    }
+
     private fun sendRequest(jsonObject: JSONObject, service: String, listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
     {
         val queue = Volley.newRequestQueue(context_)

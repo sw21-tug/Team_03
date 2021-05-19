@@ -14,6 +14,8 @@ import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
 import com.android.volley.Response
+import kotlinx.coroutines.android.awaitFrame
+import org.hamcrest.core.IsNot.not
 import org.hamcrest.CoreMatchers.*
 import org.json.JSONObject
 import org.junit.Assert
@@ -21,7 +23,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.time.LocalDateTime
-
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -212,16 +213,16 @@ class ExampleInstrumentedTest {
 
         onView(withId(R.id.etUsername)).perform(typeText("UsernameTest123"), closeSoftKeyboard())
         onView(withId(R.id.etPassword)).perform(typeText("password123"), closeSoftKeyboard())
-        onView(withId(R.id.btnBack)).perform(click())
+        onView(withId(R.id.btnLogin)).perform(click())
     }
 
-    @Test
+
     fun PerformLogout() {
         // login
 
-        //onView(withId(R.id.etUsername)).perform(typeText("daniel"), closeSoftKeyboard())
-        //onView(withId(R.id.etPassword)).perform(typeText("1234qwer"), closeSoftKeyboard())
-        //onView(withId(R.id.btnLogin)).perform(click())
+//        onView(withId(R.id.etUsername)).perform(typeText("daniel"), closeSoftKeyboard())
+//        onView(withId(R.id.etPassword)).perform(typeText("1234qwer"), closeSoftKeyboard())
+//        onView(withId(R.id.btnLogin)).perform(click())
 
         // user-profile
         onView(withId(R.id.imgBtnAvatar)).perform(click())
@@ -231,7 +232,71 @@ class ExampleInstrumentedTest {
         onView(withId(R.id.logoutButton)).perform(click())
 
         // check if we are in login page
-        onView(withId(R.id.btnBack)).check(matches(isDisplayed()))
+        onView(withId(R.id.btnLogin)).check(matches(isDisplayed()))
+    }
+
+    fun PerformLogin(username: String, password: String)
+    {
+        if (userId > 0)
+            PerformLogout()
+
+        onView(withId(R.id.etUsername)).perform(typeText(username), closeSoftKeyboard())
+        onView(withId(R.id.etPassword)).perform(typeText(password), closeSoftKeyboard())
+        onView(withId(R.id.btnLogin)).perform(click())
+
+    }
+
+    fun PerformLoginAsNonAdmin()
+    {
+        PerformLogin("osama", "1234qwer")
+    }
+
+    fun PerformLoginAsAdmin()
+    {
+        PerformLogin("daniel", "1234qwer")
+    }
+
+    @Test
+    fun PerformLogoutTest()
+    {
+        PerformLogout()
+    }
+
+    @Test
+    fun ButtonDeleteRecipeAdminIsVisible()
+    {
+        PerformLoginAsAdmin()
+        Thread.sleep(2000)
+        onView(withText("testi")).perform(scrollTo())
+        onView(withText("testi")).perform(click())
+        Thread.sleep(2000)
+
+        onView(withId(R.id.delete_recipe_button)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun ButtonDeleteRecipeIsNotVisible()
+    {
+        PerformLoginAsNonAdmin()
+        Thread.sleep(2000)
+        onView(withText("testi")).perform(scrollTo())
+        onView(withText("testi")).perform(click())
+        Thread.sleep(2000)
+
+        onView(withId(R.id.delete_recipe_button)).check(matches(not(isDisplayed())))
+    }
+
+    @Test
+    fun VisitUserProfileTest() {
+        PerformLoginAsNonAdmin()
+        Thread.sleep(2000)
+        onView(withText("testi")).perform(scrollTo())
+        onView(withText("testi")).perform(click())
+        Thread.sleep(2000)
+        onView(withId(R.id.cocktail_creator_username)).perform(click())
+        Thread.sleep(2000)
+        onView(withId(R.id.user_profile_image)).check(matches(isDisplayed()))
+        onView(withId(R.id.user_profile_username)).check(matches(isDisplayed()))
     }
     @Test
     fun AddNewRecipeWithNoIngredients() {

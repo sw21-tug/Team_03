@@ -24,6 +24,7 @@ class MainActivity : SharedPreferencesActivity() {
     lateinit var recipesLayout: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         super.onStart()
         var language = shared.getString("Language", "")
@@ -98,7 +99,7 @@ class MainActivity : SharedPreferencesActivity() {
             recipeCard.cocktail_ratings.text = recipe.times_rated.toString()
             recipeCard.cocktail_rating_bar.rating = recipe.rating
             recipeCard.cocktail_difficulty.text =  recipe.difficulty.toString()
-            val preparationTime: String = recipe.preptime_minutes.toString() + getString(R.string.minutes)
+            val preparationTime: String = recipe.preptime_minutes.toString() + " "+getString(R.string.minutes)
             recipeCard.cocktail_preparationtime.text = preparationTime
             recipeCard.cocktail_id.text = recipe.id.toString()
             addClickListener(recipeCard, recipesLayout.size)
@@ -109,7 +110,7 @@ class MainActivity : SharedPreferencesActivity() {
     }
 
     fun profilePictureOnClick(view: View){
-            val intent = Intent(this, UserProfile::class.java)
+            val intent = Intent(this, UserSettingsActivity::class.java)
             startActivity(intent)
     }
 
