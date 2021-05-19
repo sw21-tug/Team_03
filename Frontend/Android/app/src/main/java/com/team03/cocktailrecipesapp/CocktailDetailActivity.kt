@@ -2,25 +2,34 @@ package com.team03.cocktailrecipesapp
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.team03.cocktailrecipesapp.dialogs.DeleteRecipeDialogFragment
+import com.team03.cocktailrecipesapp.error_listener.DeleteRecipeErrorListener
 import com.team03.cocktailrecipesapp.error_listener.GetRecipeErrorListener
-import com.team03.cocktailrecipesapp.listener.GetRecipeListener
-import com.team03.cocktailrecipesapp.listener.Ingrediant
-import com.team03.cocktailrecipesapp.listener.RecipeDetail
+import com.team03.cocktailrecipesapp.listener.*
 import kotlinx.android.synthetic.main.activity_cocktail_detail.*
 import kotlinx.android.synthetic.main.progress_indicator.*
+import kotlinx.android.synthetic.main.rating_layout.view.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_difficulty
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_name
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_rating_bar
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 
+public interface RatingInterface  {
+    fun onSelectedData(rating: Int);
+
+
+}
 
 class RecipeAdapter(private val context: Context,
                     private val dataSource: List<Ingrediant>) : BaseAdapter() {
@@ -54,26 +63,29 @@ class RecipeAdapter(private val context: Context,
         // Get subtitle element
         val ingrediant_name = rowView.findViewById(R.id.ingrediant_name) as TextView
 
-        val recipe = getItem(position) as Ingrediant
+        val ingrediant = getItem(position) as Ingrediant
 
-        ingrediant_name.text = recipe.name
-        ingrediant_amount.text = recipe.amount.toString()
+        ingrediant_name.text = ingrediant.name
+        ingrediant_amount.text = ingrediant.amount.toString()
 
         return rowView
     }
 
 }
 
-class CocktailDetailActivity : SharedPreferencesActivity() {
+class CocktailDetailActivity : SharedPreferencesActivity(), RatingInterface  {
 
     var isLiked = false;
     var user_id = 0;
     var recipe_id = 0;
+    var my_rating = 0;
 
+//    lateinit var imgBtnRate : ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cocktail_detail)
+        cocktail_creator_username.setOnClickListener { onRecipeCreatorClick() }
 
         val b = intent.extras
         recipe_id = -1 // or other values
@@ -82,10 +94,37 @@ class CocktailDetailActivity : SharedPreferencesActivity() {
 
         setInvisibleWhileLoading()
 
-        getRecipe(recipe_id, b)
+        getRecipe(b)
     }
 
-    fun getRecipe(recipe_id: Int, bundle: Bundle?) {
+    fun onRecipeCreatorClick() {
+        val intent = Intent(this, UserProfileActivity::class.java)
+        var bundle = Bundle()
+        bundle.putString("username", cocktail_creator_username.text.toString())
+        intent.putExtras(bundle)
+        startActivity(intent)
+    }
+
+    fun onSuccessfulDeleteRecipe() {
+        onBackPressed();
+    }
+
+    fun onFailedDeleteRecipe() {
+        Toast.makeText(applicationContext, resources.getString(R.string.failed_to_delete_recipe), Toast.LENGTH_LONG).show()
+    }
+
+    fun deleteRecipe(view: View)
+    {
+        var deleteRecipeDialog = DeleteRecipeDialogFragment()
+        deleteRecipeDialog.recipe_id = recipe_id
+        deleteRecipeDialog.server = serverAPI(applicationContext)
+        deleteRecipeDialog.succesListener = DeleteRecipeListener (::onSuccessfulDeleteRecipe)
+        deleteRecipeDialog.errorListener = DeleteRecipeErrorListener(::onFailedDeleteRecipe)
+
+        deleteRecipeDialog.show(this.supportFragmentManager, "")
+    }
+
+    fun getRecipe(bundle: Bundle?) {
         val server = serverAPI(applicationContext)
         val listener =
             GetRecipeListener(::onSuccessfulGetRecipe)
@@ -101,6 +140,8 @@ class CocktailDetailActivity : SharedPreferencesActivity() {
         cocktail_rating_bar.rating = recipe.rating
         cocktail_preparation_time.text = recipe.preptime_minutes.toString() + " " + getString(R.string.minutes)
         cocktail_instruction.text = recipe.instruction
+        my_rating = recipe.my_rating
+        cocktail_creator_username.text = recipe.creator_user
         user_id = shared.getInt("userId",0)
         if (recipe.liked != 0)
         {
@@ -112,7 +153,8 @@ class CocktailDetailActivity : SharedPreferencesActivity() {
 
 
 
-
+        if (recipe.is_mine == 1)
+            delete_recipe_button.visibility = View.VISIBLE;
 
         var listView = findViewById<ListView>(R.id.recipe_list_view)
         val adapter = RecipeAdapter(this, recipe.ingredients)
@@ -125,9 +167,6 @@ class CocktailDetailActivity : SharedPreferencesActivity() {
     fun onFailedGetRecipe(bundle: Bundle?) {
         println("Failed to get recipe from server!")
         Toast.makeText(this,  "Cannot get any recipe information from server", Toast.LENGTH_LONG).show()
-        //txtViewErrorMsg.text = resources.getString(R.string.failed_to_load_recipes_from_server)
-        //txtViewErrorMsgContainer.visibility = View.VISIBLE
-        //Toast.makeText(applicationContext, resources.getString(R.string.failed_to_load_recipes_from_server), Toast.LENGTH_LONG).show()
 
         cocktail_name.text = bundle?.getString("cocktail_name")
         cocktail_difficulty.text = bundle?.getString("cocktail_difficulty")
@@ -135,14 +174,12 @@ class CocktailDetailActivity : SharedPreferencesActivity() {
         cocktail_preparation_time.text = bundle?.getString("preparation_time") + " " + getString(R.string.minutes)
         cocktail_instruction.text = "No instruction available.."
 
-
         setVisibleAfterLoading()
     }
 
     fun backToMainscreen(view: View)
     {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+        onBackPressed();
     }
 
     fun setInvisibleWhileLoading()
@@ -153,7 +190,11 @@ class CocktailDetailActivity : SharedPreferencesActivity() {
         cocktail_rating_bar.visibility = View.INVISIBLE
         cocktail_preparation_time.visibility = View.INVISIBLE
         cocktail_instruction.visibility = View.INVISIBLE
-
+        cocktail_creator_username.visibility = View.INVISIBLE
+        cocktail_creator_text.visibility = View.INVISIBLE
+        imageButtonLike.visibility = View.INVISIBLE
+        imgBtnRate.visibility = View.INVISIBLE
+        tvRating.visibility = View.INVISIBLE
         prepTimeText.visibility = View.INVISIBLE
         prepTimeText3.visibility = View.INVISIBLE
         ingredients.visibility = View.INVISIBLE
@@ -171,7 +212,11 @@ class CocktailDetailActivity : SharedPreferencesActivity() {
         cocktail_rating_bar.visibility = View.VISIBLE
         cocktail_preparation_time.visibility = View.VISIBLE
         cocktail_instruction.visibility = View.VISIBLE
-
+        cocktail_creator_username.visibility = View.VISIBLE
+        cocktail_creator_text.visibility = View.VISIBLE
+        imageButtonLike.visibility = View.VISIBLE
+        imgBtnRate.visibility = View.VISIBLE
+        tvRating.visibility = View.VISIBLE
         prepTimeText.visibility = View.VISIBLE
         prepTimeText3.visibility = View.VISIBLE
         ingredients.visibility = View.VISIBLE
@@ -238,5 +283,52 @@ class CocktailDetailActivity : SharedPreferencesActivity() {
         }
     }
 
+    fun rateRecipe(view: View)
+    {
+        if (my_rating == 0)
+        {
+            val ratingDialog = RatingDialog()
+            ratingDialog.show(supportFragmentManager, "ratingDialog")
+        }
+        else
+        {
+            showAlreadyVotedDialog()
+        }
+
+    }
+
+    fun onSuccessfulRateRecipe() {
+        println("Successfully rated recipe");
+    }
+
+    fun onFailedRateRecipe() {
+        println("Failed to rate recipe");
+    }
+
+    fun rateRecipe(ratingValue: Int) {
+        val server = serverAPI(applicationContext)
+        val listener =
+                RateRecipeListener(::onSuccessfulRateRecipe)
+        val errorListener = RateRecipeErrorListener(::onFailedRateRecipe)
+        server.rateRecipe(userId, recipe_id, ratingValue, listener, errorListener);
+
+    }
+
+    override fun onSelectedData(rating: Int) {
+        rateRecipe(rating);
+    }
+
+    fun showAlreadyVotedDialog(){
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setTitle(resources.getString(R.string.already_voted_title))
+        builder.setMessage(resources.getString(R.string.already_voted_text))
+
+        builder.setNeutralButton(resources.getString(R.string.already_voted_ok), DialogInterface.OnClickListener { dialog, which ->
+            dialog.dismiss()
+        })
+
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.show()
+    }
 
 }
