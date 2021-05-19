@@ -9,8 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.team03.cocktailrecipesapp.dialogs.DeleteRecipeDialogFragment
 import com.team03.cocktailrecipesapp.error_listener.DeleteRecipeErrorListener
 import com.team03.cocktailrecipesapp.error_listener.GetRecipeErrorListener
@@ -21,7 +23,7 @@ import kotlinx.android.synthetic.main.rating_layout.view.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_difficulty
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_name
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_rating_bar
-
+import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 
 public interface RatingInterface  {
     fun onSelectedData(rating: Int);
@@ -77,8 +79,10 @@ class RecipeAdapter(private val context: Context,
 
 class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
 
-    var recipe_id = -1
-    var my_rating = 0
+    var isLiked = false;
+    var recipe_id = 0;
+    var my_rating = 0;
+
 //    lateinit var imgBtnRate : ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,8 +91,7 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
         cocktail_creator_username.setOnClickListener { onRecipeCreatorClick() }
 
         val b = intent.extras
-//        imgBtnRate = findViewById(R.id.imgBtnRate)
-
+        recipe_id = -1 // or other values
 
         if (b != null) recipe_id = b.getInt("cocktail_id")
 
@@ -142,6 +145,15 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
         cocktail_instruction.text = recipe.instruction
         my_rating = recipe.my_rating
         cocktail_creator_username.text = recipe.creator_user
+        if (recipe.liked != 0)
+        {
+            isLiked = true
+            var imgLike = findViewById<ImageButton>(R.id.imageButtonLike);
+            imgLike.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.heart_filled ))
+        }
+
+
+
 
         if (recipe.is_mine == 1)
             delete_recipe_button.visibility = View.VISIBLE;
@@ -150,7 +162,6 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
 
         val adapter = RecipeAdapter(this, recipe.ingredients)
         listView.adapter = adapter
-
 
         setVisibleAfterLoading()
 
@@ -184,7 +195,9 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
         cocktail_instruction.visibility = View.INVISIBLE
         cocktail_creator_username.visibility = View.INVISIBLE
         cocktail_creator_text.visibility = View.INVISIBLE
-
+        imageButtonLike.visibility = View.INVISIBLE
+        imgBtnRate.visibility = View.INVISIBLE
+        tvRating.visibility = View.INVISIBLE
         prepTimeText.visibility = View.INVISIBLE
         prepTimeText3.visibility = View.INVISIBLE
         ingredients.visibility = View.INVISIBLE
@@ -204,7 +217,9 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
         cocktail_instruction.visibility = View.VISIBLE
         cocktail_creator_username.visibility = View.VISIBLE
         cocktail_creator_text.visibility = View.VISIBLE
-
+        imageButtonLike.visibility = View.VISIBLE
+        imgBtnRate.visibility = View.VISIBLE
+        tvRating.visibility = View.VISIBLE
         prepTimeText.visibility = View.VISIBLE
         prepTimeText3.visibility = View.VISIBLE
         ingredients.visibility = View.VISIBLE
@@ -215,6 +230,61 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
         progressbar.visibility = View.INVISIBLE
     }
 
+    fun onUnsuccessfullLike(){
+        //TODO ERROR_MSG
+        System.out.println("not successful\n")
+    }
+
+    fun onSuccessfullLike(){
+        var imgLike = findViewById<ImageButton>(R.id.imageButtonLike);
+        if(!isLiked) {
+            imgLike.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.heart_filled ));
+            isLiked = true
+        } else {
+            imgLike.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.hearth_empty ));
+            isLiked = false
+        }
+    }
+
+    fun like(user_id: Int, recipe_id: Int): Boolean {
+        val server = serverAPI(this)
+        val listener = LikeListener(::onSuccessfullLike)
+        val error_listener = LikeErrorListener(::onUnsuccessfullLike)
+        val answer = server.likeRecipe(user_id, recipe_id,
+            listener, error_listener);
+        if (answer == 1)
+        {
+            return false
+        }
+        return true
+    }
+
+    fun unlike(user_id: Int, recipe_id: Int): Boolean {
+        val server = serverAPI(this)
+        val listener = LikeListener(::onSuccessfullLike)
+        val error_listener = LikeErrorListener(::onUnsuccessfullLike)
+        val answer = server.unlikeRecipe(user_id, recipe_id,
+            listener, error_listener);
+        if (answer == 1)
+        {
+            return false
+        }
+        return true
+    }
+
+    fun likeOnClick(view: View) {
+        if(isLiked){
+            run {
+                unlike(userId, recipe_id);
+            }
+
+        }
+        else{
+            run {
+                like(userId, recipe_id);
+            }
+        }
+    }
 
     fun rateRecipe(view: View)
     {

@@ -20,6 +20,7 @@ class MainActivity : SharedPreferencesActivity() {
     lateinit var recipesLayout: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         super.onStart()
         var language = shared.getString("Language", "")
