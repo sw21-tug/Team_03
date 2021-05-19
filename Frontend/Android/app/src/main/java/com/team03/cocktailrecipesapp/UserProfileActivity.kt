@@ -1,11 +1,18 @@
 package com.team03.cocktailrecipesapp
 
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
+import com.team03.cocktailrecipesapp.listener.Ingrediant
 import java.util.*
+
+
+
 
 class UserProfileActivity : SharedPreferencesActivity() {
     lateinit var userNameText: TextView
