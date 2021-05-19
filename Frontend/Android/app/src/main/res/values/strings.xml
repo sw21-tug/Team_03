@@ -73,6 +73,6 @@
     <string name="password_to_less_characters">Should have 5 or more characters</string>
     <string name="no_ingredients_selected">Your Cocktail has no ingredients</string>
     <string name="back" translatable="false">←</string>
-    <string name="ingredient_amount">Enter amount</string>
+    <string name="ingredient_amount">Amount</string>
     <string name="unit">Unit</string>
 </resources>

@@ -70,7 +70,7 @@ class ExampleInstrumentedTest {
         {
             onView(withId(R.id.etUsername)).perform(typeText("daniel"), closeSoftKeyboard())
             onView(withId(R.id.etPassword)).perform(typeText("1234qwer"), closeSoftKeyboard())
-            onView(withId(R.id.btnBack)).perform(click())
+            onView(withId(R.id.btnLogin)).perform(click())
         }
         else
         {
