@@ -38,24 +38,28 @@
         app:layout_constraintStart_toEndOf="@+id/user_profile_image"
         app:layout_constraintTop_toTopOf="@+id/user_profile_image" />
 
-    <ImageButton
-        android:id="@+id/imgBtnLogout"
+    <Button
+        android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="348dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/logout_icon"
+        android:layout_marginEnd="16dp"
+        android:text="@string/logout_button_text"
         android:onClick="onLogoutPressed"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txtViewLogout"
+    <Switch
+        android:id="@+id/swtlanguage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="26dp"
-        android:text="@string/logout_button_text"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp"
+        android:checked="false"
+        android:showText="false"
+        android:text="@string/switch_language"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgBtnLogout" />
+        app:layout_constraintTop_toBottomOf="@+id/logoutButton"
+        tools:checked="false" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

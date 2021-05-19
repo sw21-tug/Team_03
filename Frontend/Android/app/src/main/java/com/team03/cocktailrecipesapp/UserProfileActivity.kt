@@ -1,11 +1,11 @@
 package com.team03.cocktailrecipesapp
 
+import android.content.res.Configuration
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.view.View
+import android.widget.*
 import androidx.core.content.ContextCompat
+import java.util.*
 
 class UserProfileActivity : SharedPreferencesActivity() {
     lateinit var userNameText: TextView
@@ -13,8 +13,23 @@ class UserProfileActivity : SharedPreferencesActivity() {
     lateinit var backButton: Button
     var userNameExtra: String? = null
 
+    lateinit var swtLangauge: Switch
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        swtLangauge = findViewById(R.id.swtlanguage)
+
+        val language: String? = shared.getString("Language", "")
+        swtLangauge.isChecked = language.equals("kv")
+        swtLangauge.setOnCheckedChangeListener() { _, isChecked ->
+            if (isChecked) {
+                setLanguage("kv")
+            } else {
+                setLanguage("en")
+            }
+            onStart()
+        }
 
         setContentView(R.layout.activity_user_profile)
         userNameText = findViewById(R.id.user_profile_username)
@@ -29,12 +44,27 @@ class UserProfileActivity : SharedPreferencesActivity() {
         userNameText.setText(userNameExtra)
 
         // set profile picture according to selected language
-        val language = shared.getString("Language", "");
+        val language_ = shared.getString("Language", "");
         var avatarImgae = findViewById<ImageButton>(R.id.imgBtnAvatar);
-        if (language.equals("kv")) {
+        if (language_.equals("kv")) {
             userImage.setBackground(ContextCompat.getDrawable(applicationContext, R.drawable.russian_avatar ));
         } else {
             userImage.setBackground(ContextCompat.getDrawable(applicationContext, R.drawable.default_avatar ));
         }
+    }
+
+    fun setLanguage(language: String) {
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.setLocale(locale)
+        baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
+        shared_editor.putString("Language", language).apply()
+    }
+
+    fun onLogoutPressed(view: View) {
+        shared_editor.putInt("userId", 0).apply()
+        userId = 0
+        onBackPressed()
     }
 }
