@@ -53,5 +53,5 @@
     <string name="no_ingredients_selected">В вашем коктейле нет ингредиентов</string>
     <string name="ingredient_amount">Введите сумму</string>
     <string name="unit">Единица</string>
-    <string name="ingredient_has_no_amount">Ингредиент не имеет количества!</string>
+    <string name="ingredient_or_Unit_has_no_amount">Ингредиент не имеет количества или единицы измерения!</string>
 </resources>

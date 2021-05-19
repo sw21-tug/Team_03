@@ -33,7 +33,7 @@
     <string name="failed_to_load_recipes_from_server">Failed to load recipes from server…</string>
     <string name="failed_to_add_recipe">Failed to add recipe. Check your internet connection or try later.</string>
     <string name="failed_to_load_ingredients_from_server">Failed to load ingredients from server…</string>
-    <string name="ingredient_has_no_amount">Ingredient has no amount!</string>
+    <string name="ingredient_or_Unit_has_no_amount">Ingredient has no amount or unit!</string>
     <string name="error">Error…</string>
     <string name="switch_language">Switch to russian</string>
     <string name="login_username">Username</string>

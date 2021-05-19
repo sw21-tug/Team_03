@@ -39,7 +39,6 @@ class AddIngredientsActivity : AppCompatActivity() {
         ingredients.forEach { ingredient ->
             val ingredientView = LayoutInflater.from(this).inflate(R.layout.ingredients_item, ingredientsList, false)
             ingredientView.ingredientItemCheckbox.text = ingredient.name
-            ingredientView.ingredientUnit.text = "E"    // ingredient.unit TODO
             ingredientsList.addView(ingredientView)
         }
     }
@@ -55,26 +54,24 @@ class AddIngredientsActivity : AppCompatActivity() {
     fun onClickAddIngredients(view: View) {
         val picked_ingredients: MutableList<String> = mutableListOf()
         val picked_ingredients_amount: MutableList<Int> = mutableListOf()
+        val picked_ingredients_unit: MutableList<String> = mutableListOf()
         ingredientsList.forEach { ingredient ->
             if(ingredient.ingredientItemCheckbox.isChecked)
             {
                 // TODO: check if amount is not empty
-                    /*
-                if (ingredient.etIngredientAmount.text.toString().isEmpty())
+                if (ingredient.etIngredientAmount.text.toString().isEmpty() || ingredient.etIngredientUnit.text.toString().isEmpty())
                 {
-                    Toast.makeText(applicationContext, resources.getString(R.string.ingredient_has_no_amount), Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, resources.getString(R.string.ingredient_or_Unit_has_no_amount), Toast.LENGTH_LONG).show()
                     return
                 }
-                */
+
                 val ingredientName = ingredient.ingredientItemCheckbox.text.toString()
-                var ingredientAmount: Int = 0;
-                if (ingredient.etIngredientAmount.text.toString().isNotEmpty())
-                {
-                    ingredientAmount = Integer.valueOf(ingredient.etIngredientAmount.text.toString())
-                }
+                val ingredientAmount = Integer.valueOf(ingredient.etIngredientAmount.text.toString());
+                val ingredientUnit = ingredient.etIngredientUnit.text.toString();
 
                 picked_ingredients.add(ingredientName)
                 picked_ingredients_amount.add(ingredientAmount)
+                picked_ingredients_unit.add(ingredientUnit)
             }
         }
 
@@ -82,6 +79,7 @@ class AddIngredientsActivity : AppCompatActivity() {
         val intent = Intent()
         intent.putStringArrayListExtra ("pickedingredients", picked_ingredients as ArrayList<String>)
         intent.putIntegerArrayListExtra ("pickedingredientsamount", picked_ingredients_amount as ArrayList<Int>)
+        intent.putStringArrayListExtra ("pickedingredientsunit", picked_ingredients_unit as ArrayList<String>)
         setResult(RESULT_OK, intent)
         finish()
     }

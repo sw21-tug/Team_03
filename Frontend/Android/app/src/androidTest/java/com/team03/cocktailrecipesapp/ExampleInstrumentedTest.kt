@@ -147,6 +147,8 @@ class ExampleInstrumentedTest {
                     "layer the Jaeger onto the rum. Then finally do the same with the " +
                     "Baileys. Enjoy!",
             listOf("Stroh80", "Jaegermeister", "Baileys"),
+            listOf(120, 200, 20),
+            listOf("ml", "ml", "ml"),
             testListener as Response.Listener<JSONObject>,
             testErrorListener as Response.ErrorListener);
 

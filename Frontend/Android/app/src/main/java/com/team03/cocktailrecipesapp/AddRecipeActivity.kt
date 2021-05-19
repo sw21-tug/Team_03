@@ -14,8 +14,9 @@ const val RESULT_INGREDIENTS = 10
 
 class AddRecipeActivity : AppCompatActivity() {
 
-    var ingredients_pub: List<String>? = null
+    var ingredients_pub_name: List<String>? = null
     var ingredients_pub_amount: List<Int>? = null
+    var ingredients_pub_unit: List<String>? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,8 +48,9 @@ class AddRecipeActivity : AppCompatActivity() {
 
         if (data != null && resultCode == RESULT_OK && requestCode == RESULT_INGREDIENTS)
         {
-            ingredients_pub = data.getStringArrayListExtra("pickedingredients")
+            ingredients_pub_name = data.getStringArrayListExtra("pickedingredients")
             ingredients_pub_amount = data.getIntegerArrayListExtra("pickedingredientsamount")
+            ingredients_pub_unit = data.getStringArrayListExtra("pickedingredientsunit")
         }
     }
 
@@ -64,7 +66,7 @@ class AddRecipeActivity : AppCompatActivity() {
         val preperation_time: Int = timer_picker_minutes.value
         val difficulty: Int = difficulty_picker.value
 
-        if (ingredients_pub.orEmpty().isEmpty())
+        if (ingredients_pub_name.orEmpty().isEmpty() || ingredients_pub_amount.orEmpty().isEmpty() || ingredients_pub_unit.orEmpty().isEmpty())
         {
             Toast.makeText(applicationContext, resources.getString(R.string.no_ingredients_selected), Toast.LENGTH_LONG).show()
         }
@@ -72,7 +74,7 @@ class AddRecipeActivity : AppCompatActivity() {
         {
             // TODO: also add ingredients_pub_amount
             server.addRecipe(shared.getInt("userId", 0), recipe_name, preperation_time, difficulty,
-                recipe_description, ingredients_pub.orEmpty(), listener, errorListener)
+                recipe_description, ingredients_pub_name.orEmpty(), ingredients_pub_amount.orEmpty(), ingredients_pub_unit.orEmpty(), listener, errorListener)
         }
 
     }
