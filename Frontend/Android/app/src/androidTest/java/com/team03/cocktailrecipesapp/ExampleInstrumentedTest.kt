@@ -2,6 +2,9 @@ package com.team03.cocktailrecipesapp
 
 import android.app.Activity
 import android.content.Context
+import android.view.View
+import android.widget.LinearLayout
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
@@ -39,6 +42,17 @@ class ExampleInstrumentedTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
+    data class TestIngredient(
+        var name: String,
+        var amount: Int,
+        var unit: String
+    )
+
+    val test_ingredients: List<TestIngredient> = listOf(
+        TestIngredient("Cola", 100, "ml"),
+        TestIngredient("Vodka", 30, "ml"),
+        TestIngredient("Ice", 5, "cubes")
+    )
 
     data class AnswerSuccess(
         var success: Int? = -1
@@ -366,14 +380,59 @@ class ExampleInstrumentedTest {
     fun AddNewRecipe() {
         login();
         onView(withId(R.id.add_recipe_button)).perform(click())
-        onView(withId(R.id.etRecipeName)).perform(typeText("Recipe Without Ingredients"), closeSoftKeyboard())
-        onView(withId(R.id.etRecipeDescription)).perform(typeText("This Recipe has no Ingredients."), closeSoftKeyboard())
+        onView(withId(R.id.etRecipeName)).perform(typeText("Vodka Cola with Ice"), closeSoftKeyboard())
+        onView(withId(R.id.etRecipeDescription)).perform(typeText("Vodka Cola with Ice."), closeSoftKeyboard())
 
         onView(withId(R.id.btnManageIngredients)).perform(click())
         Thread.sleep(500)
-        onView(withText("Vodka")).check(matches(isNotChecked())).perform(click())
-        onView(withText("Cola")).check(matches(isNotChecked())).perform(click())
-        onView(withText("Beer")).check(matches(isNotChecked())).perform(click())
+
+        for (ingredient in test_ingredients)
+        {
+            onView(withText(ingredient.name)).check(matches(isNotChecked())).perform(click())
+            onView(allOf(
+                withId(R.id.etIngredientAmount), withParent(allOf(
+                    withId(R.id.etIngredientLayout), hasSibling(withText(ingredient.name)))))).perform(typeText(""+ingredient.amount))
+            onView(allOf(
+                withId(R.id.etIngredientUnit), withParent(allOf(
+                    withId(R.id.etIngredientLayout), hasSibling(withText(ingredient.name)))))).perform(typeText(ingredient.unit))
+        }
+//
+//        onView(withText("Cola")).check(matches(isNotChecked())).perform(click())
+//        onView(allOf(
+//            withId(R.id.etIngredientAmount), withParent(allOf(
+//                withId(R.id.etIngredientLayout), hasSibling(withText("Cola")))))).perform(typeText("100"))
+//        onView(allOf(
+//            withId(R.id.etIngredientUnit), withParent(allOf(
+//                withId(R.id.etIngredientLayout), hasSibling(withText("Cola")))))).perform(typeText("ml"))
+//
+//        onView(withText("Vodka")).check(matches(isNotChecked())).perform(click())
+//        onView(allOf(
+//            withId(R.id.etIngredientAmount), withParent(allOf(
+//                withId(R.id.etIngredientLayout), hasSibling(withText("Vodka")))))).perform(typeText("30"))
+//        onView(allOf(
+//            withId(R.id.etIngredientUnit), withParent(allOf(
+//                withId(R.id.etIngredientLayout), hasSibling(withText("Vodka")))))).perform(typeText("ml"))
+//
+//        onView(withText("Ice")).check(matches(isNotChecked())).perform(click())
+//        onView(allOf(
+//            withId(R.id.etIngredientAmount), withParent(allOf(
+//                withId(R.id.etIngredientLayout), hasSibling(withText("Ice")))))).perform(typeText("4"))
+//        onView(allOf(
+//            withId(R.id.etIngredientUnit), withParent(allOf(
+//                withId(R.id.etIngredientLayout), hasSibling(withText("Ice")))))).perform(typeText("cubes"))
+
+
+//        onView(allOf(withId(R.id.etIngredientAmount), withParent(allOf(withId(R.id.linearLayout2), hasSibling(withText("Cola"))))))
+//            .perform(typeText("12345"))
+
+//        onView(allOf(withId(R.id.etIngredientAmount)))
+//            .perform(typeText("12345"))
+
+//        onView(allOf(withId(R.id.etIngredientAmount), allOf(withParent(withId(R.id.linearLayout2)), hasSibling(hasSibling(withText("Cola"))))))
+//            .perform(typeText("12345"))
+
+        Thread.sleep(3000)
+
         onView(withId(R.id.btnConfirmIngredients)).perform(click())
 
         onView(withId(R.id.difficulty_picker)).perform(swipeDown())
