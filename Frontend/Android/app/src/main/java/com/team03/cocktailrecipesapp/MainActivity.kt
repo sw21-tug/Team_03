@@ -100,7 +100,7 @@ class MainActivity : SharedPreferencesActivity() {
     }
 
     fun profilePictureOnClick(view: View){
-            val intent = Intent(this, UserProfile::class.java)
+            val intent = Intent(this, UserSettingsActivity::class.java)
             startActivity(intent)
     }
 
