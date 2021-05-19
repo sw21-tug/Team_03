@@ -1,4 +1,4 @@
 package com.team03.cocktailrecipesapp
 
-var userId = 0;
-var userName = "";
+var userId = 0
+var userName = ""

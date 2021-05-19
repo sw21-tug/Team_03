@@ -9,6 +9,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.android.volley.Response
+import kotlinx.coroutines.android.awaitFrame
 import org.json.JSONObject
 import org.junit.Assert
 import org.junit.Rule
@@ -195,16 +196,15 @@ class ExampleInstrumentedTest {
     fun PerformLogout() {
         // login
 
-        //onView(withId(R.id.etUsername)).perform(typeText("daniel"), closeSoftKeyboard())
-        //onView(withId(R.id.etPassword)).perform(typeText("1234qwer"), closeSoftKeyboard())
-        //onView(withId(R.id.btnLogin)).perform(click())
+//        onView(withId(R.id.etUsername)).perform(typeText("daniel"), closeSoftKeyboard())
+//        onView(withId(R.id.etPassword)).perform(typeText("1234qwer"), closeSoftKeyboard())
+//        onView(withId(R.id.btnLogin)).perform(click())
 
         // user-profile
         onView(withId(R.id.imgBtnAvatar)).perform(click())
 
         // logout
-        onView(withId(R.id.logoutButton)).check(matches(withText(R.string.logout_button_text)))
-        onView(withId(R.id.logoutButton)).perform(click())
+        onView(withId(R.id.imgBtnLogout)).perform(click())
 
         // check if we are in login page
         onView(withId(R.id.btnBack)).check(matches(isDisplayed()))
