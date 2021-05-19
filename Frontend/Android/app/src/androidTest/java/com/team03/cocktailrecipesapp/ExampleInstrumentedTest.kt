@@ -42,17 +42,37 @@ class ExampleInstrumentedTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
+    // Data class for test recipe + ingredients
     data class TestIngredient(
         var name: String,
         var amount: Int,
         var unit: String
     )
-
-    val test_ingredients: List<TestIngredient> = listOf(
-        TestIngredient("Cola", 100, "ml"),
-        TestIngredient("Vodka", 30, "ml"),
-        TestIngredient("Ice", 5, "cubes")
+    data class TestRecipe(
+        var name: String,
+        var description: String,
+        var ingredients: List<TestIngredient>
     )
+    // Dummy test recipes for testing
+    val test_recipe_1: TestRecipe =
+        TestRecipe("Test recipe 1", "Test description 1", listOf(
+            TestIngredient("Cola", 100, "ml"),
+            TestIngredient("Vodka", 30, "ml"),
+            TestIngredient("Ice", 5, "pcs")))
+    val test_recipe_2: TestRecipe =
+        TestRecipe("Test recipe 2", "Test description 2", listOf(
+            TestIngredient("Tequila", 50, "ml"),
+            TestIngredient("Vodka", 30, "ml"),
+            TestIngredient("Lime-juice", 5, "g"),
+            TestIngredient("Ice", 3, "pcs")))
+    val test_recipe_3: TestRecipe =
+        TestRecipe("Test recipe 3", "Test description 3", listOf(
+            TestIngredient("Cola", 100, "ml"),
+            TestIngredient("Rum", 30, "ml"),
+            TestIngredient("Ice", 3, "pcs")))
+    val test_recipes: List<TestRecipe> = listOf(test_recipe_1, test_recipe_2, test_recipe_3)
+    var test_recipes_index: Int = 0
+
 
     data class AnswerSuccess(
         var success: Int? = -1
@@ -329,137 +349,47 @@ class ExampleInstrumentedTest {
     }
 
     @Test
-    fun AddNewRecipeTryWithoutIngredientsAddIngredientsAfter() {
-        login()
-        onView(withId(R.id.add_recipe_button)).perform(click())
-        onView(withId(R.id.etRecipeName)).perform(typeText("Recipe Without Ingredients"), closeSoftKeyboard())
-        onView(withId(R.id.btnManageIngredients)).perform(click())
-        Thread.sleep(1000)
-
-        onView(withText("Vodka")).check(matches(isNotChecked())).perform(click())
-        onView(withText("Cola")).check(matches(isNotChecked())).perform(click())
-
-        onView(withId(R.id.btnConfirmIngredients)).perform(click())
-
-        onView(withId(R.id.etRecipeDescription)).perform(typeText("This Recipe has no Ingredients."), closeSoftKeyboard())
-
-        onView(withId(R.id.difficulty_picker)).perform(swipeDown())
-        onView(withId(R.id.timer_picker_minutes)).perform(swipeDown())
-
-        onView(withId(R.id.btnAddRecipe)).perform(click())
-    }
-
-    @Test
-    fun AddNewRecipeTryAddingIngredientsMultipleTime() {
-        login()
-        onView(withId(R.id.add_recipe_button)).perform(click())
-        onView(withId(R.id.etRecipeName)).perform(typeText("Recipe Without Ingredients"), closeSoftKeyboard())
-
-        for (i in 0..5)
-        {
-            onView(withId(R.id.btnManageIngredients)).perform(click())
-            Thread.sleep(1000)
-
-            onView(withText("Vodka")).check(matches(isNotChecked())).perform(click())
-            onView(withText("Cola")).check(matches(isNotChecked())).perform(click())
-            onView(withText("Beer")).check(matches(isNotChecked())).perform(click())
-
-            onView(withId(R.id.btnConfirmIngredients)).perform(click())
-        }
-
-
-        onView(withId(R.id.etRecipeDescription)).perform(typeText("This Recipe has no Ingredients."), closeSoftKeyboard())
-
-        onView(withId(R.id.difficulty_picker)).perform(swipeDown())
-        onView(withId(R.id.timer_picker_minutes)).perform(swipeDown())
-
-        onView(withId(R.id.btnAddRecipe)).perform(click())
-    }
-
-    @Test
     fun AddNewRecipe() {
-        login();
-        onView(withId(R.id.add_recipe_button)).perform(click())
-        onView(withId(R.id.etRecipeName)).perform(typeText("Vodka Cola with Ice"), closeSoftKeyboard())
-        onView(withId(R.id.etRecipeDescription)).perform(typeText("Vodka Cola with Ice."), closeSoftKeyboard())
+        login()
+        // Get recipe for testing
+        if (test_recipes_index > 2) { test_recipes_index = 0 }
+        val recipe: TestRecipe = test_recipes.get(test_recipes_index)
 
+        onView(withId(R.id.add_recipe_button)).perform(click())
+        onView(withId(R.id.etRecipeName)).perform(typeText(recipe.name), closeSoftKeyboard())
+        onView(withId(R.id.etRecipeDescription)).perform(typeText(recipe.description), closeSoftKeyboard())
         onView(withId(R.id.btnManageIngredients)).perform(click())
         Thread.sleep(500)
 
-        for (ingredient in test_ingredients)
+        // Get ingredients of recipe
+        for (ingredient in recipe.ingredients)
         {
-            onView(withText(ingredient.name)).check(matches(isNotChecked())).perform(click())
+            onView(withText(ingredient.name)).check(matches(isNotChecked())).perform(
+                scrollTo(), click())
             onView(allOf(
                 withId(R.id.etIngredientAmount), withParent(allOf(
-                    withId(R.id.etIngredientLayout), hasSibling(withText(ingredient.name)))))).perform(typeText(""+ingredient.amount))
+                    withId(R.id.etIngredientLayout), hasSibling(withText(ingredient.name)))))).perform(
+                        scrollTo(), typeText(""+ingredient.amount))
             onView(allOf(
                 withId(R.id.etIngredientUnit), withParent(allOf(
-                    withId(R.id.etIngredientLayout), hasSibling(withText(ingredient.name)))))).perform(typeText(ingredient.unit))
+                    withId(R.id.etIngredientLayout), hasSibling(withText(ingredient.name)))))).perform(
+                        scrollTo(), typeText(ingredient.unit))
+            Thread.sleep(500)
         }
-//
-//        onView(withText("Cola")).check(matches(isNotChecked())).perform(click())
-//        onView(allOf(
-//            withId(R.id.etIngredientAmount), withParent(allOf(
-//                withId(R.id.etIngredientLayout), hasSibling(withText("Cola")))))).perform(typeText("100"))
-//        onView(allOf(
-//            withId(R.id.etIngredientUnit), withParent(allOf(
-//                withId(R.id.etIngredientLayout), hasSibling(withText("Cola")))))).perform(typeText("ml"))
-//
-//        onView(withText("Vodka")).check(matches(isNotChecked())).perform(click())
-//        onView(allOf(
-//            withId(R.id.etIngredientAmount), withParent(allOf(
-//                withId(R.id.etIngredientLayout), hasSibling(withText("Vodka")))))).perform(typeText("30"))
-//        onView(allOf(
-//            withId(R.id.etIngredientUnit), withParent(allOf(
-//                withId(R.id.etIngredientLayout), hasSibling(withText("Vodka")))))).perform(typeText("ml"))
-//
-//        onView(withText("Ice")).check(matches(isNotChecked())).perform(click())
-//        onView(allOf(
-//            withId(R.id.etIngredientAmount), withParent(allOf(
-//                withId(R.id.etIngredientLayout), hasSibling(withText("Ice")))))).perform(typeText("4"))
-//        onView(allOf(
-//            withId(R.id.etIngredientUnit), withParent(allOf(
-//                withId(R.id.etIngredientLayout), hasSibling(withText("Ice")))))).perform(typeText("cubes"))
-
-
-//        onView(allOf(withId(R.id.etIngredientAmount), withParent(allOf(withId(R.id.linearLayout2), hasSibling(withText("Cola"))))))
-//            .perform(typeText("12345"))
-
-//        onView(allOf(withId(R.id.etIngredientAmount)))
-//            .perform(typeText("12345"))
-
-//        onView(allOf(withId(R.id.etIngredientAmount), allOf(withParent(withId(R.id.linearLayout2)), hasSibling(hasSibling(withText("Cola"))))))
-//            .perform(typeText("12345"))
-
-        Thread.sleep(3000)
+        Thread.sleep(500)
 
         onView(withId(R.id.btnConfirmIngredients)).perform(click())
-
         onView(withId(R.id.difficulty_picker)).perform(swipeDown())
         onView(withId(R.id.timer_picker_minutes)).perform(swipeDown())
         onView(withId(R.id.btnAddRecipe)).perform(click())
-
     }
 
     @Test
     fun AddNewRecipes() {
-        login();
-        for (i in 0..3)
+        for (recipeIndex in 0..2)
         {
-            onView(withId(R.id.add_recipe_button)).perform(click())
-            onView(withId(R.id.etRecipeName)).perform(typeText("Recipe Without Ingredients"), closeSoftKeyboard())
-            onView(withId(R.id.etRecipeDescription)).perform(typeText("This Recipe has no Ingredients."), closeSoftKeyboard())
-
-            onView(withId(R.id.btnManageIngredients)).perform(click())
-            Thread.sleep(500)
-            onView(withText("Vodka")).check(matches(isNotChecked())).perform(click())
-            onView(withText("Cola")).check(matches(isNotChecked())).perform(click())
-            onView(withText("Beer")).check(matches(isNotChecked())).perform(click())
-            onView(withId(R.id.btnConfirmIngredients)).perform(click())
-
-            onView(withId(R.id.difficulty_picker)).perform(swipeDown())
-            onView(withId(R.id.timer_picker_minutes)).perform(swipeDown())
-            onView(withId(R.id.btnAddRecipe)).perform(click())
+            test_recipes_index = recipeIndex
+            AddNewRecipe()
             Thread.sleep(1000)
         }
     }
