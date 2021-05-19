@@ -8,7 +8,8 @@ import org.json.JSONObject
 data class Ingrediant(
     var id: Int,
     var name: String,
-    var amount: Int
+    var amount: Int,
+    var unit: String
 )
 
 data class RecipeResponse(

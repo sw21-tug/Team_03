@@ -58,12 +58,16 @@ class RecipeAdapter(private val context: Context,
         // Get title element
         val ingrediant_amount = rowView.findViewById(R.id.ingrediant_amount) as TextView
 
+        // Get unit element
+        val ingrediant_unit = rowView.findViewById(R.id.ingrediant_unit) as TextView
+
         // Get subtitle element
         val ingrediant_name = rowView.findViewById(R.id.ingrediant_name) as TextView
 
         val ingrediant = getItem(position) as Ingrediant
 
         ingrediant_name.text = ingrediant.name
+        ingrediant_unit.text = ingrediant.unit
         ingrediant_amount.text = ingrediant.amount.toString()
 
         return rowView
@@ -143,6 +147,7 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
             delete_recipe_button.visibility = View.VISIBLE;
 
         var listView = findViewById<ListView>(R.id.recipe_list_view)
+
         val adapter = RecipeAdapter(this, recipe.ingredients)
         listView.adapter = adapter
 
