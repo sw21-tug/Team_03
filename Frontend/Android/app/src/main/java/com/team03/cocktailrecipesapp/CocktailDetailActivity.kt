@@ -73,10 +73,9 @@ class RecipeAdapter(private val context: Context,
 
 }
 
-class CocktailDetailActivity : SharedPreferencesActivity(), RatingInterface  {
+class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
 
     var isLiked = false;
-    var user_id = 0;
     var recipe_id = 0;
     var my_rating = 0;
 
@@ -142,7 +141,6 @@ class CocktailDetailActivity : SharedPreferencesActivity(), RatingInterface  {
         cocktail_instruction.text = recipe.instruction
         my_rating = recipe.my_rating
         cocktail_creator_username.text = recipe.creator_user
-        user_id = shared.getInt("userId",0)
         if (recipe.liked != 0)
         {
             isLiked = true
@@ -272,13 +270,13 @@ class CocktailDetailActivity : SharedPreferencesActivity(), RatingInterface  {
     fun likeOnClick(view: View) {
         if(isLiked){
             run {
-                unlike(user_id, recipe_id);
+                unlike(userId, recipe_id);
             }
 
         }
         else{
             run {
-                like(user_id, recipe_id);
+                like(userId, recipe_id);
             }
         }
     }
