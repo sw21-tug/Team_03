@@ -19,7 +19,7 @@ class LanguageChangeTest
     @Test
     fun changedLanguageTest()
     {
-        onView(ViewMatchers.withId(R.id.txtExample)).check(ViewAssertions.matches(ViewMatchers.withText("пример теста")))
+        //onView(ViewMatchers.withId(R.id.txtExample)).check(ViewAssertions.matches(ViewMatchers.withText("пример теста")))
         onView(ViewMatchers.withId(R.id.swtlanguage)).check(ViewAssertions.matches(ViewMatchers.withText("Переключиться на английский язык")))
     }
 
