@@ -34,6 +34,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:hint="@string/ingredient_amount"
+            android:maxLines="1"
+            android:maxLength="8"
+            android:inputType="number"
 
             />
 
@@ -42,6 +45,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
+            android:maxLines="1"
+            android:maxLength="3"
             android:hint="@string/unit" />
     </LinearLayout>
 

@@ -34,13 +34,49 @@ class AddIngredientsActivity : AppCompatActivity() {
         server.getIngredients(listener, errorListener)
     }
 
-    fun onSuccessfulGetIngredient(ingredients: List<Ingredient>) {
-        progressbar.visibility = View.GONE
-        ingredients.forEach { ingredient ->
-            val ingredientView = LayoutInflater.from(this).inflate(R.layout.ingredients_item, ingredientsList, false)
-            ingredientView.ingredientItemCheckbox.text = ingredient.name
-            ingredientsList.addView(ingredientView)
+    fun wasIngredientAlreadySelected(ingredient_name : String, ingredients_names: List<String>) : Int {
+        var id : Int = -1;
+        var i : Int = 0;
+        ingredients_names.forEach { ingredient_name_list ->
+            if (ingredient_name_list == ingredient_name)
+            {
+                id = i;
+            }
+            i++
         }
+        return id;
+    }
+
+    fun onSuccessfulGetIngredient(ingredients: List<Ingredient>) {
+        val checkeded_ingredients_name = intent.getStringArrayListExtra("checked_ingredients_name")
+        val checkeded_ingredients_amount = intent.getIntegerArrayListExtra("checked_ingredients_amount")
+        val checkeded_ingredients_unit = intent.getStringArrayListExtra("checked_ingredients_unit")
+
+        progressbar.visibility = View.GONE
+        if(checkeded_ingredients_name != null && checkeded_ingredients_amount!= null && checkeded_ingredients_unit != null)
+        {
+            ingredients.forEach { ingredient ->
+                val ingredientView = LayoutInflater.from(this).inflate(R.layout.ingredients_item, ingredientsList, false)
+                ingredientView.ingredientItemCheckbox.text = ingredient.name
+                val id = wasIngredientAlreadySelected(ingredient.name, checkeded_ingredients_name)
+                if (id != -1)
+                {
+                    ingredientView.ingredientItemCheckbox.isChecked = true
+                    ingredientView.etIngredientAmount.setText(checkeded_ingredients_amount?.get(id).toString())
+                    ingredientView.etIngredientUnit.setText(checkeded_ingredients_unit.get(id))
+                }
+                ingredientsList.addView(ingredientView)
+            }
+        }
+        else
+        {
+            ingredients.forEach { ingredient ->
+                val ingredientView = LayoutInflater.from(this).inflate(R.layout.ingredients_item, ingredientsList, false)
+                ingredientView.ingredientItemCheckbox.text = ingredient.name
+                ingredientsList.addView(ingredientView)
+            }
+        }
+
     }
 
     fun onFailedGetIngredient() {

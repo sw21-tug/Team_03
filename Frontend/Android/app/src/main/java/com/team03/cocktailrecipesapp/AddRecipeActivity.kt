@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_add_recipe.*
+import java.util.ArrayList
 
 const val RESULT_INGREDIENTS = 10
 
@@ -40,6 +41,13 @@ class AddRecipeActivity : AppCompatActivity() {
 
     fun onClickManageIngredients(view: View) {
         val intent = Intent(this, AddIngredientsActivity::class.java)
+        if(ingredients_pub_name != null && ingredients_pub_amount != null && ingredients_pub_unit != null)
+        {
+            intent.putStringArrayListExtra("checked_ingredients_name", ingredients_pub_name as ArrayList<String>)
+            intent.putIntegerArrayListExtra("checked_ingredients_amount", ingredients_pub_amount as ArrayList<Int>)
+            intent.putStringArrayListExtra("checked_ingredients_unit", ingredients_pub_unit as ArrayList<String>)
+        }
+
         startActivityForResult(intent, RESULT_INGREDIENTS)
     }
 
