@@ -24,6 +24,7 @@ class ChangeLanguageTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
+    
     @Test
     fun login() {
         onView(withId(R.id.etUsername)).perform(typeText("daniel"), closeSoftKeyboard())
