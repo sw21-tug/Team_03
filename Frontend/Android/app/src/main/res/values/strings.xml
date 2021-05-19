@@ -56,4 +56,6 @@
     <string name="cocktail_creator">creator</string>
     <string name="settings">Settings</string>
     <string name="recipes">Recipes</string>
+    <string name="Own">Own</string>
+    <string name="Liked">Liked</string>
 </resources>

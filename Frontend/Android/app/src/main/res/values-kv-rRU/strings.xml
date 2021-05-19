@@ -45,4 +45,6 @@
     <string name="already_voted_text">Вы уже проголосовали за этот коктейль!</string>
     <string name="settings">Настройки</string>
     <string name="recipes">реце́пт</string>
+    <string name="Own">собственный</string>
+    <string name="Liked">понравился</string>
 </resources>
