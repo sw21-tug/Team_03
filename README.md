@@ -32,11 +32,9 @@ can add their own drinks, get ideas for new drinks, save recipes to their favori
 for new ideas.
 
 # Currently implementing
-- A detailed recipe view (Issues [#17](/../../issues/17), [#52](/../../issues/52))
 - Feature to add recipes (Issues [#3](/../../issues/3), [#53](/../../issues/53))
-- Feature to like recipes (Issues [#18](/../../issues/18), [#57](/../../issues/57))
 - Feature to rate recipes (Issues [#4](/../../issues/4), [#65](/../../issues/65))
-- Feature to delete recipes (Issues [#16](/../../issues/16), [#64](/../../issues/64))
+- Profile overview with liked/created recipes and settings (Issues [#12](/../../issues/12), [#13](/../../issues/13))
 
 # Already implemented features
 - Register page (Issues [#1](/../../issues/1), [#26](/../../issues/26), [#40](/../../issues/42))
@@ -46,3 +44,6 @@ for new ideas.
 - Communication between frontend and backend (Issue [#30](/../../issues/30), [#40](/../../issues/40))
 - Russian Laguage support (Issues [#39](/../../issues/39), [#44](/../../issues/44))
 - User Log out (Issues [#51](/../../issues/51), [#56](/../../issues/56))
+- Feature to delete recipes (Issues [#16](/../../issues/16), [#6](/../../issues/6), [#64](/../../issues/64), [#67](/../../issues/67))
+- A detailed recipe view (Issues [#17](/../../issues/17), [#52](/../../issues/52))
+- Feature to like recipes (Issues [#18](/../../issues/18), [#57](/../../issues/57))

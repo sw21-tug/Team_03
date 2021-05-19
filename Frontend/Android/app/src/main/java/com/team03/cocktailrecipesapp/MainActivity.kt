@@ -23,6 +23,7 @@ class MainActivity : SharedPreferencesActivity() {
     var username: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         super.onStart()
         var language = shared.getString("Language", "")
