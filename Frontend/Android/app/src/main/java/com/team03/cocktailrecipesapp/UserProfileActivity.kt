@@ -15,8 +15,9 @@ class UserProfileActivity : SharedPreferencesActivity() {
 
     lateinit var swtLangauge: Switch
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onStart() {
+        super.onStart()
+        setContentView(R.layout.activity_user_profile)
 
         swtLangauge = findViewById(R.id.swtlanguage)
 
@@ -30,6 +31,30 @@ class UserProfileActivity : SharedPreferencesActivity() {
             }
             onStart()
         }
+
+        userNameText = findViewById(R.id.user_profile_username)
+        userImage = findViewById(R.id.user_profile_image)
+        backButton = findViewById(R.id.user_profile_back_button)
+        backButton.setOnClickListener { onBackPressed() }
+
+        // set username
+        val extras = intent.extras
+        if (extras != null)
+            userNameExtra = extras.getString("username")
+        userNameText.setText(userNameExtra)
+
+        // set profile picture according to selected language
+        val language_ = shared.getString("Language", "");
+        var avatarImgae = findViewById<ImageButton>(R.id.imgBtnAvatar);
+        if (language_.equals("kv")) {
+            userImage.setBackground(ContextCompat.getDrawable(applicationContext, R.drawable.russian_avatar ));
+        } else {
+            userImage.setBackground(ContextCompat.getDrawable(applicationContext, R.drawable.default_avatar ));
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_user_profile)
         userNameText = findViewById(R.id.user_profile_username)

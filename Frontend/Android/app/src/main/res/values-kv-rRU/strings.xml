@@ -43,4 +43,6 @@
     <string name="already_voted_ok">Хорошо</string>
     <string name="already_voted_title">Уже проголосовал!</string>
     <string name="already_voted_text">Вы уже проголосовали за этот коктейль!</string>
+    <string name="settings">Настройки</string>
+    <string name="recipes">реце́пт</string>
 </resources>
