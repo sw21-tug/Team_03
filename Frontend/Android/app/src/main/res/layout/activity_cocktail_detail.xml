@@ -41,12 +41,11 @@
         style="@android:style/Widget.Holo.RatingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="22dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
+        android:layout_marginStart="20dp"
         android:progressBackgroundTint="@android:color/darker_gray"
         android:progressTint="@color/accent_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageButtonLike"
         app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
     <TextView
@@ -73,7 +72,6 @@
         android:layout_weight="1"
         android:fadingEdge="horizontal"
         android:gravity="center"
-        android:text="@string/difficulty"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -91,7 +89,6 @@
         android:paddingEnd="12dp"
         android:selectAllOnFocus="false"
         android:shadowColor="#3C3535"
-        android:text="@string/preparation_time"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -136,7 +133,7 @@
         android:layout_height="wrap_content"
         android:text="@string/preparation_time"
         android:textSize="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/cocktail_preparation_time"
+        android:layout_marginLeft="20dp"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cocktail_name" />
@@ -145,13 +142,23 @@
         android:id="@+id/cocktail_instruction"
         android:layout_width="269dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
         android:text="TextView"
         android:textColor="#050505"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cocktail_instruction_title" />
+
+    <TextView
+        android:id="@+id/cocktail_instruction_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="@string/instruction_title"
+        android:textColor="#050505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recipe_list_view" />
 
@@ -198,15 +205,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="8dp"
         android:background="#00FFFFFF"
         android:onClick="deleteRecipe"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/cocktail_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/include"
-        app:srcCompat="@drawable/ic_baseline_delete_forever_24" />
+        android:src="@drawable/ic_baseline_delete_forever_24" />
 
     <TextView
         android:id="@+id/cocktail_creator_text"
@@ -232,6 +238,7 @@
         android:backgroundTint="#00FFFFFF"
         android:onClick="likeOnClick"
         android:scaleType="centerCrop"
+        android:layout_marginLeft="14dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView8"
         app:srcCompat="@drawable/hearth_empty" />
