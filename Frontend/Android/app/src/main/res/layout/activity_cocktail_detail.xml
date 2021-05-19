@@ -193,5 +193,37 @@
         app:layout_constraintBottom_toTopOf="@+id/imgBtnRate"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <ImageButton
+        android:id="@+id/delete_recipe_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#00FFFFFF"
+        android:onClick="deleteRecipe"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/cocktail_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/include"
+        app:srcCompat="@drawable/ic_baseline_delete_forever_24" />
+
+    <TextView
+        android:id="@+id/cocktail_creator_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/cocktail_creator"
+        app:layout_constraintStart_toEndOf="@+id/cocktail_rating_bar"
+        app:layout_constraintTop_toTopOf="@+id/cocktail_rating_bar" />
+
+    <TextView
+        android:id="@+id/cocktail_creator_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/cocktail_creator_text"
+        app:layout_constraintTop_toTopOf="@+id/cocktail_creator_text" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 

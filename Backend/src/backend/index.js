@@ -144,6 +144,16 @@ app.post('/get-recipe', async (req, res) => {
   let recipe_id = req.body.recipe_id;
   let user_id = req.body.user_id;
 
+  var user = await query('SELECT * FROM User WHERE id=\''+user_id+'\'');
+  if (user.length == 0) {
+    // user or recipe not found!
+    res.send({
+      success: false,
+      message: "User with id="+user_id+" not found"
+    });
+    return;
+  }
+
   var recipe = await query('SELECT * FROM Recipe WHERE id=\''+recipe_id+'\'');
   if (recipe.length == 0) {
     // user or recipe not found!
@@ -181,7 +191,7 @@ app.post('/get-recipe', async (req, res) => {
   var result = await query('SELECT r.name as recipe_name, r.preptime_minutes, r.difficulty, r.instruction, r.created_at, u.name as user_name, u.id as user_id, SUM(r2.value) / SUM(1) as rating FROM Recipe r JOIN User u on r.creator_id = u.id LEFT JOIN Rating r2 on r.id = r2.recipe_id WHERE r.id = ' + recipe_id + ' GROUP BY r.name, r.preptime_minutes, r.difficulty, r.instruction, r.created_at, u.name');
   
   var isMine = 0;
-  if (result[0].user_id == user_id) {
+  if (result[0].user_id == user_id || user[0].is_admin) {
     isMine = 1;
   }
 
