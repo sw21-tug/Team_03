@@ -50,25 +50,25 @@ class RegisterActivity : SharedPreferencesActivity() {
 
 
         if (validateInputRet == -1) {
-            etUsername.error = "Should not be blank";
+            etUsername.error = resources.getString(R.string.should_not_be_blank);
         }
 
         else if (validateInputRet == -2) {
-            etPassword.error = "Should not be blank";
+            etPassword.error = resources.getString(R.string.should_not_be_blank);
         }
 
         else if (validateInputRet == -3) {
-            etPasswordRepeated.error = "Should not be blank";
+            etPasswordRepeated.error = resources.getString(R.string.should_not_be_blank);
         }
 
         else if (validateInputRet == -4) {
-            etPasswordRepeated.error = "Passwords should be the same"
+            etPasswordRepeated.error = resources.getString(R.string.passwords_should_be_the_same)
         }
         else if (validateInputRet == -5) {
-            etUsername.error = "Should have 3 or more characters and no special characters"
+            etUsername.error = resources.getString(R.string.username_to_less_characters)
         }
         else if (validateInputRet == -6) {
-            etUsername.error = "Should have 5 or more characters"
+            etPassword.error = resources.getString(R.string.password_to_less_characters)
         }
         else
         {
