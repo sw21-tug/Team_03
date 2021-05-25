@@ -2,28 +2,24 @@ package com.team03.cocktailrecipesapp
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import android.widget.*
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.team03.cocktailrecipesapp.dialogs.DeleteRecipeDialogFragment
 import com.team03.cocktailrecipesapp.error_listener.DeleteRecipeErrorListener
 import com.team03.cocktailrecipesapp.error_listener.GetRecipeErrorListener
+import com.team03.cocktailrecipesapp.error_listener.LikeErrorListener
 import com.team03.cocktailrecipesapp.listener.*
 import kotlinx.android.synthetic.main.activity_cocktail_detail.*
 import kotlinx.android.synthetic.main.progress_indicator.*
-import kotlinx.android.synthetic.main.rating_layout.view.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_difficulty
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_name
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_rating_bar
-import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 
 public interface RatingInterface  {
     fun onSelectedData(rating: Int);

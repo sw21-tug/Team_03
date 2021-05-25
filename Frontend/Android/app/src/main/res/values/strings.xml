@@ -7,8 +7,6 @@
     <string name="difficulty">difficulty</string>
     <string name="cocktail_ratings">cocktail ratings</string>
     <string name="ml" translatable="false">ml</string>
-
-
     <string name="img_time">img_time</string>
     <string name="img_difficulty">img_difficulty</string>
     <string name="trending_recipes">Trending recipes</string>
@@ -61,7 +59,6 @@
     <string name="difficulty_medium">Medium</string>
     <string name="difficulty_hard">Hard</string>
     <string name="difficulty_very_hard">Very hard</string>
-    <string name="cocktail_creator">creator</string>
 
     <string name="instruction_title">Instruction:</string>
 

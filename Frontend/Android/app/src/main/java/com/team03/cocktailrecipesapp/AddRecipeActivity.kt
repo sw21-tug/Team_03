@@ -4,10 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.Editable
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.team03.cocktailrecipesapp.error_listener.AddRecipeErrorListener
+import com.team03.cocktailrecipesapp.listener.AddRecipeListener
 import kotlinx.android.synthetic.main.activity_add_recipe.*
 import java.util.ArrayList
 
@@ -64,8 +65,12 @@ class AddRecipeActivity : AppCompatActivity() {
 
     fun onClickAddRecipe(view: View) {
         val server = serverAPI(applicationContext)
-        val listener = AddRecipeListener(::onSuccessfullAddRecipe)
-        val errorListener = AddRecipeErrorListener(::onUnsuccessfullAddRecipe)
+        val listener =
+            AddRecipeListener(::onSuccessfullAddRecipe)
+        val errorListener =
+            AddRecipeErrorListener(
+                ::onUnsuccessfullAddRecipe
+            )
 
         val shared: SharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
 
