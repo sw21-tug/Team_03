@@ -65,14 +65,8 @@ class AddRecipeActivity : AppCompatActivity() {
 
     fun onClickAddRecipe(view: View) {
         val server = serverAPI(applicationContext)
-        val listener =
-            AddRecipeListener(::onSuccessfullAddRecipe)
-        val errorListener =
-            AddRecipeErrorListener(
-                ::onUnsuccessfullAddRecipe
-            )
-
-        val shared: SharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
+        val listener = AddRecipeListener(::onSuccessfullAddRecipe)
+        val errorListener = AddRecipeErrorListener(::onUnsuccessfullAddRecipe)
 
         val recipe_name: String = etRecipeName.text.toString()
         val recipe_description: String = etRecipeDescription.text.toString()
@@ -85,9 +79,18 @@ class AddRecipeActivity : AppCompatActivity() {
         }
         else
         {
-            // TODO: also add ingredients_pub_amount
-            server.addRecipe(shared.getInt("userId", 0), recipe_name, preperation_time, difficulty,
-                recipe_description, ingredients_pub_name.orEmpty(), ingredients_pub_amount.orEmpty(), ingredients_pub_unit.orEmpty(), listener, errorListener)
+            server.addRecipe(
+                userId,
+                recipe_name,
+                preperation_time,
+                difficulty,
+                recipe_description,
+                ingredients_pub_name.orEmpty(),
+                ingredients_pub_amount.orEmpty(),
+                ingredients_pub_unit.orEmpty(),
+                listener,
+                errorListener
+            )
         }
 
     }
