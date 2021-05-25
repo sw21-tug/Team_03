@@ -12,6 +12,10 @@ import com.team03.cocktailrecipesapp.error_listener.GetRecipesErrorListener
 import com.team03.cocktailrecipesapp.listener.GetRecipesListener
 import com.team03.cocktailrecipesapp.listener.Recipe
 import com.team03.cocktailrecipesapp.ui.login.LoginActivity
+import kotlinx.android.synthetic.main.progress_indicator.*
+import kotlinx.android.synthetic.main.error_msg_indicator.*
+
+import kotlinx.android.synthetic.main.trending_cocktail_list.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 import java.util.*
 
@@ -58,6 +62,11 @@ class MainActivity : SharedPreferencesActivity() {
             }
             getTrendingRecipesList()
         }
+    }
+
+    fun onClickAddRecipe(view: View) {
+        val intent = Intent(this, AddRecipeActivity::class.java)
+        startActivity(intent)
     }
 
     fun getTrendingRecipesList() {

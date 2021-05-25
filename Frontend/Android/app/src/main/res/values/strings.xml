@@ -31,12 +31,14 @@
     <string name="login_failed">"Login failed"</string>
     <string name="register_button">"Register"</string>
     <string name="failed_to_load_recipes_from_server">Failed to load recipes from server…</string>
+    <string name="failed_to_add_recipe">Failed to add recipe. Check your internet connection or try later.</string>
+    <string name="failed_to_load_ingredients_from_server">Failed to load ingredients from server…</string>
+    <string name="ingredient_or_Unit_has_no_amount">Ingredient has no amount or unit!</string>
     <string name="error">Error…</string>
     <string name="switch_language">Switch to russian</string>
     <string name="login_username">Username</string>
     <string name="prompt_repeat_password">Repeat password</string>
     <string name="minutes">min.</string>
-    <string name="back">←</string>
     <string name="wrong_username_or_password">Wrong username or password</string>
     <string name="logout_button_text">Logout</string>
     <string name="rate_this_cocktail">Rate this cocktail</string>
@@ -54,6 +56,27 @@
     <string name="old_password">Old password</string>
     <string name="new_password">New password</string>
     <string name="cocktail_creator">creator</string>
+
     <string name="instruction_title">Instruction:</string>
+
+    <string name="add_recipe_button">add</string>
+    <string name="add_a_new_recipe">Add a new recipe</string>
+    <string name="add_ingredients_to_recipe">Add ingredients to your recipe</string>
+    <string name="add_recipe">Add recipe</string>
+    <string name="recipe_name">Recipe name</string>
+    <string name="recipe_description">Recipe description</string>
+    <string name="cocktail_ingredients">cocktail ingredients</string>
+    <string name="ingredient">Ingredient</string>
+    <string name="cocktail_description">cocktail description</string>
+    <string name="manage_ingredients">Manage ingredients</string>
+    <string name="add_ingredients">Add ingredients</string>
+    <string name="should_not_be_blank">Should not be blank</string>
+    <string name="passwords_should_be_the_same">Passwords should be the same</string>
+    <string name="username_to_less_characters">Should have 3 or more characters and no special characters</string>
+    <string name="password_to_less_characters">Should have 5 or more characters</string>
+    <string name="no_ingredients_selected">Your Cocktail has no ingredients</string>
+    <string name="back" translatable="false">←</string>
+    <string name="ingredient_amount">Amount</string>
+    <string name="unit">Unit</string>
 
 </resources>
