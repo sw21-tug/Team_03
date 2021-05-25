@@ -23,16 +23,18 @@
             android:layout_marginHorizontal="12dp"
             android:layout_marginVertical="12dp">
 
-        <ImageButton
-            android:id="@+id/imgBtnMenu"
+        <TextView
+            android:id="@+id/txtWelcomeUsername"
+            android:text="@string/app_name"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleX="1.5"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_menu"
-            android:background="@android:color/transparent"/>
+            app:layout_constraintBottom_toBottomOf="parent" />
+
         <!-- TODO: Used avatar image as login button for now -->
         <ImageButton
             android:id="@+id/imgBtnAvatar"
@@ -45,7 +47,6 @@
             android:background="@drawable/default_avatar"
             android:scaleType="centerCrop"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

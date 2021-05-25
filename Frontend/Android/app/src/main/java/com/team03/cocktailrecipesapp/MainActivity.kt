@@ -98,7 +98,7 @@ class MainActivity : SharedPreferencesActivity() {
             recipeCard.cocktail_name.text = recipe.name
             recipeCard.cocktail_ratings.text = recipe.times_rated.toString()
             recipeCard.cocktail_rating_bar.rating = recipe.rating
-            recipeCard.cocktail_difficulty.text =  recipe.difficulty.toString()
+            recipeCard.cocktail_difficulty.text =  getRecipeDifficutly(recipe.difficulty)
             val preparationTime: String = recipe.preptime_minutes.toString() + " "+getString(R.string.minutes)
             recipeCard.cocktail_preparationtime.text = preparationTime
             recipeCard.cocktail_id.text = recipe.id.toString()
@@ -134,5 +134,17 @@ class MainActivity : SharedPreferencesActivity() {
 
         intent.putExtras(bundle)
         startActivity(intent)
+    }
+
+    fun getRecipeDifficutly(difficulty: Int) : String
+    {
+        when (difficulty) {
+            1 -> return resources.getString(R.string.difficulty_very_easy)
+            2 -> return resources.getString(R.string.difficulty_easy)
+            3 -> return resources.getString(R.string.difficulty_medium)
+            4 -> return resources.getString(R.string.difficulty_hard)
+            5 -> return resources.getString(R.string.difficulty_very_hard)
+        }
+        return "Error"
     }
 }

@@ -139,7 +139,7 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
     fun onSuccessfulGetRecipe(recipe: RecipeDetail) {
 
         cocktail_name.text = recipe.name
-        cocktail_difficulty.text = recipe.difficulty.toString()
+        cocktail_difficulty.text = getRecipeDifficutly(recipe.difficulty)
         cocktail_rating_bar.rating = recipe.rating
         cocktail_preparation_time.text = recipe.preptime_minutes.toString() + " " + getString(R.string.minutes)
         cocktail_instruction.text = recipe.instruction
@@ -288,16 +288,8 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
 
     fun rateRecipe(view: View)
     {
-        if (my_rating == 0)
-        {
-            val ratingDialog = RatingDialog()
-            ratingDialog.show(supportFragmentManager, "ratingDialog")
-        }
-        else
-        {
-            showAlreadyVotedDialog()
-        }
-
+        val ratingDialog = RatingDialog()
+        ratingDialog.show(supportFragmentManager, "ratingDialog")
     }
 
     fun onSuccessfulRateRecipe() {
@@ -321,17 +313,16 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
         rateRecipe(rating);
     }
 
-    fun showAlreadyVotedDialog(){
-        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-        builder.setTitle(resources.getString(R.string.already_voted_title))
-        builder.setMessage(resources.getString(R.string.already_voted_text))
-
-        builder.setNeutralButton(resources.getString(R.string.already_voted_ok), DialogInterface.OnClickListener { dialog, which ->
-            dialog.dismiss()
-        })
-
-        val alertDialog: AlertDialog = builder.create()
-        alertDialog.show()
+    fun getRecipeDifficutly(difficulty: Int) : String
+    {
+        when (difficulty) {
+            1 -> return resources.getString(R.string.difficulty_very_easy)
+            2 -> return resources.getString(R.string.difficulty_easy)
+            3 -> return resources.getString(R.string.difficulty_medium)
+            4 -> return resources.getString(R.string.difficulty_hard)
+            5 -> return resources.getString(R.string.difficulty_very_hard)
+        }
+        return "Error"
     }
 
 }

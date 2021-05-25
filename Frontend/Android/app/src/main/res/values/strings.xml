@@ -55,6 +55,12 @@
     <string name="change_password">Change password</string>
     <string name="old_password">Old password</string>
     <string name="new_password">New password</string>
+    <string name="cocktail_creator">Creator</string>
+    <string name="difficulty_very_easy">Very easy</string>
+    <string name="difficulty_easy">Easy</string>
+    <string name="difficulty_medium">Medium</string>
+    <string name="difficulty_hard">Hard</string>
+    <string name="difficulty_very_hard">Very hard</string>
     <string name="cocktail_creator">creator</string>
 
     <string name="instruction_title">Instruction:</string>
@@ -78,5 +84,4 @@
     <string name="back" translatable="false">←</string>
     <string name="ingredient_amount">Amount</string>
     <string name="unit">Unit</string>
-
 </resources>
