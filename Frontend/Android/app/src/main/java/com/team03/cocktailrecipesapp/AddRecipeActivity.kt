@@ -4,10 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.Editable
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.team03.cocktailrecipesapp.error_listener.AddRecipeErrorListener
+import com.team03.cocktailrecipesapp.listener.AddRecipeListener
 import kotlinx.android.synthetic.main.activity_add_recipe.*
 import java.util.ArrayList
 
@@ -67,8 +68,6 @@ class AddRecipeActivity : AppCompatActivity() {
         val listener = AddRecipeListener(::onSuccessfullAddRecipe)
         val errorListener = AddRecipeErrorListener(::onUnsuccessfullAddRecipe)
 
-        val shared: SharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
-
         val recipe_name: String = etRecipeName.text.toString()
         val recipe_description: String = etRecipeDescription.text.toString()
         val preperation_time: Int = timer_picker_minutes.value
@@ -80,9 +79,18 @@ class AddRecipeActivity : AppCompatActivity() {
         }
         else
         {
-            // TODO: also add ingredients_pub_amount
-            server.addRecipe(shared.getInt("userId", 0), recipe_name, preperation_time, difficulty,
-                recipe_description, ingredients_pub_name.orEmpty(), ingredients_pub_amount.orEmpty(), ingredients_pub_unit.orEmpty(), listener, errorListener)
+            server.addRecipe(
+                userId,
+                recipe_name,
+                preperation_time,
+                difficulty,
+                recipe_description,
+                ingredients_pub_name.orEmpty(),
+                ingredients_pub_amount.orEmpty(),
+                ingredients_pub_unit.orEmpty(),
+                listener,
+                errorListener
+            )
         }
 
     }

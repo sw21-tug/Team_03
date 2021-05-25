@@ -28,7 +28,6 @@
     <string name="ingrediants">ингредиенты</string>
     <string name="wrong_username_or_password">Неправильное имя пользователя или пароль</string>
     <string name="logout_button_text">выход</string>
-    <string name="hello_world">Привет, Круглый мир!</string>
     <string name="title_activity_login">Войти</string>
     <string name="title_activity_register">Зарегистрироваться</string>
     <string name="img_time">изображение времени</string>
