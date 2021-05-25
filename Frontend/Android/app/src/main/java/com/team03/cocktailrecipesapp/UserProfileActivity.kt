@@ -48,6 +48,7 @@ class UserProfileActivity : SharedPreferencesActivity() {
         val extras = intent.extras
         if (extras != null)
             userNameExtra = extras.getString("username")
+
         userNameText.setText(userNameExtra)
 
         // set profile picture according to selected language
@@ -73,6 +74,7 @@ class UserProfileActivity : SharedPreferencesActivity() {
         val extras = intent.extras
         if (extras != null)
             userNameExtra = extras.getString("username")
+        
         userNameText.setText(userNameExtra)
 
         // set profile picture according to selected language
