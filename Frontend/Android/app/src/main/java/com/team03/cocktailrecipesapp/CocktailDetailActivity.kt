@@ -66,11 +66,11 @@ class RecipeAdapter(private val context: Context,
         // Get subtitle element
         val ingrediant_name = rowView.findViewById(R.id.ingrediant_name) as TextView
 
-        val ingrediant = getItem(position) as Ingrediant
+        val recipe = getItem(position) as Ingrediant
 
-        ingrediant_name.text = ingrediant.name
-        ingrediant_unit.text = ingrediant.unit
-        ingrediant_amount.text = ingrediant.amount.toString()
+        ingrediant_name.text = recipe.name
+        ingrediant_amount.text = recipe.amount.toString()
+        ingrediant_unit.text = recipe.unit
 
         return rowView
     }

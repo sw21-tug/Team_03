@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,12 +8,20 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!-- main layout -->
+    <LinearLayout
+        android:id="@+id/layout_main_page_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
-        android:layout_marginVertical="12dp">
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginVertical="12dp">
 
         <TextView
             android:id="@+id/txtWelcomeUsername"
@@ -38,104 +47,148 @@
             android:background="@drawable/default_avatar"
             android:scaleType="centerCrop"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginVertical="12dp">
+            <TextView
+                android:id="@+id/txtWelcomeUsername"
+                android:text="@string/welcome"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </LinearLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
-        android:layout_marginVertical="12dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginVertical="12dp">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/searchRecipesCardView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            app:cardCornerRadius="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnFilterRecipes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHorizontal_weight="5">
-            <SearchView
-                android:id="@+id/searchRecipesView"
-                android:layout_width="match_parent"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/searchRecipesCardView"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:queryHint="Find your next recipe..."
-                android:background="@color/light_grey"/>
-        </androidx.cardview.widget.CardView>
-        <ImageButton
-            android:id="@+id/btnFilterRecipes"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/searchRecipesCardView"
-            app:layout_constraintHorizontal_weight="1"
-            app:srcCompat="@drawable/ic_filter"
-            android:background="@android:color/transparent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                app:cardCornerRadius="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnFilterRecipes"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontal_weight="5">
+                <SearchView
+                    android:id="@+id/searchRecipesView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:queryHint="Find your next recipe..."
+                    android:background="@color/light_grey"/>
+            </androidx.cardview.widget.CardView>
+            <ImageButton
+                android:id="@+id/btnFilterRecipes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/searchRecipesCardView"
+                app:layout_constraintHorizontal_weight="1"
+                app:srcCompat="@drawable/ic_filter"
+                android:background="@android:color/transparent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginVertical="12dp">
+            <TextView
+                android:id="@+id/txtViewRecommendedForYou"
+                android:text="@string/recommended_for_you"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            layout="@layout/recommended_cocktail_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginVertical="12dp">
+            <TextView
+                android:id="@+id/txtViewTrendingRecipes"
+                android:text="@string/trending_recipes"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+            <TextView
+                android:id="@+id/txtViewSeeAll"
+                android:text="@string/see_all"
+                android:textSize="16sp"
+                android:textColor="@color/accent_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            layout="@layout/error_msg_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"/>
+        <include
+            layout="@layout/progress_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp" />
+        <include
+            layout="@layout/trending_cocktail_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"/>
+    </LinearLayout>
+    <!-- main layout -->
+
+    <!-- btn add recipe -->
+    <LinearLayout
+        android:id="@+id/layout_main_page_btn_add_recipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
-        android:layout_marginVertical="12dp">
-        <TextView
-            android:id="@+id/txtViewRecommendedForYou"
-            android:text="@string/recommended_for_you"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="@android:color/black"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_recipe_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <include
-        layout="@layout/recommended_cocktail_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"/>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
-        android:layout_marginVertical="12dp">
-        <TextView
-            android:id="@+id/txtViewTrendingRecipes"
-            android:text="@string/trending_recipes"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="@android:color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-        <TextView
-            android:id="@+id/txtViewSeeAll"
-            android:text="@string/see_all"
-            android:textSize="16sp"
-            android:textColor="@color/accent_color"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <include
-        layout="@layout/progress_indicator"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp" />
-    <include
-        layout="@layout/trending_cocktail_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"/>
-
-</LinearLayout>
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_margin="16dp"
+            android:contentDescription="@string/add_recipe_button"
+            android:onClick="onClickAddRecipe"
+            android:src="@drawable/add_recipe"
+            android:backgroundTint="@color/accent_color"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

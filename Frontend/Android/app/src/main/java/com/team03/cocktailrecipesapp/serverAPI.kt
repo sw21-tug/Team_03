@@ -41,7 +41,7 @@ class serverAPI(context: Context)
         return sendRequest(json, "login", listener, error_listener)
     }
 
-    fun addRecipe(user_id: Int, name: String, preptime_minutes: Int, difficulty: Int, instruction: String, ingredient_names: List<String>, listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
+    fun addRecipe(user_id: Int, name: String, preptime_minutes: Int, difficulty: Int, instruction: String, ingredient_names: List<String>, ingredient_amounts: List<Int>, ingredient_units: List<String>, listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
     {
         var add_recipe_json = """
             {
@@ -50,19 +50,28 @@ class serverAPI(context: Context)
                 "preptime_minutes": """" + preptime_minutes.toString() + """",
                 "difficulty": """" + difficulty.toString() + """",
                 "instruction": """" + instruction + """",
-                "ingredient_names": [
+                "ingredients": [
             """
 
-        for (i in ingredient_names)
+        for (i in 0..ingredient_names.size - 1)
         {
-            if (i == ingredient_names.last())
+            var values: String = """
+                {
+                    "name": """" +  ingredient_names.get(i) + """",
+                    "amount": """" + ingredient_amounts.get(i) + """",
+                    "unit": """" + ingredient_units.get(i) + """"
+                }
+                """;
+
+            if (ingredient_names.get(i) == ingredient_names.last())
             {
-                add_recipe_json += "$i]}";
+                values += "]}";
             }
             else
             {
-                add_recipe_json += "\"$i\",";
+                values += ",";
             }
+            add_recipe_json += values;
         }
 
         val json = JSONObject(add_recipe_json)
@@ -99,6 +108,12 @@ class serverAPI(context: Context)
             """
         val json = JSONObject(get_recipe_json)
         return sendRequest(json, "get-recipe", listener, error_listener)
+    }
+
+    fun getIngredients(listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
+    {
+        val json = JSONObject()
+        return sendRequest(json, "get-ingredients", listener, error_listener)
     }
 
     fun changePassword(user_id: Int, old_password_hash: String, new_password_hash: String, listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
