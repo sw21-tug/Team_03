@@ -81,4 +81,5 @@
     <string name="back" translatable="false">←</string>
     <string name="ingredient_amount">Amount</string>
     <string name="unit">Unit</string>
+    <string name="filter_by_name">Filter by name</string>
 </resources>
