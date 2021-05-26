@@ -11,7 +11,6 @@ class RegisterListener : Response.Listener<JSONObject> {
     }
 
     override fun onResponse(response: JSONObject) {
-        //val answer = Gson().fromJson(response.toString(), AnswerUserID::class.java)
         onSuccessfullRegister.invoke();
     }
 }

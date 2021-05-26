@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CocktailRecipesApp"
         android:usesCleartextTraffic="true">
+        <activity android:name=".AddRecipeActivity"></activity>
         <activity android:name=".UserProfileActivity"></activity>
         <activity android:name=".CocktailDetailActivity" />
         <activity android:name=".UserSettingsActivity" />
@@ -22,6 +23,9 @@
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login" />
+        <activity
+            android:name=".AddIngredientsActivity"
+            android:label="@string/add_ingredients"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

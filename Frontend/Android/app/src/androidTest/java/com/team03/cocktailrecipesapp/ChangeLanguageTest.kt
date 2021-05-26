@@ -24,7 +24,6 @@ class ChangeLanguageTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
-    
     @Test
     fun login() {
         onView(withId(R.id.etUsername)).perform(typeText("daniel"), closeSoftKeyboard())
@@ -72,4 +71,6 @@ class ChangeLanguageTest {
         onView(withId(R.id.txt_password_repeat)).check(matches(withHint("Повторите пароль")))
         onView(withId(R.id.btn_register)).check(matches(withText("Регистрация")))
     }
+
+
 }

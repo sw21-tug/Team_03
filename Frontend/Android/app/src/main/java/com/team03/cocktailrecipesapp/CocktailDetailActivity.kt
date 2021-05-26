@@ -2,28 +2,24 @@ package com.team03.cocktailrecipesapp
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import android.widget.*
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.team03.cocktailrecipesapp.dialogs.DeleteRecipeDialogFragment
 import com.team03.cocktailrecipesapp.error_listener.DeleteRecipeErrorListener
 import com.team03.cocktailrecipesapp.error_listener.GetRecipeErrorListener
+import com.team03.cocktailrecipesapp.error_listener.LikeErrorListener
 import com.team03.cocktailrecipesapp.listener.*
 import kotlinx.android.synthetic.main.activity_cocktail_detail.*
 import kotlinx.android.synthetic.main.progress_indicator.*
-import kotlinx.android.synthetic.main.rating_layout.view.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_difficulty
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_name
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_rating_bar
-import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 
 public interface RatingInterface  {
     fun onSelectedData(rating: Int);
@@ -66,11 +62,11 @@ class RecipeAdapter(private val context: Context,
         // Get subtitle element
         val ingrediant_name = rowView.findViewById(R.id.ingrediant_name) as TextView
 
-        val ingrediant = getItem(position) as Ingrediant
+        val recipe = getItem(position) as Ingrediant
 
-        ingrediant_name.text = ingrediant.name
-        ingrediant_unit.text = ingrediant.unit
-        ingrediant_amount.text = ingrediant.amount.toString()
+        ingrediant_name.text = recipe.name
+        ingrediant_amount.text = recipe.amount.toString()
+        ingrediant_unit.text = recipe.unit
 
         return rowView
     }
@@ -141,7 +137,7 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
     fun onSuccessfulGetRecipe(recipe: RecipeDetail) {
 
         cocktail_name.text = recipe.name
-        cocktail_difficulty.text = recipe.difficulty.toString()
+        cocktail_difficulty.text = getRecipeDifficutly(recipe.difficulty)
         cocktail_rating_bar.rating = recipe.rating
         cocktail_preparation_time.text = recipe.preptime_minutes.toString() + " " + getString(R.string.minutes)
         cocktail_instruction.text = recipe.instruction
@@ -291,16 +287,8 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
 
     fun rateRecipe(view: View)
     {
-        if (my_rating == 0)
-        {
-            val ratingDialog = RatingDialog()
-            ratingDialog.show(supportFragmentManager, "ratingDialog")
-        }
-        else
-        {
-            showAlreadyVotedDialog()
-        }
-
+        val ratingDialog = RatingDialog()
+        ratingDialog.show(supportFragmentManager, "ratingDialog")
     }
 
     fun onSuccessfulRateRecipe() {
@@ -324,17 +312,16 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
         rateRecipe(rating);
     }
 
-    fun showAlreadyVotedDialog(){
-        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-        builder.setTitle(resources.getString(R.string.already_voted_title))
-        builder.setMessage(resources.getString(R.string.already_voted_text))
-
-        builder.setNeutralButton(resources.getString(R.string.already_voted_ok), DialogInterface.OnClickListener { dialog, which ->
-            dialog.dismiss()
-        })
-
-        val alertDialog: AlertDialog = builder.create()
-        alertDialog.show()
+    fun getRecipeDifficutly(difficulty: Int) : String
+    {
+        when (difficulty) {
+            1 -> return resources.getString(R.string.difficulty_very_easy)
+            2 -> return resources.getString(R.string.difficulty_easy)
+            3 -> return resources.getString(R.string.difficulty_medium)
+            4 -> return resources.getString(R.string.difficulty_hard)
+            5 -> return resources.getString(R.string.difficulty_very_hard)
+        }
+        return "Error"
     }
 
 }

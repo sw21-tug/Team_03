@@ -12,7 +12,7 @@ import com.team03.cocktailrecipesapp.error_listener.GetRecipesErrorListener
 import com.team03.cocktailrecipesapp.listener.GetRecipesListener
 import com.team03.cocktailrecipesapp.listener.Recipe
 import com.team03.cocktailrecipesapp.ui.login.LoginActivity
-import kotlinx.android.synthetic.main.activity_cocktail_detail.*
+
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 import java.util.*
 
@@ -66,6 +66,11 @@ class MainActivity : SharedPreferencesActivity() {
         if (b != null) username = b.getString("username").toString()
     }
 
+    fun onClickAddRecipe(view: View) {
+        val intent = Intent(this, AddRecipeActivity::class.java)
+        startActivity(intent)
+    }
+
     fun getTrendingRecipesList() {
         val server = serverAPI(applicationContext)
         val listener =
@@ -95,7 +100,7 @@ class MainActivity : SharedPreferencesActivity() {
             recipeCard.cocktail_name.text = recipe.name
             recipeCard.cocktail_ratings.text = recipe.times_rated.toString()
             recipeCard.cocktail_rating_bar.rating = recipe.rating
-            recipeCard.cocktail_difficulty.text =  recipe.difficulty.toString()
+            recipeCard.cocktail_difficulty.text =  getRecipeDifficutly(recipe.difficulty)
             val preparationTime: String = recipe.preptime_minutes.toString() + " "+getString(R.string.minutes)
             recipeCard.cocktail_preparationtime.text = preparationTime
             recipeCard.cocktail_id.text = recipe.id.toString()
@@ -139,5 +144,17 @@ class MainActivity : SharedPreferencesActivity() {
 
         intent.putExtras(bundle)
         startActivity(intent)
+    }
+
+    fun getRecipeDifficutly(difficulty: Int) : String
+    {
+        when (difficulty) {
+            1 -> return resources.getString(R.string.difficulty_very_easy)
+            2 -> return resources.getString(R.string.difficulty_easy)
+            3 -> return resources.getString(R.string.difficulty_medium)
+            4 -> return resources.getString(R.string.difficulty_hard)
+            5 -> return resources.getString(R.string.difficulty_very_hard)
+        }
+        return "Error"
     }
 }
