@@ -3,6 +3,7 @@ package com.team03.cocktailrecipesapp
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,6 +30,7 @@ class UserProfileActivity : SharedPreferencesActivity() {
 
     lateinit var swtLangauge: Switch
     lateinit var recipesLayout: LinearLayout
+    var detail_user_ID: Int = -1
 
     override fun onStart() {
         super.onStart()
@@ -61,6 +63,18 @@ class UserProfileActivity : SharedPreferencesActivity() {
 
         userNameText.setText(userNameExtra)
 
+        own_recipe_button.setBackgroundColor(0xFF6200EE.toInt())
+        liked_recipe_button.setBackgroundColor(0xFF3700B3.toInt())
+        if (extras != null) {
+            detail_user_ID = extras.getInt("_creator_id")
+            if(userId != extras.getInt("_creator_id")){
+                //invisible Logout button, Settings
+                logoutButton.visibility = View.INVISIBLE
+                swtlanguage.visibility = View.INVISIBLE
+                textView.visibility = View.INVISIBLE
+            }
+        }
+
         // set profile picture according to selected language
         val language_ = shared.getString("Language", "");
         var avatarImgae = findViewById<ImageButton>(R.id.imgBtnAvatar);
@@ -71,13 +85,10 @@ class UserProfileActivity : SharedPreferencesActivity() {
         }
 
         val server = serverAPI(applicationContext)
-        val listener =
-                GetRecipesListener(::onSuccessfulGetRecipes)
-        val errorListener =
-                GetRecipesErrorListener(
-                        ::onFailedGetRecipes
-                )
-        server.GetRecipesByUser(userId ,listener, errorListener)
+        val listener = GetRecipesListener(::onSuccessfulGetRecipes)
+        val errorListener = GetRecipesErrorListener(::onFailedGetRecipes)
+
+            server.GetRecipesByUser(detail_user_ID ,listener, errorListener)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -130,7 +141,10 @@ class UserProfileActivity : SharedPreferencesActivity() {
                 GetRecipesErrorListener(
                         ::onFailedGetRecipes
                 )
-        server.GetLikedRecipesByUser(userId ,listener, errorListener)
+        server.GetLikedRecipesByUser(detail_user_ID ,listener, errorListener)
+
+        own_recipe_button.setBackgroundColor(0xFF3700B3.toInt())
+        liked_recipe_button.setBackgroundColor(0xFF6200EE.toInt())
     }
 
     fun onSuccessfulGetRecipes(recipe_list: List<Recipe>) {
@@ -194,6 +208,9 @@ class UserProfileActivity : SharedPreferencesActivity() {
                 GetRecipesErrorListener(
                         ::onFailedGetRecipes
                 )
-        server.GetRecipesByUser(userId ,listener, errorListener)
+        server.GetRecipesByUser(detail_user_ID ,listener, errorListener)
+
+        own_recipe_button.setBackgroundColor(0xFF6200EE.toInt())
+        liked_recipe_button.setBackgroundColor(0xFF3700B3.toInt())
     }
 }

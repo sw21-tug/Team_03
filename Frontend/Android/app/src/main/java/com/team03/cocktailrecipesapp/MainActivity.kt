@@ -107,13 +107,14 @@ class MainActivity : SharedPreferencesActivity() {
     }
 
     fun profilePictureOnClick(view: View){
-println("Username: " + username)
+            //println("Username: " + username)
             //val intent = Intent(this, UserSettingsActivity::class.java)
             //startActivity(intent)
 
         val intent = Intent(this, UserProfileActivity::class.java)
         var bundle = Bundle()
-        bundle.putString("username", username)
+        bundle.putString("username", userName)
+        bundle.putInt("_creator_id", userId)
         intent.putExtras(bundle)
         startActivity((intent))
     }
