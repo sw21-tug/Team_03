@@ -48,6 +48,7 @@ class ExampleInstrumentedTest {
         var amount: Int,
         var unit: String
     )
+
     data class TestRecipe(
         var name: String,
         var description: String,
@@ -394,4 +395,13 @@ class ExampleInstrumentedTest {
         }
     }
 
+    @Test
+    fun VisitRecommendedCocktailDetailTest() {
+
+    }
+
+    @Test
+    fun VisitTrendingCocktailDetailTest() {
+
+    }
 }

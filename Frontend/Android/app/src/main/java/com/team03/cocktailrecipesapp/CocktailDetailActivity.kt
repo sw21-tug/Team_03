@@ -22,9 +22,7 @@ import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_name
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.cocktail_rating_bar
 
 public interface RatingInterface  {
-    fun onSelectedData(rating: Int);
-
-
+    fun onSelectedData(rating: Int)
 }
 
 class RecipeAdapter(private val context: Context,
@@ -148,9 +146,6 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
             imgLike.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.heart_filled ))
         }
 
-
-
-
         if (recipe.is_mine == 1)
             delete_recipe_button.visibility = View.VISIBLE;
 
@@ -166,12 +161,6 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
     fun onFailedGetRecipe(bundle: Bundle?) {
         println("Failed to get recipe from server!")
         Toast.makeText(this,  "Cannot get any recipe information from server", Toast.LENGTH_LONG).show()
-
-        cocktail_name.text = bundle?.getString("cocktail_name")
-        cocktail_difficulty.text = bundle?.getString("cocktail_difficulty")
-        cocktail_rating_bar.rating = bundle?.getFloat("cocktail_rating_bar")!!
-        cocktail_preparation_time.text = bundle?.getString("preparation_time") + " " + getString(R.string.minutes)
-        cocktail_instruction.text = "No instruction available.."
 
         setVisibleAfterLoading()
     }
@@ -197,7 +186,7 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
         prepTimeText.visibility = View.INVISIBLE
         prepTimeText3.visibility = View.INVISIBLE
         ingredients.visibility = View.INVISIBLE
-
+        cocktail_instruction_title.visibility = View.INVISIBLE
 
         var listView = findViewById<ListView>(R.id.recipe_list_view)
         listView.visibility = View.INVISIBLE
@@ -219,6 +208,7 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
         prepTimeText.visibility = View.VISIBLE
         prepTimeText3.visibility = View.VISIBLE
         ingredients.visibility = View.VISIBLE
+        cocktail_instruction_title.visibility = View.VISIBLE
 
         var listView = findViewById<ListView>(R.id.recipe_list_view)
         listView.visibility = View.VISIBLE
