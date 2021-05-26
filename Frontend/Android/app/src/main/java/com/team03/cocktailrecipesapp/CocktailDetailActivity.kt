@@ -302,7 +302,6 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
                 RateRecipeListener(::onSuccessfulRateRecipe)
         val errorListener = RateRecipeErrorListener(::onFailedRateRecipe)
         server.rateRecipe(userId, recipe_id, ratingValue, listener, errorListener);
-
     }
 
     override fun onSelectedData(rating: Int) {

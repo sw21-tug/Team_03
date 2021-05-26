@@ -85,4 +85,6 @@
     <string name="back" translatable="false">←</string>
     <string name="ingredient_amount">Amount</string>
     <string name="unit">Unit</string>
+    <string name="rated">You rated</string>
+    <string name="added">added</string>
 </resources>
