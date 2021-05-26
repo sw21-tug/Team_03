@@ -10,7 +10,6 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.view.size
 import com.team03.cocktailrecipesapp.error_listener.GetRecipesErrorListener
 import com.team03.cocktailrecipesapp.listener.GetRecipesListener
 import com.team03.cocktailrecipesapp.listener.Recipe
@@ -109,7 +108,7 @@ class MainActivity : SharedPreferencesActivity() {
             recipeCard.cocktail_rating_bar.rating = recipe.rating
             recipeCard.cocktail_id.text = recipe.id.toString()
             recipeCard.recommendedCocktailsImageView.setOnClickListener { openDetails(recipeCard) }
-            recipeCard.recommendedCocktailsConstraintLayout.setOnClickListener { openDetails(recipeCard) }
+            recipeCard.recommendedCocktailCard.setOnClickListener { openDetails(recipeCard) }
 
             /* TODO: recipeCard.cocktail_image */
             recommendedCocktailList.addView(recipeCard)
@@ -126,7 +125,7 @@ class MainActivity : SharedPreferencesActivity() {
             val preparationTime: String = recipe.preptime_minutes.toString() + " " +getString(R.string.minutes)
             recipeCard.cocktail_preparationtime.text = preparationTime
             recipeCard.cocktail_id.text = recipe.id.toString()
-            recipeCard.imageView.setOnClickListener { openDetails(recipeCard) }
+            recipeCard.trendingCocktailCardImageView.setOnClickListener { openDetails(recipeCard) }
             recipeCard.linearLayout.setOnClickListener { openDetails(recipeCard) }
 
             /* TODO: recipeCard.cocktail_image */

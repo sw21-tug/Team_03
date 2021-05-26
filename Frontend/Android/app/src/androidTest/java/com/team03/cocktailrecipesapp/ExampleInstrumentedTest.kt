@@ -3,23 +3,26 @@ package com.team03.cocktailrecipesapp
 import android.app.Activity
 import android.content.Context
 import android.view.View
-import android.widget.LinearLayout
-import androidx.recyclerview.widget.RecyclerView
+import androidx.annotation.Nullable
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.core.internal.deps.guava.base.Predicate
+import androidx.test.espresso.core.internal.deps.guava.collect.Iterables
 import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.util.TreeIterables
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
 import com.android.volley.Response
-import kotlinx.coroutines.android.awaitFrame
 import org.hamcrest.core.IsNot.not
 import org.hamcrest.CoreMatchers.*
+import org.hamcrest.Description
+import org.hamcrest.Matcher
+import org.hamcrest.TypeSafeMatcher
 import org.json.JSONObject
 import org.junit.Assert
 import org.junit.Rule
@@ -41,6 +44,51 @@ class ExampleInstrumentedTest {
 
     @get:Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
+
+    object ViewCounter {
+        fun getCount(viewMatcher: Matcher<View>, countLimit: Int = 9999): Int {
+            var actualViewsCount = 0
+            do {
+                try {
+                    onView(isRoot())
+                        .check(matches(withViewCount(viewMatcher, actualViewsCount)))
+                    return actualViewsCount
+                } catch (ignored: Error) {
+                }
+                actualViewsCount++
+            } while (actualViewsCount < countLimit)
+            throw Exception("Counting $viewMatcher was failed. Count limit exceeded")
+        }
+
+        fun withViewCount(viewMatcher: Matcher<View>, expectedCount: Int): Matcher<View?>? {
+            return object : TypeSafeMatcher<View?>() {
+                var actualCount = -1
+                override fun describeTo(description: Description) {
+                    if (actualCount >= 0) {
+                        description.appendText("With expected number of items: $expectedCount")
+                        description.appendText("\n With matcher: ")
+                        viewMatcher.describeTo(description)
+                        description.appendText("\n But got: $actualCount")
+                    }
+                }
+
+                override fun matchesSafely(root: View?): Boolean {
+                    actualCount = 0
+                    val iterable = TreeIterables.breadthFirstViewTraversal(root)
+                    actualCount = Iterables.filter(iterable, withMatcherPredicate(viewMatcher)).count()
+                    return actualCount == expectedCount
+                }
+            }
+        }
+
+        private fun withMatcherPredicate(matcher: Matcher<View>): Predicate<View?>? {
+            return object : Predicate<View?> {
+                override fun apply(@Nullable view: View?): Boolean {
+                    return matcher.matches(view)
+                }
+            }
+        }
+    }
 
     // Data class for test recipe + ingredients
     data class TestIngredient(
@@ -262,9 +310,12 @@ class ExampleInstrumentedTest {
         // user-profile
         onView(withId(R.id.imgBtnAvatar)).perform(click())
 
+        Thread.sleep(500)
         // logout
         onView(withId(R.id.logoutButton)).check(matches(withText(R.string.logout_button_text)))
         onView(withId(R.id.logoutButton)).perform(click())
+
+        Thread.sleep(1000)
 
         // check if we are in login page
         onView(withId(R.id.btnLogin)).check(matches(isDisplayed()))
@@ -278,7 +329,7 @@ class ExampleInstrumentedTest {
         onView(withId(R.id.etUsername)).perform(typeText(username), closeSoftKeyboard())
         onView(withId(R.id.etPassword)).perform(typeText(password), closeSoftKeyboard())
         onView(withId(R.id.btnLogin)).perform(click())
-
+        Thread.sleep(2000)
     }
 
     fun PerformLoginAsNonAdmin()
@@ -397,11 +448,35 @@ class ExampleInstrumentedTest {
 
     @Test
     fun VisitRecommendedCocktailDetailTest() {
+        PerformLoginAsNonAdmin()
+        val count = ViewCounter.getCount(withId(R.id.recommendedCocktailCard))
 
+        for (i in 0 until count)
+        {
+            onView(allOf(
+                withId(R.id.recommendedCocktailCard), withParentIndex(i)))
+                .perform(scrollTo(), click())
+            Thread.sleep(1000)
+            onView(isRoot()).perform(pressBack())
+            Thread.sleep(2000)
+        }
     }
 
     @Test
     fun VisitTrendingCocktailDetailTest() {
+        PerformLoginAsNonAdmin()
+        val count = ViewCounter.getCount(withId(R.id.trendingCocktailCard))
 
+        for (i in 0 until count)
+        {
+            onView(allOf(
+                withId(R.id.trendingCocktailCardImageView), withParent(allOf(
+                    withId(R.id.linearLayout), withParent(allOf(
+                        withId(R.id.trendingCocktailCard), withParentIndex(i)))))))
+                .perform(scrollTo(), click())
+            Thread.sleep(1000)
+            onView(isRoot()).perform(pressBack())
+            Thread.sleep(2000)
+        }
     }
 }
