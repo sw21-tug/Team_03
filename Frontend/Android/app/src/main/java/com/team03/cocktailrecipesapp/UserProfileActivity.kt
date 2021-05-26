@@ -63,8 +63,8 @@ class UserProfileActivity : SharedPreferencesActivity() {
 
         userNameText.setText(userNameExtra)
 
-        own_recipe_button.setBackgroundColor(0xFF6200EE.toInt())
-        liked_recipe_button.setBackgroundColor(0xFF3700B3.toInt())
+        own_recipe_button.setBackgroundColor(0xFFBB86FC.toInt())
+        liked_recipe_button.setBackgroundColor(0xFF6200EE.toInt())
         if (extras != null) {
             detail_user_ID = extras.getInt("_creator_id")
             if(userId != extras.getInt("_creator_id")){
@@ -143,8 +143,8 @@ class UserProfileActivity : SharedPreferencesActivity() {
                 )
         server.GetLikedRecipesByUser(detail_user_ID ,listener, errorListener)
 
-        own_recipe_button.setBackgroundColor(0xFF3700B3.toInt())
-        liked_recipe_button.setBackgroundColor(0xFF6200EE.toInt())
+        own_recipe_button.setBackgroundColor(0xFF6200EE.toInt())
+        liked_recipe_button.setBackgroundColor(0xFFBB86FC.toInt())
     }
 
     fun onSuccessfulGetRecipes(recipe_list: List<Recipe>) {
@@ -210,7 +210,7 @@ class UserProfileActivity : SharedPreferencesActivity() {
                 )
         server.GetRecipesByUser(detail_user_ID ,listener, errorListener)
 
-        own_recipe_button.setBackgroundColor(0xFF6200EE.toInt())
-        liked_recipe_button.setBackgroundColor(0xFF3700B3.toInt())
+        own_recipe_button.setBackgroundColor(0xFFBB86FC.toInt())
+        liked_recipe_button.setBackgroundColor(0xFF6200EE.toInt())
     }
 }
