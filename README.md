@@ -32,8 +32,10 @@ can add their own drinks, get ideas for new drinks, save recipes to their favori
 for new ideas.
 
 # Currently implementing
-- Feature to rate recipes (Issues [#4](/../../issues/4), [#65](/../../issues/65))
 - Profile overview with liked/created recipes and settings (Issues [#12](/../../issues/12), [#13](/../../issues/13))
+- User can add their own recipe (Issue [#76](/../../issues/76))
+- Search functionality inrecipe list (Issue [#8](/../../issues/8))
+- View for recommended drinks (Issue [#10](/../../issues/10))
 
 # Already implemented features
 - Register page (Issues [#1](/../../issues/1), [#26](/../../issues/26), [#40](/../../issues/42))
@@ -47,3 +49,4 @@ for new ideas.
 - A detailed recipe view (Issues [#17](/../../issues/17), [#52](/../../issues/52))
 - Feature to like recipes (Issues [#18](/../../issues/18), [#57](/../../issues/57))
 - Feature to add recipes (Issues [#3](/../../issues/3), [#53](/../../issues/53))
+- Feature to rate recipes (Issues [#4](/../../issues/4), [#65](/../../issues/65))
