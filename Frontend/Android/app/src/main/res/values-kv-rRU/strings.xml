@@ -74,4 +74,6 @@
     <string name="difficulty_hard">трудный</string>
     <string name="difficulty_very_hard">очень сложно</string>
     <string name="instruction_title">Инструкция:</string>
+    <string name="save_ingredients">сохранить</string>
+    <string name="ingredient_title">Добавить ингредиент</string>
 </resources>
