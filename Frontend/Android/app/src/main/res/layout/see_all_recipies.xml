@@ -56,8 +56,10 @@
                     android:id="@+id/searchRecipesView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:queryHint="Find your next recipe..."
-                    android:background="@color/light_grey"/>
+                    android:queryHint="@string/name_of_recipe_search"
+                    android:background="@color/light_grey"
+                    android:iconifiedByDefault="false"
+                    />
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -72,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="12dp" />
         <include
-            layout="@layout/trending_cocktail_list"
+            layout="@layout/filtered_cocktail_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="12dp"/>
