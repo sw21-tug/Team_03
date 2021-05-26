@@ -74,4 +74,5 @@
     <string name="difficulty_hard">трудный</string>
     <string name="difficulty_very_hard">очень сложно</string>
     <string name="instruction_title">Инструкция:</string>
+    <string name="filter_by_name">Фильтр по имени</string>
 </resources>
