@@ -164,7 +164,7 @@ class serverAPI(context: Context)
             """
 
         val json = JSONObject(recipe_json)
-        return sendRequest(json, "get_recipe_by_user", listener, error_listener)
+        return sendRequest(json, "get-recipes-by-user", listener, error_listener)
     }
 
     fun GetLikedRecipesByUser(user_id: Int, listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
@@ -176,7 +176,7 @@ class serverAPI(context: Context)
             """
 
         val json = JSONObject(liked_recipe_json)
-        return sendRequest(json, "get_liked_recipes_by_user", listener, error_listener)
+        return sendRequest(json, "get-liked-recipes-by-user", listener, error_listener)
     }
 
     private fun sendRequest(jsonObject: JSONObject, service: String, listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int

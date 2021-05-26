@@ -1,6 +1,7 @@
 package com.team03.cocktailrecipesapp
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
+import androidx.core.view.size
+import com.team03.cocktailrecipesapp.error_listener.GetRecipesErrorListener
+import com.team03.cocktailrecipesapp.listener.GetRecipesListener
 import com.team03.cocktailrecipesapp.listener.Ingrediant
+import com.team03.cocktailrecipesapp.listener.Recipe
+import kotlinx.android.synthetic.main.activity_user_profile.*
+import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 import java.util.*
 
 
@@ -21,6 +28,7 @@ class UserProfileActivity : SharedPreferencesActivity() {
     var userNameExtra: String? = null
 
     lateinit var swtLangauge: Switch
+    lateinit var recipesLayout: LinearLayout
 
     override fun onStart() {
         super.onStart()
@@ -44,6 +52,8 @@ class UserProfileActivity : SharedPreferencesActivity() {
         backButton = findViewById(R.id.user_profile_back_button)
         backButton.setOnClickListener { onBackPressed() }
 
+        recipesLayout = findViewById(R.id.trending_cocktail_list)
+
         // set username
         val extras = intent.extras
         if (extras != null)
@@ -59,6 +69,15 @@ class UserProfileActivity : SharedPreferencesActivity() {
         } else {
             userImage.setBackground(ContextCompat.getDrawable(applicationContext, R.drawable.default_avatar ));
         }
+
+        val server = serverAPI(applicationContext)
+        val listener =
+                GetRecipesListener(::onSuccessfulGetRecipes)
+        val errorListener =
+                GetRecipesErrorListener(
+                        ::onFailedGetRecipes
+                )
+        server.GetRecipesByUser(userId ,listener, errorListener)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,5 +119,81 @@ class UserProfileActivity : SharedPreferencesActivity() {
         shared_editor.putInt("userId", 0).apply()
         userId = 0
         onBackPressed()
+    }
+
+    fun showLikedRecipes(view: View)
+    {
+        val server = serverAPI(applicationContext)
+        val listener =
+                GetRecipesListener(::onSuccessfulGetRecipes)
+        val errorListener =
+                GetRecipesErrorListener(
+                        ::onFailedGetRecipes
+                )
+        server.GetLikedRecipesByUser(userId ,listener, errorListener)
+    }
+
+    fun onSuccessfulGetRecipes(recipe_list: List<Recipe>) {
+        fillLikedRecipesList(recipe_list)
+    }
+
+    fun onFailedGetRecipes() {
+        Toast.makeText(applicationContext, resources.getString(R.string.failed_to_load_recipes_from_server), Toast.LENGTH_LONG).show()
+    }
+
+    fun fillLikedRecipesList(recipe_list: List<Recipe>) {
+
+        recipesLayout.removeAllViews()
+
+        recipe_list.forEach() { recipe ->
+            val recipeCard = LayoutInflater.from(this).inflate(R.layout.trending_cocktail_list_card, recipesLayout, false)
+            recipeCard.cocktail_name.text = recipe.name
+            recipeCard.cocktail_ratings.text = recipe.times_rated.toString()
+            recipeCard.cocktail_rating_bar.rating = recipe.rating
+            recipeCard.cocktail_difficulty.text =  recipe.difficulty.toString()
+            val preparationTime: String = recipe.preptime_minutes.toString() + " "+getString(R.string.minutes)
+            recipeCard.cocktail_preparationtime.text = preparationTime
+            recipeCard.cocktail_id.text = recipe.id.toString()
+
+            addClickListener(recipeCard, recipesLayout.size)
+
+            /* TODO: recipeCard.cocktail_image */
+
+            recipesLayout.addView(recipeCard)
+        }
+    }
+
+    fun addClickListener(recipeCard: View, index: Int){
+
+        recipeCard.imageView.setOnClickListener { openDetails(recipeCard) }
+        recipeCard.linearLayout.setOnClickListener { openDetails(recipeCard) }
+    }
+
+    fun openDetails(recipeCard : View)
+    {
+        val intent = Intent(this, CocktailDetailActivity::class.java)
+        var bundle = Bundle()
+
+        bundle.putInt("cocktail_id", Integer.valueOf(recipeCard.cocktail_id.text.toString()))
+        bundle.putString("cocktail_name", recipeCard.cocktail_name.text.toString())
+        bundle.putString("cocktail_ratings", recipeCard.cocktail_ratings.text.toString())
+        bundle.putFloat("cocktail_rating_bar", recipeCard.cocktail_rating_bar.rating)
+        bundle.putString("cocktail_difficulty", recipeCard.cocktail_difficulty.text.toString())
+        bundle.putString("preparation_time", recipeCard.cocktail_preparationtime.text.toString())
+
+        intent.putExtras(bundle)
+        startActivity(intent)
+    }
+
+    fun showOwnRecipes(view: View)
+    {
+        val server = serverAPI(applicationContext)
+        val listener =
+                GetRecipesListener(::onSuccessfulGetRecipes)
+        val errorListener =
+                GetRecipesErrorListener(
+                        ::onFailedGetRecipes
+                )
+        server.GetRecipesByUser(userId ,listener, errorListener)
     }
 }
