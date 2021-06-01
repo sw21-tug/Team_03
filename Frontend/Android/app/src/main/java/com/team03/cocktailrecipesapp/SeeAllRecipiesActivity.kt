@@ -55,8 +55,6 @@ class SeeAllRecipiesActivity : SharedPreferencesActivity() {
                 return false
             }
         })
-
-
         getAllRecipesList()
     }
 
