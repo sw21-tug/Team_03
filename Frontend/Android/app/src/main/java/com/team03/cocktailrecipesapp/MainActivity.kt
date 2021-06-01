@@ -5,12 +5,8 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
 import androidx.core.content.ContextCompat
-import androidx.core.view.size
 import com.team03.cocktailrecipesapp.error_listener.GetRecipesErrorListener
 import com.team03.cocktailrecipesapp.listener.GetRecipesListener
 import com.team03.cocktailrecipesapp.listener.Recipe
@@ -25,12 +21,8 @@ import java.util.*
 class MainActivity : SharedPreferencesActivity() {
     lateinit var progressBar: ProgressBar
     lateinit var recipesLayout: LinearLayout
-<<<<<<< HEAD
     lateinit var recommendedCocktailList: LinearLayout
-=======
     lateinit var txtSeeAll : TextView
->>>>>>> 9381e4f62b70e4a98bb3b2b9ee853478b67988c8
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -62,7 +54,7 @@ class MainActivity : SharedPreferencesActivity() {
             recommendedCocktailList = findViewById(R.id.recommended_cocktail_list)
 
             txtSeeAll.setOnClickListener() {
-                    val intent = Intent(this, SeeAllRecipies::class.java)
+                    val intent = Intent(this, SeeAllRecipiesActivity::class.java)
                     startActivity(intent)
             }
 

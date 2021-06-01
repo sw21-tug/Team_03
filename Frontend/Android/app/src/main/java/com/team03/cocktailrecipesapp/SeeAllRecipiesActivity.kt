@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.see_all_recipies.view.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 
 
-class SeeAllRecipies : SharedPreferencesActivity() {
+class SeeAllRecipiesActivity : SharedPreferencesActivity() {
     lateinit var progressBar: ProgressBar
     lateinit var recipesLayout: LinearLayout
     lateinit var searchBar: SearchView
@@ -21,19 +21,13 @@ class SeeAllRecipies : SharedPreferencesActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.see_all_recipies)
+        setContentView(R.layout.activity_see_all_recipies)
         progressBar = findViewById(R.id.progressbar);
         recipesLayout = findViewById(R.id.filtered_cocktail_list)
         searchBar = findViewById(R.id.searchRecipesView)
 
         searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String): Boolean {
-                //Performs search when user hit the search button on the keyboard
-//                if (bestCities.contains(p0)) {
-//                    adapter.filter.filter(p0)
-//                } else {
-//                    Toast.makeText(this@MainActivity, "No match found", Toast.LENGTH_SHORT).show()
-//                }
                 return false
             }
             override fun onQueryTextChange(p0: String): Boolean {
@@ -102,7 +96,6 @@ class SeeAllRecipies : SharedPreferencesActivity() {
             recipeCard.cocktail_preparationtime.text = preparationTime
             recipeCard.cocktail_id.text = recipe.id.toString()
             addClickListener(recipeCard, recipesLayout.size)
-
             /* TODO: recipeCard.cocktail_image */
             recipesLayout.addView(recipeCard)
         }

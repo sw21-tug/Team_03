@@ -14,7 +14,7 @@
         android:theme="@style/Theme.CocktailRecipesApp"
         android:usesCleartextTraffic="true">
         <activity android:name=".AddRecipeActivity"></activity>
-        <activity android:name=".SeeAllRecipies"></activity>
+        <activity android:name=".SeeAllRecipiesActivity"></activity>
         <activity android:name=".UserProfileActivity"></activity>
         <activity android:name=".CocktailDetailActivity" />
         <activity android:name=".UserSettingsActivity" />
