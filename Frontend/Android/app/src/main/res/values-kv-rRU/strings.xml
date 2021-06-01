@@ -68,10 +68,17 @@
     <string name="already_voted_ok">Хорошо</string>
     <string name="already_voted_title">Уже проголосовал!</string>
     <string name="already_voted_text">Вы уже проголосовали за этот коктейль!</string>
+
+    <string name="settings">Настройки</string>
+    <string name="recipes">реце́пт</string>
+    <string name="Own">собственный</string>
+    <string name="Liked">понравился</string>
+
     <string name="difficulty_very_easy">очень просто</string>
     <string name="difficulty_easy">легкий</string>
     <string name="difficulty_medium">cредняя</string>
     <string name="difficulty_hard">трудный</string>
     <string name="difficulty_very_hard">очень сложно</string>
     <string name="instruction_title">Инструкция:</string>
+
 </resources>

@@ -78,6 +78,7 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
     var isLiked = false;
     var recipe_id = 0;
     var my_rating = 0;
+    var _creator_id: Int = -1
 
 //    lateinit var imgBtnRate : ImageButton
 
@@ -100,6 +101,7 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
         val intent = Intent(this, UserProfileActivity::class.java)
         var bundle = Bundle()
         bundle.putString("username", cocktail_creator_username.text.toString())
+        bundle.putInt("_creator_id",_creator_id)
         intent.putExtras(bundle)
         startActivity(intent)
     }
@@ -158,6 +160,7 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
 
         val adapter = RecipeAdapter(this, recipe.ingredients)
         listView.adapter = adapter
+        _creator_id = recipe.creator_id
 
         setVisibleAfterLoading()
 
