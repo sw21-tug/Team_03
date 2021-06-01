@@ -25,7 +25,11 @@ import java.util.*
 class MainActivity : SharedPreferencesActivity() {
     lateinit var progressBar: ProgressBar
     lateinit var recipesLayout: LinearLayout
+<<<<<<< HEAD
     lateinit var recommendedCocktailList: LinearLayout
+=======
+    lateinit var txtSeeAll : TextView
+>>>>>>> 9381e4f62b70e4a98bb3b2b9ee853478b67988c8
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -52,10 +56,15 @@ class MainActivity : SharedPreferencesActivity() {
         else {
             shared_editor.putInt("userId", userId).apply()
             setContentView(R.layout.activity_main)
-
+            txtSeeAll = findViewById(R.id.txtViewSeeAll)
             progressBar = findViewById(R.id.progressbar);
             recipesLayout = findViewById(R.id.trending_cocktail_list)
             recommendedCocktailList = findViewById(R.id.recommended_cocktail_list)
+
+            txtSeeAll.setOnClickListener() {
+                    val intent = Intent(this, SeeAllRecipies::class.java)
+                    startActivity(intent)
+            }
 
             // change profile picture according to selected language
             val language = shared.getString("Language", "");
@@ -68,6 +77,9 @@ class MainActivity : SharedPreferencesActivity() {
             getTrendingRecipesList()
         }
     }
+
+
+
 
     fun onClickAddRecipe(view: View) {
         val intent = Intent(this, AddRecipeActivity::class.java)

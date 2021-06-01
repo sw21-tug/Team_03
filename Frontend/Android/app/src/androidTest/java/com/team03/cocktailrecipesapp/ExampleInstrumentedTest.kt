@@ -396,6 +396,7 @@ class ExampleInstrumentedTest {
     }
 
     @Test
+<<<<<<< HEAD
     fun VisitRecommendedCocktailDetailTest() {
 
     }
@@ -404,4 +405,41 @@ class ExampleInstrumentedTest {
     fun VisitTrendingCocktailDetailTest() {
 
     }
+=======
+    fun filterByName()
+    {
+        onView(withId(R.id.txtViewSeeAll)).perform(click())
+        Thread.sleep(500)
+        onView(withId(R.id.searchRecipesView)).perform(typeText("testi"), closeSoftKeyboard())
+        Thread.sleep(500)
+        onView(allOf(withId(R.id.cocktail_name), withText("testi"))).perform(click())
+        Thread.sleep(500)
+        onView(withId(R.id.cocktail_name)).check(matches(withText("testi")))
+    }
+
+    @Test
+    fun filterByNameNotFound()
+    {
+        onView(withId(R.id.txtViewSeeAll)).perform(click())
+        Thread.sleep(500)
+        onView(withId(R.id.searchRecipesView)).perform(typeText("testi"), closeSoftKeyboard())
+        Thread.sleep(500)
+        onView(allOf(withId(R.id.cocktail_name), not(withText("test"))))
+    }
+
+    @Test
+    fun filterByNameWithNewRecipe()
+    {
+        AddNewRecipe()
+        Thread.sleep(1000)
+        onView(withId(R.id.txtViewSeeAll)).perform(click())
+        Thread.sleep(500)
+        onView(withId(R.id.searchRecipesView)).perform(typeText("Test recipe 1"), closeSoftKeyboard())
+        Thread.sleep(500)
+        onView(allOf(withId(R.id.cocktail_name), withText("Test recipe 1"))).perform(click())
+        Thread.sleep(500)
+        onView(withId(R.id.cocktail_name)).check(matches(withText("Test recipe 1")))
+    }
+
+>>>>>>> 9381e4f62b70e4a98bb3b2b9ee853478b67988c8
 }
