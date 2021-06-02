@@ -5,10 +5,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
 import androidx.core.content.ContextCompat
 import com.team03.cocktailrecipesapp.error_listener.GetRecipesErrorListener
 import com.team03.cocktailrecipesapp.listener.GetRecipesListener
@@ -25,6 +22,7 @@ class MainActivity : SharedPreferencesActivity() {
     lateinit var progressBar: ProgressBar
     lateinit var recipesLayout: LinearLayout
     lateinit var recommendedCocktailList: LinearLayout
+    lateinit var txtSeeAll : TextView
 
     var username: String = ""
 
@@ -53,10 +51,15 @@ class MainActivity : SharedPreferencesActivity() {
         else {
             shared_editor.putInt("userId", userId).apply()
             setContentView(R.layout.activity_main)
-
+            txtSeeAll = findViewById(R.id.txtViewSeeAll)
             progressBar = findViewById(R.id.progressbar);
             recipesLayout = findViewById(R.id.trending_cocktail_list)
             recommendedCocktailList = findViewById(R.id.recommended_cocktail_list)
+
+            txtSeeAll.setOnClickListener() {
+                    val intent = Intent(this, SeeAllRecipiesActivity::class.java)
+                    startActivity(intent)
+            }
 
             // change profile picture according to selected language
             val language = shared.getString("Language", "");
@@ -72,6 +75,9 @@ class MainActivity : SharedPreferencesActivity() {
         val b = intent.extras
         if (b != null) username = b.getString("username").toString()
     }
+
+
+
 
     fun onClickAddRecipe(view: View) {
         val intent = Intent(this, AddRecipeActivity::class.java)

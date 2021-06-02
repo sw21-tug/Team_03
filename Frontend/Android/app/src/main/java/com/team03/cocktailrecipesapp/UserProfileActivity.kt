@@ -169,7 +169,7 @@ class UserProfileActivity : SharedPreferencesActivity() {
             recipeCard.cocktail_preparationtime.text = preparationTime
             recipeCard.cocktail_id.text = recipe.id.toString()
 
-            addClickListener(recipeCard, recipesLayout.size)
+            addClickListener(recipeCard)
 
             /* TODO: recipeCard.cocktail_image */
 
@@ -177,9 +177,8 @@ class UserProfileActivity : SharedPreferencesActivity() {
         }
     }
 
-    fun addClickListener(recipeCard: View, index: Int){
-
-        recipeCard.imageView.setOnClickListener { openDetails(recipeCard) }
+    fun addClickListener(recipeCard: View){
+        recipeCard.trendingCocktailCardImageView.setOnClickListener { openDetails(recipeCard) }
         recipeCard.linearLayout.setOnClickListener { openDetails(recipeCard) }
     }
 
