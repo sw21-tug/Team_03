@@ -60,7 +60,7 @@
                 android:backgroundTint="@color/accent_color"
                 android:gravity="right"
                 android:onClick="onClickFilterByIngredients"
-                android:text="filter by ingredients"
+                android:text="@string/filter_by_ingredients"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

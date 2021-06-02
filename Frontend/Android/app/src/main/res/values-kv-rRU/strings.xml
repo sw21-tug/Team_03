@@ -87,4 +87,5 @@
     <string name="ingredient_title">Добавить ингредиент</string>
     <string name="rated">Вы оценили</string>
     <string name="added">добавлено</string>
+    <string name="filter_by_ingredients">Фильтр по ингредиентам</string>
 </resources>
