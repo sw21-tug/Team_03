@@ -12,16 +12,15 @@ import com.team03.cocktailrecipesapp.error_listener.GetRecipesErrorListener
 import com.team03.cocktailrecipesapp.listener.GetRecipesListener
 import com.team03.cocktailrecipesapp.listener.Recipe
 import com.team03.cocktailrecipesapp.ui.login.LoginActivity
-import kotlinx.android.synthetic.main.progress_indicator.*
-import kotlinx.android.synthetic.main.error_msg_indicator.*
 
-import kotlinx.android.synthetic.main.trending_cocktail_list.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 import java.util.*
 
 class MainActivity : SharedPreferencesActivity() {
     lateinit var progressBar: ProgressBar
     lateinit var recipesLayout: LinearLayout
+
+    var username: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -62,6 +61,9 @@ class MainActivity : SharedPreferencesActivity() {
             }
             getTrendingRecipesList()
         }
+
+        val b = intent.extras
+        if (b != null) username = b.getString("username").toString()
     }
 
     fun onClickAddRecipe(view: View) {
@@ -110,8 +112,16 @@ class MainActivity : SharedPreferencesActivity() {
     }
 
     fun profilePictureOnClick(view: View){
-            val intent = Intent(this, UserSettingsActivity::class.java)
-            startActivity(intent)
+            //println("Username: " + username)
+            //val intent = Intent(this, UserSettingsActivity::class.java)
+            //startActivity(intent)
+
+        val intent = Intent(this, UserProfileActivity::class.java)
+        var bundle = Bundle()
+        bundle.putString("username", userName)
+        bundle.putInt("_creator_id", userId)
+        intent.putExtras(bundle)
+        startActivity((intent))
     }
 
     fun addClickListener(recipeCard: View, index: Int){
