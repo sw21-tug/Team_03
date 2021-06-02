@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.forEach
+import com.team03.cocktailrecipesapp.dialogs.AddIngredientDialog
 import com.team03.cocktailrecipesapp.recipes.GetIngredientsErrorListener
 import com.team03.cocktailrecipesapp.recipes.GetIngredientsListener
 import com.team03.cocktailrecipesapp.recipes.Ingredient
@@ -17,7 +18,11 @@ import kotlinx.android.synthetic.main.ingredients_list.*
 import kotlinx.android.synthetic.main.progress_indicator.*
 import java.util.*
 
-class AddIngredientsActivity : AppCompatActivity() {
+public interface IngredientInterface{
+    fun onSelectedData(name: String)
+}
+
+class AddIngredientsActivity : AppCompatActivity(), IngredientInterface {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,7 +92,7 @@ class AddIngredientsActivity : AppCompatActivity() {
         // TODO: get ingredients from shared preferences
     }
 
-    fun onClickAddIngredients(view: View) {
+    fun onClickChooseIngredients(view: View) {
         val picked_ingredients: MutableList<String> = mutableListOf()
         val picked_ingredients_amount: MutableList<Int> = mutableListOf()
         val picked_ingredients_unit: MutableList<String> = mutableListOf()
@@ -118,5 +123,29 @@ class AddIngredientsActivity : AppCompatActivity() {
         intent.putStringArrayListExtra ("pickedingredientsunit", picked_ingredients_unit as ArrayList<String>)
         setResult(RESULT_OK, intent)
         finish()
+    }
+
+    fun onClickAddIngredient(view: View) {
+        val addIngredientDialog = AddIngredientDialog()
+        addIngredientDialog.show(supportFragmentManager, "addIngredientDialog")
+    }
+
+    override fun onSelectedData(name: String) {
+
+        ingredientsList.forEach { ingredientView ->
+
+            if(ingredientView.ingredientItemCheckbox.text == name)
+            {
+                ingredientView.ingredientItemCheckbox.isChecked = true
+                return
+            }
+        }
+
+        val ingredientView = LayoutInflater.from(this).inflate(R.layout.ingredients_item, ingredientsList, false)
+        ingredientView.ingredientItemCheckbox.text = name
+        ingredientView.ingredientItemCheckbox.isChecked = true
+        ingredientView.etIngredientAmount.setText("")
+        ingredientView.etIngredientUnit.setText("")
+        ingredientsList.addView(ingredientView)
     }
 }

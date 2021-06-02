@@ -4,12 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.*
-import androidx.core.view.size
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import android.widget.SearchView
+import android.widget.Toast
 import com.team03.cocktailrecipesapp.error_listener.GetRecipesErrorListener
 import com.team03.cocktailrecipesapp.listener.GetRecipesListener
 import com.team03.cocktailrecipesapp.listener.Recipe
-import kotlinx.android.synthetic.main.see_all_recipies.view.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 
 
@@ -34,7 +35,7 @@ class SeeAllRecipiesActivity : SharedPreferencesActivity() {
                 var filtered_recipes: MutableList<Recipe> = recipe_list_gl.toMutableList()
                 var values: MutableList<Boolean> = mutableListOf()
 
-                filtered_recipes.filter { values.add(it.name.contains(p0))}
+                filtered_recipes.filter { values.add(it.name.toLowerCase().contains(p0.toLowerCase()))}
 
                 var size:Int = filtered_recipes.size
                 var i:Int = 0
@@ -93,15 +94,15 @@ class SeeAllRecipiesActivity : SharedPreferencesActivity() {
             val preparationTime: String = recipe.preptime_minutes.toString() + " "+getString(R.string.minutes)
             recipeCard.cocktail_preparationtime.text = preparationTime
             recipeCard.cocktail_id.text = recipe.id.toString()
-            addClickListener(recipeCard, recipesLayout.size)
+            addClickListener(recipeCard)
             /* TODO: recipeCard.cocktail_image */
             recipesLayout.addView(recipeCard)
         }
 
     }
 
-    fun addClickListener(recipeCard: View, index: Int){
-        recipeCard.imageView.setOnClickListener { openDetails(recipeCard) }
+    fun addClickListener(recipeCard: View){
+        recipeCard.trendingCocktailCardImageView.setOnClickListener { openDetails(recipeCard) }
         recipeCard.linearLayout.setOnClickListener { openDetails(recipeCard) }
     }
 
