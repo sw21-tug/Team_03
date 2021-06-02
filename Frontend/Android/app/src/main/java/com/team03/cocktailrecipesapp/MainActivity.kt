@@ -26,6 +26,8 @@ class MainActivity : SharedPreferencesActivity() {
     lateinit var recipesLayout: LinearLayout
     lateinit var recommendedCocktailList: LinearLayout
 
+    var username: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -66,6 +68,9 @@ class MainActivity : SharedPreferencesActivity() {
             }
             getTrendingRecipesList()
         }
+
+        val b = intent.extras
+        if (b != null) username = b.getString("username").toString()
     }
 
     fun onClickAddRecipe(view: View) {
@@ -133,9 +138,13 @@ class MainActivity : SharedPreferencesActivity() {
         }
     }
 
-    fun profilePictureOnClick(view: View){
-            val intent = Intent(this, UserSettingsActivity::class.java)
-            startActivity(intent)
+    fun profilePictureOnClick(view: View) {
+        val intent = Intent(this, UserProfileActivity::class.java)
+        var bundle = Bundle()
+        bundle.putString("username", userName)
+        bundle.putInt("_creator_id", userId)
+        intent.putExtras(bundle)
+        startActivity((intent))
     }
 
     fun openDetails(recipeCard : View)
