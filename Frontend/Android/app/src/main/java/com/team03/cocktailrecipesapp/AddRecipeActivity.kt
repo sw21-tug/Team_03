@@ -1,8 +1,6 @@
 package com.team03.cocktailrecipesapp
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -10,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.team03.cocktailrecipesapp.error_listener.AddRecipeErrorListener
 import com.team03.cocktailrecipesapp.listener.AddRecipeListener
 import kotlinx.android.synthetic.main.activity_add_recipe.*
-import java.util.ArrayList
+import java.util.*
 
 const val RESULT_INGREDIENTS = 10
 
@@ -19,7 +17,6 @@ class AddRecipeActivity : AppCompatActivity() {
     var ingredients_pub_name: List<String>? = null
     var ingredients_pub_amount: List<Int>? = null
     var ingredients_pub_unit: List<String>? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,6 +89,5 @@ class AddRecipeActivity : AppCompatActivity() {
                 errorListener
             )
         }
-
     }
 }
