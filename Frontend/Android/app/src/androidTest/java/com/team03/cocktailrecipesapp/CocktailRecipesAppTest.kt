@@ -301,6 +301,7 @@ class CocktailRecipesAppTest {
         }
     }
 
+    @Test
     fun filterByName()
     {
         onView(withId(R.id.txtViewSeeAll)).perform(click())
