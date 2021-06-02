@@ -13,7 +13,9 @@ data class Recipe(
     var creation_time: String,
     var creator_username: String,
     var rating: Float,
-    var times_rated: Int
+    var times_rated: Int,
+    var ingredients: List<Ingrediant>
+
 ) { override fun toString(): String {
         return "RecipeTest(id='$id', name='$name', preptime_minutes=$preptime_minutes, difficulty=$difficulty," +
                 "instruction='$instruction', creation_time='$creation_time'," +

@@ -16,6 +16,7 @@
         <activity android:name=".AddRecipeActivity"></activity>
         <activity android:name=".SeeAllRecipiesActivity"></activity>
         <activity android:name=".UserProfileActivity"></activity>
+        <activity android:name=".FilterIngredientsActivity"></activity>
         <activity android:name=".CocktailDetailActivity" />
         <activity android:name=".UserSettingsActivity" />
         <activity
