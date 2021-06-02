@@ -24,7 +24,7 @@ class RatingDialog  : DialogFragment() {
         view.sendRatingBtn.setOnClickListener {
             val rating = view.findViewById<RatingBar>(R.id.selectRatingBar)
             ratingResult = rating.rating.toInt()
-            Toast.makeText(context, "You rated: $ratingResult", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, getString(R.string.rated) + ": " + ratingResult.toString(), Toast.LENGTH_LONG).show()
             mCallback?.onSelectedData(ratingResult)
             dismiss()
         }

@@ -81,4 +81,8 @@
     <string name="difficulty_very_hard">очень сложно</string>
     <string name="instruction_title">Инструкция:</string>
 
+    <string name="save_ingredients">сохранить</string>
+    <string name="ingredient_title">Добавить ингредиент</string>
+    <string name="rated">Вы оценили</string>
+    <string name="added">добавлено</string>
 </resources>
