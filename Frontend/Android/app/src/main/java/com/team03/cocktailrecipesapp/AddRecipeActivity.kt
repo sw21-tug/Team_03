@@ -12,7 +12,7 @@ import java.util.*
 
 const val RESULT_INGREDIENTS = 10
 
-class AddRecipeActivity : AppCompatActivity() {
+class AddRecipeActivity : SharedPreferencesActivity() {
 
     var ingredients_pub_name: List<String>? = null
     var ingredients_pub_amount: List<Int>? = null
@@ -24,6 +24,7 @@ class AddRecipeActivity : AppCompatActivity() {
 
         timer_picker_minutes.minValue = 1
         timer_picker_minutes.maxValue = 59
+        difficulty_picker.displayedValues = difficultyArray
         difficulty_picker.minValue = 1
         difficulty_picker.maxValue = 5
     }

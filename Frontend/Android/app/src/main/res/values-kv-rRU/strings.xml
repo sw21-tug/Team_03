@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Cocktail Recipes App</string>
-    <string name="switch_language">Переключиться на английский язык</string>
+    <string name="switch_language">Английский язык</string>
     <string name="register_button">Зарегистрироваться</string>
     <string name="failed_to_load_recipes_from_server">Не удалось загрузить рецепты с сервера</string>
     <string name="error">Ошибка</string>
@@ -18,8 +18,8 @@
     <string name="see_all">Смотреть все</string>
     <string name="trending_recipes">Модные рецепты</string>
     <string name="cocktail_ratings">рейтинги коктейлей</string>
-    <string name="difficulty">трудность</string>
-    <string name="preparation_time">время подготовки</string>
+    <string name="difficulty">Трудности</string>
+    <string name="preparation_time">Время</string>
     <string name="cocktail_name">название коктейля</string>
     <string name="cocktail_image">изображение коктейля</string>
     <string name="prompt_username">Имя пользователя</string>
@@ -33,7 +33,7 @@
     <string name="img_time">изображение времени</string>
     <string name="img_difficulty">изображение сложности</string>
     <string name="add_recipe_button">Добавлять</string>
-    <string name="add_a_new_recipe">Добавить новый рецепт</string>
+    <string name="add_a_new_recipe">Добавить новый рецепт коктейля</string>
     <string name="add_ingredients_to_recipe">Добавьте ингредиенты в свой рецепт</string>
     <string name="add_recipe">Добавить рецепт</string>
     <string name="recipe_name">Название рецепта</string>
@@ -69,10 +69,10 @@
     <string name="already_voted_title">Уже проголосовал!</string>
     <string name="already_voted_text">Вы уже проголосовали за этот коктейль!</string>
 
-    <string name="settings">Настройки</string>
+    <string name="language_setting">Язык</string>
     <string name="recipes">реце́пт</string>
-    <string name="Own">собственный</string>
-    <string name="Liked">понравился</string>
+    <string name="my_cocktails">Коктейли</string>
+    <string name="liked_cocktails">Коктейли по душе</string>
 
     <string name="difficulty_very_easy">очень просто</string>
     <string name="difficulty_easy">легкий</string>
@@ -80,11 +80,13 @@
     <string name="difficulty_hard">трудный</string>
     <string name="difficulty_very_hard">очень сложно</string>
     <string name="instruction_title">Инструкция:</string>
-    <string name="filter_by_name">Фильтр по имени</string>
+    <string name="all_cocktails">Все коктейли</string>
     <string name="name_of_recipe_search">Название рецепта</string>
 
     <string name="save_ingredients">сохранить</string>
     <string name="ingredient_title">Добавить ингредиент</string>
     <string name="rated">Вы оценили</string>
     <string name="added">добавлено</string>
+    <string name="your_profile">Ваш профиль</string>
+    <string name="user_profile_name">Имя</string>
 </resources>

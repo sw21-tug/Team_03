@@ -121,16 +121,4 @@ class SeeAllRecipiesActivity : SharedPreferencesActivity() {
         intent.putExtras(bundle)
         startActivity(intent)
     }
-
-    fun getRecipeDifficutly(difficulty: Int) : String
-    {
-        when (difficulty) {
-            1 -> return resources.getString(R.string.difficulty_very_easy)
-            2 -> return resources.getString(R.string.difficulty_easy)
-            3 -> return resources.getString(R.string.difficulty_medium)
-            4 -> return resources.getString(R.string.difficulty_hard)
-            5 -> return resources.getString(R.string.difficulty_very_hard)
-        }
-        return "Error"
-    }
 }
