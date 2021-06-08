@@ -64,7 +64,6 @@
     <string name="rate_this_cocktail">Посмотрите коктейль</string>
     <string name="cancel">Отмена</string>
     <string name="send">Отправить</string>
-    <string name="rate">Тариф</string>
     <string name="already_voted_ok">Хорошо</string>
     <string name="already_voted_title">Уже проголосовал!</string>
     <string name="already_voted_text">Вы уже проголосовали за этот коктейль!</string>

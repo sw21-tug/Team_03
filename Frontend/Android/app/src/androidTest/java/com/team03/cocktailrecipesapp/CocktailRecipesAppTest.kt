@@ -1,34 +1,21 @@
 package com.team03.cocktailrecipesapp
 
-import android.app.Activity
 import android.content.Context
-import android.view.View
-import androidx.annotation.Nullable
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.core.internal.deps.guava.base.Predicate
-import androidx.test.espresso.core.internal.deps.guava.collect.Iterables
 import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.espresso.util.TreeIterables
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
-import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
-import androidx.test.runner.lifecycle.Stage
 import com.android.volley.Response
 import org.hamcrest.core.IsNot.not
 import org.hamcrest.CoreMatchers.*
-import org.hamcrest.Description
-import org.hamcrest.Matcher
-import org.hamcrest.TypeSafeMatcher
 import org.json.JSONObject
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.time.LocalDateTime
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -36,136 +23,12 @@ import java.time.LocalDateTime
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
+class CocktailRecipesAppTest {
     private val context = ApplicationProvider.getApplicationContext<Context>()
     private val server = serverAPI(context);
-    private val testListener = TestListener();
-    private val testErrorListener = TestErrorListener();
 
     @get:Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
-
-    object ViewCounter {
-        fun getCount(viewMatcher: Matcher<View>, countLimit: Int = 9999): Int {
-            var actualViewsCount = 0
-            do {
-                try {
-                    onView(isRoot())
-                        .check(matches(withViewCount(viewMatcher, actualViewsCount)))
-                    return actualViewsCount
-                } catch (ignored: Error) {
-                }
-                actualViewsCount++
-            } while (actualViewsCount < countLimit)
-            throw Exception("Counting $viewMatcher was failed. Count limit exceeded")
-        }
-
-        fun withViewCount(viewMatcher: Matcher<View>, expectedCount: Int): Matcher<View?>? {
-            return object : TypeSafeMatcher<View?>() {
-                var actualCount = -1
-                override fun describeTo(description: Description) {
-                    if (actualCount >= 0) {
-                        description.appendText("With expected number of items: $expectedCount")
-                        description.appendText("\n With matcher: ")
-                        viewMatcher.describeTo(description)
-                        description.appendText("\n But got: $actualCount")
-                    }
-                }
-
-                override fun matchesSafely(root: View?): Boolean {
-                    actualCount = 0
-                    val iterable = TreeIterables.breadthFirstViewTraversal(root)
-                    actualCount = Iterables.filter(iterable, withMatcherPredicate(viewMatcher)).count()
-                    return actualCount == expectedCount
-                }
-            }
-        }
-
-        private fun withMatcherPredicate(matcher: Matcher<View>): Predicate<View?>? {
-            return object : Predicate<View?> {
-                override fun apply(@Nullable view: View?): Boolean {
-                    return matcher.matches(view)
-                }
-            }
-        }
-    }
-
-    // Data class for test recipe + ingredients
-    data class TestIngredient(
-        var name: String,
-        var amount: Int,
-        var unit: String
-    )
-
-    data class TestRecipe(
-        var name: String,
-        var description: String,
-        var ingredients: List<TestIngredient>
-    )
-    // Dummy test recipes for testing
-    val test_recipe_1: TestRecipe =
-        TestRecipe("Test recipe 1", "Test description 1", listOf(
-            TestIngredient("Cola", 100, "ml"),
-            TestIngredient("Vodka", 30, "ml"),
-            TestIngredient("Ice", 5, "pcs")))
-    val test_recipe_2: TestRecipe =
-        TestRecipe("Test recipe 2", "Test description 2", listOf(
-            TestIngredient("Tequila", 50, "ml"),
-            TestIngredient("Vodka", 30, "ml"),
-            TestIngredient("Lime-juice", 5, "g"),
-            TestIngredient("Ice", 3, "pcs")))
-    val test_recipe_3: TestRecipe =
-        TestRecipe("Test recipe 3", "Test description 3", listOf(
-            TestIngredient("Cola", 100, "ml"),
-            TestIngredient("Rum", 30, "ml"),
-            TestIngredient("Ice", 3, "pcs")))
-    val test_recipes: List<TestRecipe> = listOf(test_recipe_1, test_recipe_2, test_recipe_3)
-    var test_recipes_index: Int = 0
-
-
-    data class AnswerSuccess(
-        var success: Int? = -1
-    )
-
-    data class AnswerUserID(
-        var user_id: Int? = -1
-    )
-
-    data class Recipe(
-        var name: String? = null,
-        var preptime_minutes: Int,
-        var difficulty: Int,
-        var instruction: String? = null,
-        var creation_time: LocalDateTime? = null,
-        var creator_username: String? = null,
-        var ratin: Float
-    )
-
-    data class AnswerRecipes(
-        var recipes: List<Recipe>
-    )
-
-    fun login() {
-        var currentActivity: Activity? = null
-        getInstrumentation().runOnMainSync { run { currentActivity = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED).elementAtOrNull(0) } }
-
-        if (currentActivity?.localClassName == "LoginActivity")
-        {
-            onView(withId(R.id.etUsername)).perform(typeText("daniel"), closeSoftKeyboard())
-            onView(withId(R.id.etPassword)).perform(typeText("1234qwer"), closeSoftKeyboard())
-            onView(withId(R.id.btnLogin)).perform(click())
-        }
-        else
-        {
-        }
-    }
-
-    fun util_waitResult() {
-        while (!testErrorListener.gotResponse && !testListener.gotResponse);
-
-        Assert.assertEquals(true, testListener.gotResponse);
-        Assert.assertEquals(false, testErrorListener.gotResponse);
-    }
 
     @Test
     fun register_checkAPI_calls() {
@@ -250,13 +113,13 @@ class ExampleInstrumentedTest {
 
     @Test
     fun loginDataTest(){
-        onView(withId(R.id.etUsername)).perform(typeText("Testusername"), closeSoftKeyboard())
-        onView(withId(R.id.etPassword)).perform(typeText("Testpassword"), closeSoftKeyboard())
+        PerformLoginAsNonAdmin()
+        PerformLoginAsAdmin()
     }
-
 
     @Test
     fun fillOutRegistrationform() {
+        checkLoggedOut()
         onView(withId(R.id.btnRegister)).perform(click())
         onView(withId(R.id.txt_username)).perform(typeText("John Doe"), closeSoftKeyboard())
         onView(withId(R.id.txt_password)).perform(typeText("password1"), closeSoftKeyboard())
@@ -300,52 +163,10 @@ class ExampleInstrumentedTest {
     }
 
 
-    fun PerformLogout() {
-        // login
-
-//        onView(withId(R.id.etUsername)).perform(typeText("daniel"), closeSoftKeyboard())
-//        onView(withId(R.id.etPassword)).perform(typeText("1234qwer"), closeSoftKeyboard())
-//        onView(withId(R.id.btnLogin)).perform(click())
-
-        // user-profile
-        onView(withId(R.id.imgBtnAvatar)).perform(click())
-
-        Thread.sleep(500)
-        // logout
-        onView(withId(R.id.logoutButton)).check(matches(withText(R.string.logout_button_text)))
-        onView(withId(R.id.logoutButton)).perform(click())
-
-        Thread.sleep(1000)
-
-        // check if we are in login page
-        onView(withId(R.id.btnLogin)).check(matches(isDisplayed()))
-    }
-
-    fun PerformLogin(username: String, password: String)
-    {
-        if (userId > 0)
-            PerformLogout()
-
-        onView(withId(R.id.etUsername)).perform(typeText(username), closeSoftKeyboard())
-        onView(withId(R.id.etPassword)).perform(typeText(password), closeSoftKeyboard())
-        onView(withId(R.id.btnLogin)).perform(click())
-        Thread.sleep(2000)
-    }
-
-    fun PerformLoginAsNonAdmin()
-    {
-        PerformLogin("osama", "1234qwer")
-    }
-
-    fun PerformLoginAsAdmin()
-    {
-        PerformLogin("daniel", "1234qwer")
-    }
-
     @Test
     fun PerformLogoutTest()
     {
-        PerformLogout()
+        checkLoggedOut()
     }
 
     @Test
@@ -480,6 +301,7 @@ class ExampleInstrumentedTest {
         }
     }
 
+    @Test
     fun filterByName()
     {
         onView(withId(R.id.txtViewSeeAll)).perform(click())

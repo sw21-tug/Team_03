@@ -188,7 +188,6 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
         cocktail_creator_text.visibility = View.INVISIBLE
         imageButtonLike.visibility = View.INVISIBLE
         imgBtnRate.visibility = View.INVISIBLE
-        tvRating.visibility = View.INVISIBLE
         prepTimeText.visibility = View.INVISIBLE
         prepTimeText3.visibility = View.INVISIBLE
         ingredients.visibility = View.INVISIBLE
@@ -210,7 +209,6 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
         cocktail_creator_text.visibility = View.VISIBLE
         imageButtonLike.visibility = View.VISIBLE
         imgBtnRate.visibility = View.VISIBLE
-        tvRating.visibility = View.VISIBLE
         prepTimeText.visibility = View.VISIBLE
         prepTimeText3.visibility = View.VISIBLE
         ingredients.visibility = View.VISIBLE

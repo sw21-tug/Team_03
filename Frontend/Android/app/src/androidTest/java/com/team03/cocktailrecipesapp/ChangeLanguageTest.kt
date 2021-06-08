@@ -36,7 +36,7 @@ class ChangeLanguageTest {
         onView(withId(R.id.imgBtnAvatar)).perform(click())
         onView(withId(R.id.swtlanguage)).perform(click())
         onView(withId(R.id.swtlanguage)).check(matches(withText("Переключиться на английский язык")))
-        onView(withId(R.id.txtViewLogout)).check(matches(withText("выход")))
+        onView(withId(R.id.logoutButton)).check(matches(withText("выход")))
     }
 
     @Test

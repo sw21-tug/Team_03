@@ -42,7 +42,6 @@
     <string name="rate_this_cocktail">Rate this cocktail</string>
     <string name="cancel">Cancel</string>
     <string name="send">Send</string>
-    <string name="rate">Rate</string>
     <string name="already_voted_ok">Okay</string>
     <string name="already_voted_title">Already voted!</string>
     <string name="already_voted_text">You already voted for this cocktail!</string>
