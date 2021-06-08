@@ -1,22 +1,21 @@
 package com.team03.cocktailrecipesapp
 
-import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
-import androidx.core.view.size
 import com.team03.cocktailrecipesapp.error_listener.GetRecipesErrorListener
 import com.team03.cocktailrecipesapp.listener.GetRecipesListener
-import com.team03.cocktailrecipesapp.listener.Ingrediant
 import com.team03.cocktailrecipesapp.listener.Recipe
 import kotlinx.android.synthetic.main.activity_user_profile.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
+import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.cocktail_id
+import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.cocktail_name
+import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.cocktail_rating_bar
 import java.util.*
 
 
@@ -26,10 +25,13 @@ class UserProfileActivity : SharedPreferencesActivity() {
     lateinit var userNameText: TextView
     lateinit var userImage: ImageView
     lateinit var backButton: Button
-    var userNameExtra: String? = null
-
+    lateinit var showLikedButton: Button
+    lateinit var showOwnedButton: Button
     lateinit var swtLangauge: Switch
     lateinit var recipesLayout: LinearLayout
+    lateinit var detailsProgressBar: View
+
+
     var detail_user_ID: Int = -1
 
     override fun onStart() {
@@ -49,8 +51,17 @@ class UserProfileActivity : SharedPreferencesActivity() {
             onStart()
         }
 
+        detailsProgressBar = findViewById(R.id.progress_load_details)
         userNameText = findViewById(R.id.user_profile_username)
         userImage = findViewById(R.id.user_profile_image)
+        showOwnedButton = findViewById(R.id.own_recipe_button)
+        showOwnedButton.setOnClickListener {
+            setSelectedButtonColor(liked_state = false, owned_state = true) }
+
+        showLikedButton = findViewById(R.id.liked_recipe_button)
+        showLikedButton.setOnClickListener {
+            setSelectedButtonColor(liked_state = true, owned_state = false) }
+
         backButton = findViewById(R.id.user_profile_back_button)
         backButton.setOnClickListener { onBackPressed() }
 
@@ -59,19 +70,16 @@ class UserProfileActivity : SharedPreferencesActivity() {
         // set username
         val extras = intent.extras
         if (extras != null)
-            userNameExtra = extras.getString("username")
+        userNameText.setText(userName)
 
-        userNameText.setText(userNameExtra)
 
-        own_recipe_button.setBackgroundColor(0xFFBB86FC.toInt())
-        liked_recipe_button.setBackgroundColor(0xFF6200EE.toInt())
         if (extras != null) {
             detail_user_ID = extras.getInt("_creator_id")
             if(userId != extras.getInt("_creator_id")){
                 //invisible Logout button, Settings
                 logoutButton.visibility = View.INVISIBLE
                 swtlanguage.visibility = View.INVISIBLE
-                textView.visibility = View.INVISIBLE
+                textViewLanguage.visibility = View.INVISIBLE
             }
         }
 
@@ -84,29 +92,30 @@ class UserProfileActivity : SharedPreferencesActivity() {
             userImage.setBackground(ContextCompat.getDrawable(applicationContext, R.drawable.default_avatar ));
         }
 
-        val server = serverAPI(applicationContext)
-        val listener = GetRecipesListener(::onSuccessfulGetRecipes)
-        val errorListener = GetRecipesErrorListener(::onFailedGetRecipes)
-
-            server.GetRecipesByUser(detail_user_ID ,listener, errorListener)
+        val liked_state: Boolean = shared.getBoolean("liked_button_state", false)
+        val owned_state: Boolean = shared.getBoolean("owned_button_state", true)
+        setSelectedButtonColor(liked_state = liked_state, owned_state = owned_state)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_user_profile)
+
+        detailsProgressBar = findViewById(R.id.progress_load_details)
         userNameText = findViewById(R.id.user_profile_username)
         userImage = findViewById(R.id.user_profile_image)
+        showOwnedButton = findViewById(R.id.own_recipe_button)
+        showLikedButton = findViewById(R.id.liked_recipe_button)
         backButton = findViewById(R.id.user_profile_back_button)
         backButton.setOnClickListener { onBackPressed() }
+
+
+        recipesLayout = findViewById(R.id.trending_cocktail_list)
 
         // set username
         val extras = intent.extras
         if (extras != null)
-            userNameExtra = extras.getString("username")
-        
-        userNameText.setText(userNameExtra)
-
+        userNameText.setText(userName)
         // set profile picture according to selected language
         val language_ = shared.getString("Language", "");
         var avatarImgae = findViewById<ImageButton>(R.id.imgBtnAvatar);
@@ -132,31 +141,18 @@ class UserProfileActivity : SharedPreferencesActivity() {
         onBackPressed()
     }
 
-    fun showLikedRecipes(view: View)
-    {
-        val server = serverAPI(applicationContext)
-        val listener =
-                GetRecipesListener(::onSuccessfulGetRecipes)
-        val errorListener =
-                GetRecipesErrorListener(
-                        ::onFailedGetRecipes
-                )
-        server.GetLikedRecipesByUser(detail_user_ID ,listener, errorListener)
-
-        own_recipe_button.setBackgroundColor(0xFF6200EE.toInt())
-        liked_recipe_button.setBackgroundColor(0xFFBB86FC.toInt())
-    }
 
     fun onSuccessfulGetRecipes(recipe_list: List<Recipe>) {
-        fillLikedRecipesList(recipe_list)
+        fillRecipesList(recipe_list)
+        detailsProgressBar.visibility = View.INVISIBLE
     }
 
     fun onFailedGetRecipes() {
         Toast.makeText(applicationContext, resources.getString(R.string.failed_to_load_recipes_from_server), Toast.LENGTH_LONG).show()
+        detailsProgressBar.visibility = View.INVISIBLE
     }
 
-    fun fillLikedRecipesList(recipe_list: List<Recipe>) {
-
+    fun fillRecipesList(recipe_list: List<Recipe>) {
         recipesLayout.removeAllViews()
 
         recipe_list.forEach() { recipe ->
@@ -164,7 +160,7 @@ class UserProfileActivity : SharedPreferencesActivity() {
             recipeCard.cocktail_name.text = recipe.name
             recipeCard.cocktail_ratings.text = recipe.times_rated.toString()
             recipeCard.cocktail_rating_bar.rating = recipe.rating
-            recipeCard.cocktail_difficulty.text =  recipe.difficulty.toString()
+            recipeCard.cocktail_difficulty.text =  getRecipeDifficutly(recipe.difficulty)
             val preparationTime: String = recipe.preptime_minutes.toString() + " "+getString(R.string.minutes)
             recipeCard.cocktail_preparationtime.text = preparationTime
             recipeCard.cocktail_id.text = recipe.id.toString()
@@ -185,7 +181,7 @@ class UserProfileActivity : SharedPreferencesActivity() {
     fun openDetails(recipeCard : View)
     {
         val intent = Intent(this, CocktailDetailActivity::class.java)
-        var bundle = Bundle()
+        val bundle = Bundle()
 
         bundle.putInt("cocktail_id", Integer.valueOf(recipeCard.cocktail_id.text.toString()))
         bundle.putString("cocktail_name", recipeCard.cocktail_name.text.toString())
@@ -198,7 +194,7 @@ class UserProfileActivity : SharedPreferencesActivity() {
         startActivity(intent)
     }
 
-    fun showOwnRecipes(view: View)
+    fun showOwnRecipes()
     {
         val server = serverAPI(applicationContext)
         val listener =
@@ -208,8 +204,42 @@ class UserProfileActivity : SharedPreferencesActivity() {
                         ::onFailedGetRecipes
                 )
         server.GetRecipesByUser(detail_user_ID ,listener, errorListener)
+    }
 
-        own_recipe_button.setBackgroundColor(0xFFBB86FC.toInt())
-        liked_recipe_button.setBackgroundColor(0xFF6200EE.toInt())
+    fun showLikedRecipes()
+    {
+        val server = serverAPI(applicationContext)
+        val listener =
+            GetRecipesListener(::onSuccessfulGetRecipes)
+        val errorListener =
+            GetRecipesErrorListener(
+                ::onFailedGetRecipes
+            )
+        server.GetLikedRecipesByUser(detail_user_ID, listener, errorListener)
+    }
+
+    fun setSelectedButtonColor(liked_state: Boolean, owned_state:Boolean)
+    {
+        if (liked_state && !owned_state)
+        {
+            showLikedButton.setBackgroundColor(resources.getColor(R.color.color_button_selected))
+            showOwnedButton.setBackgroundColor(resources.getColor(R.color.color_button_not_selected))
+            shared_editor.putBoolean("liked_button_state", liked_state).apply()
+            shared_editor.putBoolean("owned_button_state", owned_state).apply()
+
+            showOwnedButton.isClickable = true
+            showLikedButton.isClickable = false
+            showLikedRecipes()
+        }
+        else if (owned_state && !liked_state)
+        {
+            showOwnedButton.setBackgroundColor(resources.getColor(R.color.color_button_selected))
+            showLikedButton.setBackgroundColor(resources.getColor(R.color.color_button_not_selected))
+            shared_editor.putBoolean("liked_button_state", liked_state).apply()
+            shared_editor.putBoolean("owned_button_state", owned_state).apply()
+            showOwnedButton.isClickable = false
+            showLikedButton.isClickable = true
+            showOwnRecipes()
+        }
     }
 }

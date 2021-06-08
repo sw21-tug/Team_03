@@ -11,6 +11,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.team03.cocktailrecipesapp.dialogs.DeleteRecipeDialogFragment
+import com.team03.cocktailrecipesapp.dialogs.RatingDialog
 import com.team03.cocktailrecipesapp.error_listener.DeleteRecipeErrorListener
 import com.team03.cocktailrecipesapp.error_listener.GetRecipeErrorListener
 import com.team03.cocktailrecipesapp.error_listener.LikeErrorListener
@@ -76,6 +77,7 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
     var isLiked = false;
     var recipe_id = 0;
     var my_rating = 0;
+    var current_rating = 0.0f;
     var _creator_id: Int = -1
 
 //    lateinit var imgBtnRate : ImageButton
@@ -137,6 +139,7 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
         cocktail_name.text = recipe.name
         cocktail_difficulty.text = getRecipeDifficutly(recipe.difficulty)
         cocktail_rating_bar.rating = recipe.rating
+        current_rating = recipe.rating
         cocktail_preparation_time.text = recipe.preptime_minutes.toString() + " " + getString(R.string.minutes)
         cocktail_instruction.text = recipe.instruction
         my_rating = recipe.my_rating
@@ -295,6 +298,9 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
                 RateRecipeListener(::onSuccessfulRateRecipe)
         val errorListener = RateRecipeErrorListener(::onFailedRateRecipe)
         server.rateRecipe(userId, recipe_id, ratingValue, listener, errorListener);
+
+        //Update rating_bar
+        cocktail_rating_bar.rating = (current_rating + ratingValue) / 2
     }
 
     override fun onSelectedData(rating: Int) {
