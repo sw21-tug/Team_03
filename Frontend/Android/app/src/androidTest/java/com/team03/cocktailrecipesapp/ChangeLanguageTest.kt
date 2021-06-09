@@ -3,16 +3,13 @@ package com.team03.cocktailrecipesapp
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
-import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.time.LocalDateTime
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -39,7 +36,7 @@ class ChangeLanguageTest {
         onView(withId(R.id.imgBtnAvatar)).perform(click())
         onView(withId(R.id.swtlanguage)).perform(click())
         onView(withId(R.id.swtlanguage)).check(matches(withText("Переключиться на английский язык")))
-        onView(withId(R.id.txtViewLogout)).check(matches(withText("выход")))
+        onView(withId(R.id.logoutButton)).check(matches(withText("выход")))
     }
 
     @Test

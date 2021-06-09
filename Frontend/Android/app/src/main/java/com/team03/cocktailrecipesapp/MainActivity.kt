@@ -19,7 +19,8 @@ import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.cocktail_
 import java.util.*
 
 class MainActivity : SharedPreferencesActivity() {
-    lateinit var progressBar: ProgressBar
+    lateinit var recommendedProgressBar: View
+    lateinit var trendingProgressBar: View
     lateinit var recipesLayout: LinearLayout
     lateinit var recommendedCocktailList: LinearLayout
     lateinit var txtSeeAll : TextView
@@ -42,7 +43,9 @@ class MainActivity : SharedPreferencesActivity() {
         super.onStart()
         // try to get a previously saved userId
         if (userId == 0) {
-            userId = shared.getInt("userId", 0);
+            userId = shared.getInt("userId", 0)
+            userName = shared.getString("username","").toString()
+            println(userName)
         }
         if (userId == 0) {
             val intent = Intent(this, LoginActivity::class.java)
@@ -50,9 +53,11 @@ class MainActivity : SharedPreferencesActivity() {
         }
         else {
             shared_editor.putInt("userId", userId).apply()
+            shared_editor.putString("username", userName).apply()
             setContentView(R.layout.activity_main)
             txtSeeAll = findViewById(R.id.txtViewSeeAll)
-            progressBar = findViewById(R.id.progressbar);
+            trendingProgressBar = findViewById(R.id.progress_load_trending);
+            recommendedProgressBar  = findViewById(R.id.progress_load_recommended);
             recipesLayout = findViewById(R.id.trending_cocktail_list)
             recommendedCocktailList = findViewById(R.id.recommended_cocktail_list)
 
@@ -102,12 +107,14 @@ class MainActivity : SharedPreferencesActivity() {
         trendingRecipeList = trendingRecipeList.subList(0, if (trendingRecipeList.size >= 15) 15 else trendingRecipeList.size)
         fillTrendingRecipesList(trendingRecipeList)
         fillRecommendetRecipesList(recommendedRecipeList)
-        progressBar.visibility = View.INVISIBLE;
+        recommendedProgressBar.visibility = View.INVISIBLE;
+        trendingProgressBar.visibility = View.INVISIBLE;
         recipesLayout.visibility = View.VISIBLE
     }
 
     fun onFailedGetRecipes() {
-        progressBar.visibility = View.INVISIBLE;
+        recommendedProgressBar.visibility = View.INVISIBLE;
+        trendingProgressBar.visibility = View.INVISIBLE;
         recipesLayout.visibility = View.INVISIBLE
         Toast.makeText(applicationContext, resources.getString(R.string.failed_to_load_recipes_from_server), Toast.LENGTH_LONG).show()
     }
@@ -162,17 +169,5 @@ class MainActivity : SharedPreferencesActivity() {
 
         intent.putExtras(bundle)
         startActivity(intent)
-    }
-
-    fun getRecipeDifficutly(difficulty: Int) : String
-    {
-        when (difficulty) {
-            1 -> return resources.getString(R.string.difficulty_very_easy)
-            2 -> return resources.getString(R.string.difficulty_easy)
-            3 -> return resources.getString(R.string.difficulty_medium)
-            4 -> return resources.getString(R.string.difficulty_hard)
-            5 -> return resources.getString(R.string.difficulty_very_hard)
-        }
-        return "Error"
     }
 }

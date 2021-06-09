@@ -12,7 +12,6 @@ import com.team03.cocktailrecipesapp.error_listener.GetRecipesErrorListener
 import com.team03.cocktailrecipesapp.listener.GetRecipesListener
 import com.team03.cocktailrecipesapp.listener.Recipe
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
-import java.util.ArrayList
 
 
 class SeeAllRecipiesActivity : SharedPreferencesActivity() {
@@ -20,8 +19,6 @@ class SeeAllRecipiesActivity : SharedPreferencesActivity() {
     lateinit var recipesLayout: LinearLayout
     lateinit var searchBar: SearchView
     var recipe_list_gl: List<Recipe> = listOf()
-    var recipe_list_filtered_by_ingredients: List<Recipe> = listOf()
-    var ingredients_pub_name: List<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +32,7 @@ class SeeAllRecipiesActivity : SharedPreferencesActivity() {
                 return false
             }
             override fun onQueryTextChange(p0: String): Boolean {
-                var filtered_recipes: MutableList<Recipe> = recipe_list_filtered_by_ingredients.toMutableList()
+                var filtered_recipes: MutableList<Recipe> = recipe_list_gl.toMutableList()
                 var values: MutableList<Boolean> = mutableListOf()
 
                 filtered_recipes.filter { values.add(it.name.toLowerCase().contains(p0.toLowerCase()))}
@@ -78,7 +75,6 @@ class SeeAllRecipiesActivity : SharedPreferencesActivity() {
         fillAllRecipesList(recipe_list)
         progressBar.visibility = View.INVISIBLE
         recipesLayout.visibility = View.VISIBLE
-        recipe_list_filtered_by_ingredients = recipe_list_gl
     }
 
     fun onFailedGetRecipes() {
@@ -87,39 +83,22 @@ class SeeAllRecipiesActivity : SharedPreferencesActivity() {
         Toast.makeText(applicationContext, resources.getString(R.string.failed_to_load_recipes_from_server), Toast.LENGTH_LONG).show()
     }
 
-    fun checkIfIngredientsInRecipe(recipe: Recipe) : Boolean
-    {
-        for (i in 0..(ingredients_pub_name.orEmpty().size - 1)) {
-                for (k in 0..(recipe.ingredients.size - 1)) {
-                    if (recipe.ingredients.toMutableList().get(k).name == ingredients_pub_name.orEmpty().toMutableList().get(i))
-                    {
-                        return true;
-                    }
-                }
-        }
-        return false;
-    }
-
     fun fillAllRecipesList(recipe_list: List<Recipe>) {
-        recipesLayout.removeAllViews()
+
         recipe_list.forEach() { recipe ->
-            if((ingredients_pub_name == null || ingredients_pub_name.orEmpty().size == 0)
-                || checkIfIngredientsInRecipe(recipe))
-            {
-                val recipeCard = LayoutInflater.from(this).inflate(R.layout.trending_cocktail_list_card, recipesLayout, false)
-                recipeCard.cocktail_name.text = recipe.name
-                recipeCard.cocktail_ratings.text = recipe.times_rated.toString()
-                recipeCard.cocktail_rating_bar.rating = recipe.rating
-                recipeCard.cocktail_difficulty.text =  getRecipeDifficutly(recipe.difficulty)
-                val preparationTime: String = recipe.preptime_minutes.toString() + " "+getString(R.string.minutes)
-                recipeCard.cocktail_preparationtime.text = preparationTime
-                recipeCard.cocktail_id.text = recipe.id.toString()
-                addClickListener(recipeCard)
-                /* TODO: recipeCard.cocktail_image */
-                recipesLayout.addView(recipeCard)
-                recipe_list_filtered_by_ingredients.toMutableList().add(recipe)
-            }
+            val recipeCard = LayoutInflater.from(this).inflate(R.layout.trending_cocktail_list_card, recipesLayout, false)
+            recipeCard.cocktail_name.text = recipe.name
+            recipeCard.cocktail_ratings.text = recipe.times_rated.toString()
+            recipeCard.cocktail_rating_bar.rating = recipe.rating
+            recipeCard.cocktail_difficulty.text =  getRecipeDifficutly(recipe.difficulty)
+            val preparationTime: String = recipe.preptime_minutes.toString() + " "+getString(R.string.minutes)
+            recipeCard.cocktail_preparationtime.text = preparationTime
+            recipeCard.cocktail_id.text = recipe.id.toString()
+            addClickListener(recipeCard)
+            /* TODO: recipeCard.cocktail_image */
+            recipesLayout.addView(recipeCard)
         }
+
     }
 
     fun addClickListener(recipeCard: View){
@@ -141,36 +120,5 @@ class SeeAllRecipiesActivity : SharedPreferencesActivity() {
 
         intent.putExtras(bundle)
         startActivity(intent)
-    }
-
-    fun onClickFilterByIngredients(view: View) {
-        val intent = Intent(this, FilterIngredientsActivity::class.java)
-        if(ingredients_pub_name != null)
-        {
-            intent.putStringArrayListExtra("checked_ingredients_name", ingredients_pub_name as ArrayList<String>)
-        }
-        startActivityForResult(intent, RESULT_INGREDIENTS)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (data != null && resultCode == RESULT_OK && requestCode == RESULT_INGREDIENTS)
-        {
-            ingredients_pub_name = data.getStringArrayListExtra("pickedingredientsforfilter")
-        }
-        fillAllRecipesList(recipe_list_gl);
-    }
-
-    fun getRecipeDifficutly(difficulty: Int) : String
-    {
-        when (difficulty) {
-            1 -> return resources.getString(R.string.difficulty_very_easy)
-            2 -> return resources.getString(R.string.difficulty_easy)
-            3 -> return resources.getString(R.string.difficulty_medium)
-            4 -> return resources.getString(R.string.difficulty_hard)
-            5 -> return resources.getString(R.string.difficulty_very_hard)
-        }
-        return "Error"
     }
 }
