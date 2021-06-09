@@ -119,7 +119,28 @@ class ExampleInstrumentedTest {
             TestIngredient("Cola", 100, "ml"),
             TestIngredient("Rum", 30, "ml"),
             TestIngredient("Ice", 3, "pcs")))
-    val test_recipes: List<TestRecipe> = listOf(test_recipe_1, test_recipe_2, test_recipe_3)
+
+    val test_recipe_4: TestRecipe =
+        TestRecipe("Averna Sour", "Mix Averna with Lemon", listOf(
+            TestIngredient("Averna", 6, "cl"),
+            TestIngredient("Lime-juice", 2, "cl"),
+            TestIngredient("Ice", 2, "pcs")))
+
+    val test_recipe_5: TestRecipe =
+        TestRecipe("Mojito", "    STEP 1\n" +
+                "\n" +
+                "    Muddle the lime juice, sugar and mint leaves in a small jug, crushing the mint as you go – you can use the end of a rolling pin for this. Pour into a tall glass and add a handful of ice.\n" +
+                "    STEP 2\n" +
+                "\n" +
+                "    Pour over the rum, stirring with a long-handled spoon. Top up with soda water, garnish with mint and serve.", listOf(
+            TestIngredient("White Rum", 60, "ml"),
+            TestIngredient("Lime-juice", 1, "cl"),
+            TestIngredient("Mint", 5, "pcs"),
+            TestIngredient("Soda water", 2, "cl"),
+            TestIngredient("Brown sugar", 1, "tsp")))
+
+
+    val test_recipes: List<TestRecipe> = listOf(test_recipe_1, test_recipe_2, test_recipe_3, test_recipe_4, test_recipe_5)
     var test_recipes_index: Int = 0
 
 
@@ -513,5 +534,17 @@ class ExampleInstrumentedTest {
         onView(allOf(withId(R.id.cocktail_name), withText("Test recipe 1"))).perform(click())
         Thread.sleep(500)
         onView(withId(R.id.cocktail_name)).check(matches(withText("Test recipe 1")))
+    }
+
+    @Test
+    fun addUsersData()
+    {
+
+    }
+
+    @Test
+    fun fillDbWithCleanData()
+    {
+
     }
 }
