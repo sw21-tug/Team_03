@@ -93,6 +93,7 @@
     <string name="name_of_recipe_search">Name of recipe</string>
     <string name="rated">You rated</string>
     <string name="added">added</string>
+    <string name="filter_by_ingredients">Filter by ingredients</string>
     <string name="your_profile">Your Profile</string>
     <string name="sample_name" translatable="false">Sample name</string>
     <string name="user_profile_name">Name</string>
