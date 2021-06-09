@@ -206,6 +206,7 @@ class CocktailRecipesAppTest {
         onView(withId(R.id.user_profile_image)).check(matches(isDisplayed()))
         onView(withId(R.id.user_profile_username)).check(matches(isDisplayed()))
     }
+
     @Test
     fun AddNewRecipeWithNoIngredients() {
         login()
@@ -226,7 +227,7 @@ class CocktailRecipesAppTest {
     fun AddNewRecipe() {
         login()
         // Get recipe for testing
-        if (test_recipes_index > 2) { test_recipes_index = 0 }
+        if (test_recipes_index > 3) { test_recipes_index = 0 }
         val recipe: TestRecipe = test_recipes.get(test_recipes_index)
 
         onView(withId(R.id.add_recipe_button)).perform(click())
@@ -266,6 +267,24 @@ class CocktailRecipesAppTest {
             AddNewRecipe()
             Thread.sleep(1000)
         }
+    }
+
+    @Test
+    fun DeleteRecipe()  {
+        test_recipes_index = 3
+        AddNewRecipe()
+        Thread.sleep(1000)
+        onView(withId(R.id.txtViewSeeAll)).perform(click())
+        Thread.sleep(2000)
+        onView(withId(R.id.searchRecipesCardView)).perform(click())
+        onView(withId(R.id.searchRecipesView)).perform(typeText(test_recipes[3].name), closeSoftKeyboard())
+        Thread.sleep(1000)
+        onView(allOf(
+            withId(R.id.trendingCocktailCard), withParentIndex(0))).perform(click())
+        Thread.sleep(3000)
+        onView(withId(R.id.delete_recipe_button)).perform(click())
+        Thread.sleep(1000)
+        onView(withText("YES")).perform(click())
     }
 
     @Test
@@ -336,5 +355,57 @@ class CocktailRecipesAppTest {
         onView(allOf(withId(R.id.cocktail_name), withText("Test recipe 1"))).perform(click())
         Thread.sleep(500)
         onView(withId(R.id.cocktail_name)).check(matches(withText("Test recipe 1")))
+    }
+
+    @Test
+    fun filterByIngredientWithNewRecipe()
+    {
+        login()
+        // Get recipe for testing
+        test_recipes_index = 3;
+        val recipe: TestRecipe = test_recipes.get(test_recipes_index)
+
+        onView(withId(R.id.add_recipe_button)).perform(click())
+        onView(withId(R.id.etRecipeName)).perform(typeText(recipe.name), closeSoftKeyboard())
+        onView(withId(R.id.etRecipeDescription)).perform(typeText(recipe.description), closeSoftKeyboard())
+        onView(withId(R.id.btnManageIngredients)).perform(click())
+        Thread.sleep(500)
+
+        // Get ingredients of recipe
+        for (ingredient in recipe.ingredients)
+        {
+            onView(withText(ingredient.name)).check(matches(isNotChecked())).perform(
+                scrollTo(), click())
+            onView(allOf(
+                withId(R.id.etIngredientAmount), withParent(allOf(
+                    withId(R.id.etIngredientLayout), hasSibling(withText(ingredient.name)))))).perform(
+                scrollTo(), typeText(""+ingredient.amount))
+            onView(allOf(
+                withId(R.id.etIngredientUnit), withParent(allOf(
+                    withId(R.id.etIngredientLayout), hasSibling(withText(ingredient.name)))))).perform(
+                scrollTo(), typeText(ingredient.unit))
+            Thread.sleep(500)
+        }
+        Thread.sleep(500)
+
+        onView(withId(R.id.btnConfirmIngredients)).perform(click())
+        onView(withId(R.id.difficulty_picker)).perform(swipeDown())
+        onView(withId(R.id.timer_picker_minutes)).perform(swipeDown())
+        onView(withId(R.id.btnAddRecipe)).perform(click())
+
+        Thread.sleep(500)
+        onView(withId(R.id.txtViewSeeAll)).perform(click())
+        Thread.sleep(500)
+        onView(withId(R.id.btnFilterByIngredients)).perform(click())
+        Thread.sleep(500)
+        onView(withText("Averna")).check(matches(isNotChecked())).perform(
+            scrollTo(), click())
+        onView(withId(R.id.btnConfirmIngredients)).perform(click())
+        Thread.sleep(500)
+        onView(withId(R.id.searchRecipesView)).perform(typeText("Filtered Recipe"), closeSoftKeyboard())
+        Thread.sleep(500)
+        onView(allOf(withId(R.id.cocktail_name), withText("Filtered Recipe"))).perform(click())
+        Thread.sleep(500)
+        onView(withId(R.id.cocktail_name)).check(matches(withText("Filtered Recipe")))
     }
 }
