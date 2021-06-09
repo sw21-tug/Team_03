@@ -92,4 +92,9 @@ class AddRecipeActivity : SharedPreferencesActivity() {
             )
         }
     }
+
+    fun backToMainscreen(view: View)
+    {
+        onBackPressed();
+    }
 }

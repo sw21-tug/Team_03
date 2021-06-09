@@ -20,6 +20,13 @@
             android:layout_weight="1"
             android:paddingBottom="10dp">
 
+            <ImageView
+                android:id="@+id/cocktail_detail_image"
+                android:layout_width="409dp"
+                android:layout_height="227dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <androidx.appcompat.widget.AppCompatButton
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="47dp"
@@ -27,17 +34,9 @@
                 android:layout_gravity="start"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="20dp"
-                android:background="@color/white"
                 android:enabled="true"
                 android:foreground="?attr/actionModeCloseDrawable"
                 android:onClick="backToMainscreen"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/cocktail_detail_image"
-                android:layout_width="409dp"
-                android:layout_height="227dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -185,18 +184,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="50"
+            android:fillViewport="true"
             android:padding="4dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/ingredients"
-                    android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginVertical="8dp"
+                    android:layout_marginTop="16dp"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="@string/ingrediants"
@@ -205,17 +207,22 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
-                <ListView
+                <com.app.Settings.ExpandableHeightListView
                     android:id="@+id/recipe_list_view"
                     android:layout_width="match_parent"
-                    android:layout_height="130dp"/>
+                    android:layout_height="wrap_content"
+                    android:isScrollContainer="false"
+                    android:nestedScrollingEnabled="false"
+                    android:scrollbarAlwaysDrawVerticalTrack="false"
+                    android:scrollbars="none" />
+
                 <TextView
                     android:id="@+id/cocktail_instruction_title"
-                    android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginVertical="8dp"
+                    android:layout_marginTop="16dp"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="@string/instruction_title"
@@ -223,6 +230,7 @@
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/cocktail_instruction"
                     android:layout_width="match_parent"

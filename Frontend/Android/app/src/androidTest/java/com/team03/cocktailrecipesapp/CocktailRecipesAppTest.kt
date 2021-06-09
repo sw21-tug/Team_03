@@ -709,14 +709,15 @@ class ExampleInstrumentedTest {
     }
 
     @Test
-    fun initial_fillDbWithCleanIngredients()
-    {
+    fun initial_fillDbWithCleanIngredients() {
 
-        val ingredients: MutableList<String> = mutableListOf("Makava", "Vodka", "Ice", "Cola", "Rum",
-                                                             "Cream of Coconut", "Whipped cream",
-                                                             "Pineapple juice", "Lime juice",
-                                                             "Averna", "Mint", "Soda water",
-                                                             "Brown sugar", "White Rum")
+        val ingredients: MutableList<String> = mutableListOf(
+            "Makava", "Vodka", "Ice", "Cola", "Rum",
+            "Cream of Coconut", "Whipped cream",
+            "Pineapple juice", "Lime juice",
+            "Averna", "Mint", "Soda water",
+            "Brown sugar", "White Rum"
+        )
 
 
         onView(withId(R.id.add_recipe_button)).perform(click())
@@ -728,19 +729,34 @@ class ExampleInstrumentedTest {
             Thread.sleep(300)
             onView(withId(R.id.etRecipeName)).perform(replaceText(ingredient))
             onView(withId(R.id.btnSaveIngrediant)).perform(click())
-            onView(allOf(
-                withId(R.id.etIngredientAmount), withParent(allOf(
-                    withId(R.id.etIngredientLayout), hasSibling(withText(ingredient)))))).perform(
-                scrollTo(), replaceText("5"))
-            onView(allOf(
-                withId(R.id.etIngredientUnit), withParent(allOf(
-                    withId(R.id.etIngredientLayout), hasSibling(withText(ingredient)))))).perform(
-                scrollTo(), replaceText("cl"))
+            onView(
+                allOf(
+                    withId(R.id.etIngredientAmount), withParent(
+                        allOf(
+                            withId(R.id.etIngredientLayout), hasSibling(withText(ingredient))
+                        )
+                    )
+                )
+            ).perform(
+                scrollTo(), replaceText("5")
+            )
+            onView(
+                allOf(
+                    withId(R.id.etIngredientUnit), withParent(
+                        allOf(
+                            withId(R.id.etIngredientLayout), hasSibling(withText(ingredient))
+                        )
+                    )
+                )
+            ).perform(
+                scrollTo(), replaceText("cl")
+            )
             Thread.sleep(300)
         }
         onView(withId(R.id.btnConfirmIngredients)).perform(click())
         Thread.sleep(200)
         onView(withId(R.id.btnAddRecipe)).perform(click())
+    }
     fun filterByIngredientWithNewRecipe()
     {
         login()
