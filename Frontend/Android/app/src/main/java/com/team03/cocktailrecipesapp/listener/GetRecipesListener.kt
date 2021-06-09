@@ -13,7 +13,9 @@ data class Recipe(
     var creation_time: String,
     var creator_username: String,
     var rating: Float,
-    var times_rated: Int
+    var times_rated: Int,
+    var image: String,
+    var ingredients: List<Ingrediant>
 ) { override fun toString(): String {
         return "RecipeTest(id='$id', name='$name', preptime_minutes=$preptime_minutes, difficulty=$difficulty," +
                 "instruction='$instruction', creation_time='$creation_time'," +
@@ -22,8 +24,7 @@ data class Recipe(
 }
 
 data class RecipeList(
-    var recipes: List<Recipe>,
-    var count: Int
+    var recipes: List<Recipe>
 )
 
 class GetRecipesListener : Response.Listener<JSONObject>
@@ -38,7 +39,6 @@ class GetRecipesListener : Response.Listener<JSONObject>
     override fun onResponse(response: JSONObject)
     {
         val serverResponse = Gson().fromJson(response.toString(), RecipeList::class.java)
-        serverResponse.count = serverResponse.recipes.size
         onSuccess.invoke(serverResponse.recipes)
     }
 }

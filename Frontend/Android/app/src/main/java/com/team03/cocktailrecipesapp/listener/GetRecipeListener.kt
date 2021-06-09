@@ -28,7 +28,8 @@ data class RecipeDetail(
     var liked: Int,
     var is_mine: Int,
     var my_rating: Int,
-    var rating: Float
+    var rating: Float,
+    var image: String
 )
 // Response { recipe: [ { name: <str>, preptime_minutes: <int>, difficulty: <int>, instruction: <str>,
    // ingredients: [ { id: <int>, name: <str>, amount: <int> } ], creation_time: <datetime>, creator_username: <str>,

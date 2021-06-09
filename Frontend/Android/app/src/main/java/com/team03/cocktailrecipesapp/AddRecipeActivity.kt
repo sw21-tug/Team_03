@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.team03.cocktailrecipesapp.error_listener.AddRecipeErrorListener
 import com.team03.cocktailrecipesapp.listener.AddRecipeListener
 import kotlinx.android.synthetic.main.activity_add_recipe.*
@@ -70,6 +69,7 @@ class AddRecipeActivity : SharedPreferencesActivity() {
         val recipe_description: String = etRecipeDescription.text.toString()
         val preperation_time: Int = timer_picker_minutes.value
         val difficulty: Int = difficulty_picker.value
+        val image: String = cocktail_image_url.text.toString()
 
         if (ingredients_pub_name.orEmpty().isEmpty() || ingredients_pub_amount.orEmpty().isEmpty() || ingredients_pub_unit.orEmpty().isEmpty())
         {
@@ -86,9 +86,15 @@ class AddRecipeActivity : SharedPreferencesActivity() {
                 ingredients_pub_name.orEmpty(),
                 ingredients_pub_amount.orEmpty(),
                 ingredients_pub_unit.orEmpty(),
+                image,
                 listener,
                 errorListener
             )
         }
+    }
+
+    fun backToMainscreen(view: View)
+    {
+        onBackPressed();
     }
 }
