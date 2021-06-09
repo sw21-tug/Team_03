@@ -31,10 +31,9 @@ drinks but does not know how to make them. The idea is that every user can creat
 can add their own drinks, get ideas for new drinks, save recipes to their favorits, rate drinks or just browse
 for new ideas.
 
-# Currently implementing
 
+# Implemented features
 
-# Already implemented features
 - Register page (Issues [#1](/../../issues/1), [#26](/../../issues/26), [#40](/../../issues/42))
 - Login page (Issues [#2](/../../issues/2), [#27](/../../issues/27))
 - Recipe Overview (Issues [#7](/../../issues/7), [#28](/../../issues/28), [#41](/../../issues/41))
