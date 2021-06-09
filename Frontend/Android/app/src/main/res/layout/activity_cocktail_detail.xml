@@ -20,6 +20,13 @@
             android:layout_weight="1"
             android:paddingBottom="10dp">
 
+            <ImageView
+                android:id="@+id/cocktail_detail_image"
+                android:layout_width="409dp"
+                android:layout_height="227dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <androidx.appcompat.widget.AppCompatButton
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="47dp"
@@ -30,14 +37,6 @@
                 android:enabled="true"
                 android:foreground="?attr/actionModeCloseDrawable"
                 android:onClick="backToMainscreen"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <ImageView
-                android:id="@+id/cocktail_detail_image"
-                android:layout_width="409dp"
-                android:layout_height="227dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
