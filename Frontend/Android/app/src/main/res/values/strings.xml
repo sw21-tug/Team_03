@@ -2,7 +2,7 @@
     <string name="app_name">Cocktail Recipes App</string>
     <string name="cocktail_image">cocktail image</string>
     <string name="cocktail_name">Cocktail name</string>
-    <string name="ingrediants">Ingredients</string>
+    <string name="ingredients">Ingredients</string>
     <string name="preparation_time">prep. time</string>
     <string name="difficulty">Difficulty</string>
     <string name="cocktail_ratings">cocktail ratings</string>
@@ -55,7 +55,7 @@
 
     <string name="language_setting">Language</string>
     <string name="recipes">Recipes</string>
-    <string name="my_cocktails">My cocktails</string>
+    <string name="my_cocktails">Cocktails</string>
     <string name="liked_cocktails">Liked Cocktails</string>
 
     <string name="cocktail_creator">Creator</string>
@@ -93,6 +93,7 @@
     <string name="name_of_recipe_search">Name of recipe</string>
     <string name="rated">You rated</string>
     <string name="added">added</string>
+    <string name="profile">Profile</string>
     <string name="filter_by_ingredients">Filter by ingredients</string>
     <string name="your_profile">Your Profile</string>
     <string name="sample_name" translatable="false">Sample name</string>
