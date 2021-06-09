@@ -200,7 +200,7 @@
                     android:layout_marginVertical="8dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="@string/ingrediants"
+                    android:text="@string/ingredients"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="20sp"

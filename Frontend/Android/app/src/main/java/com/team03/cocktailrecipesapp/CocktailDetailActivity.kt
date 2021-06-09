@@ -53,13 +53,13 @@ class RecipeAdapter(private val context: Context,
         val rowView = inflater.inflate(R.layout.cocktail_detail_ingrediant_card, parent, false)
 
         // Get title element
-        val ingrediant_amount = rowView.findViewById(R.id.ingrediant_amount) as TextView
+        val ingrediant_amount = rowView.findViewById(R.id.ingredient_amount) as TextView
 
         // Get unit element
-        val ingrediant_unit = rowView.findViewById(R.id.ingrediant_unit) as TextView
+        val ingrediant_unit = rowView.findViewById(R.id.ingredient_unit) as TextView
 
         // Get subtitle element
-        val ingrediant_name = rowView.findViewById(R.id.ingrediant_name) as TextView
+        val ingrediant_name = rowView.findViewById(R.id.ingredient_name) as TextView
 
         val recipe = getItem(position) as Ingrediant
 

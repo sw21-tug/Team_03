@@ -2,7 +2,6 @@ package com.team03.cocktailrecipesapp
 
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.core.content.ContextCompat
 import com.team03.cocktailrecipesapp.error_listener.GetRecipesErrorListener
 import com.team03.cocktailrecipesapp.listener.GetRecipesListener
 import com.team03.cocktailrecipesapp.listener.Recipe
-import kotlinx.android.synthetic.main.activity_user_profile.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.cocktail_id
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.cocktail_name
@@ -24,10 +22,13 @@ import java.util.*
 class UserProfileActivity : SharedPreferencesActivity() {
     lateinit var userNameText: TextView
     lateinit var userImage: ImageView
+    lateinit var logoutTextView : TextView
+    lateinit var languageTextView : TextView
     lateinit var backButton: Button
     lateinit var showLikedButton: Button
     lateinit var showOwnedButton: Button
-    lateinit var swtLangauge: Switch
+    lateinit var logoutImgButton: ImageButton
+    lateinit var swtLanguage: Switch
     lateinit var recipesLayout: LinearLayout
     lateinit var detailsProgressBar: View
 
@@ -38,11 +39,11 @@ class UserProfileActivity : SharedPreferencesActivity() {
         super.onStart()
         setContentView(R.layout.activity_user_profile)
 
-        swtLangauge = findViewById(R.id.swtlanguage)
+        swtLanguage = findViewById(R.id.swtlanguage)
 
         val language: String? = shared.getString("Language", "")
-        swtLangauge.isChecked = language.equals("kv")
-        swtLangauge.setOnCheckedChangeListener() { _, isChecked ->
+        swtLanguage.isChecked = language.equals("kv")
+        swtLanguage.setOnCheckedChangeListener() { _, isChecked ->
             if (isChecked) {
                 setLanguage("kv")
             } else {
@@ -51,6 +52,9 @@ class UserProfileActivity : SharedPreferencesActivity() {
             onStart()
         }
 
+        languageTextView = findViewById(R.id.textViewLanguage)
+        logoutImgButton = findViewById(R.id.logoutButton)
+        logoutTextView = findViewById(R.id.txtViewLogout)
         detailsProgressBar = findViewById(R.id.progress_load_details)
         userNameText = findViewById(R.id.user_profile_username)
         userImage = findViewById(R.id.user_profile_image)
@@ -69,17 +73,15 @@ class UserProfileActivity : SharedPreferencesActivity() {
 
         // set username
         val extras = intent.extras
-        if (extras != null)
-        userNameText.setText(userName)
-
-
         if (extras != null) {
+            userNameText.text = extras.getString("username")
             detail_user_ID = extras.getInt("_creator_id")
             if(userId != extras.getInt("_creator_id")){
                 //invisible Logout button, Settings
-                logoutButton.visibility = View.INVISIBLE
-                swtlanguage.visibility = View.INVISIBLE
-                textViewLanguage.visibility = View.INVISIBLE
+                logoutImgButton.visibility = View.INVISIBLE
+                logoutTextView.visibility = View.INVISIBLE
+                swtLanguage.visibility = View.GONE
+                languageTextView.visibility = View.GONE
             }
         }
 
@@ -101,6 +103,11 @@ class UserProfileActivity : SharedPreferencesActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
 
+
+        languageTextView = findViewById(R.id.textViewLanguage)
+        logoutImgButton = findViewById(R.id.logoutButton)
+        swtLanguage = findViewById(R.id.swtlanguage)
+        logoutTextView = findViewById(R.id.txtViewLogout)
         detailsProgressBar = findViewById(R.id.progress_load_details)
         userNameText = findViewById(R.id.user_profile_username)
         userImage = findViewById(R.id.user_profile_image)
@@ -112,10 +119,6 @@ class UserProfileActivity : SharedPreferencesActivity() {
 
         recipesLayout = findViewById(R.id.trending_cocktail_list)
 
-        // set username
-        val extras = intent.extras
-        if (extras != null)
-        userNameText.setText(userName)
         // set profile picture according to selected language
         val language_ = shared.getString("Language", "");
         var avatarImgae = findViewById<ImageButton>(R.id.imgBtnAvatar);
@@ -123,6 +126,21 @@ class UserProfileActivity : SharedPreferencesActivity() {
             userImage.setBackground(ContextCompat.getDrawable(applicationContext, R.drawable.russian_avatar ));
         } else {
             userImage.setBackground(ContextCompat.getDrawable(applicationContext, R.drawable.default_avatar ));
+        }
+
+        // set username
+        val extras = intent.extras
+        if (extras != null) {
+            userNameText.text = extras.getString("username")
+            detail_user_ID = extras.getInt("_creator_id")
+            if(userId != detail_user_ID){
+                println("gone!!")
+                //invisible Logout button, Settings
+                logoutImgButton.visibility = View.INVISIBLE
+                logoutTextView.visibility = View.INVISIBLE
+                swtLanguage.visibility = View.GONE
+                languageTextView.visibility = View.GONE
+            }
         }
     }
 

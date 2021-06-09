@@ -25,7 +25,7 @@
     <string name="prompt_username">Имя пользователя</string>
     <string name="prompt_repeat_password">Повторите пароль</string>
     <string name="minutes"> минут</string>
-    <string name="ingrediants">ингредиенты</string>
+    <string name="ingredients">ингредиенты</string>
     <string name="wrong_username_or_password">Неправильное имя пользователя или пароль</string>
     <string name="logout_button_text">выход</string>
     <string name="title_activity_login">Войти</string>
@@ -86,6 +86,6 @@
     <string name="ingredient_title">Добавить ингредиент</string>
     <string name="rated">Вы оценили</string>
     <string name="added">добавлено</string>
-    <string name="your_profile">Ваш профиль</string>
+    <string name="profile">Профиль</string>
     <string name="user_profile_name">Имя</string>
 </resources>
