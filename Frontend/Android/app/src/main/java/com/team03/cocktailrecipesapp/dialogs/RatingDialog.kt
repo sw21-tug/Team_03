@@ -1,4 +1,4 @@
-package com.team03.cocktailrecipesapp
+package com.team03.cocktailrecipesapp.dialogs
 
 import android.app.Activity
 import android.os.Bundle
@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.RatingBar
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.team03.cocktailrecipesapp.R
+import com.team03.cocktailrecipesapp.RatingInterface
 import kotlinx.android.synthetic.main.rating_layout.view.*
 
 class RatingDialog  : DialogFragment() {

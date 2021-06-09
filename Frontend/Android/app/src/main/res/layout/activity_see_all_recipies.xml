@@ -18,8 +18,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,7 +38,7 @@
                     android:id="@+id/searchRecipesView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:queryHint="@string/filter_by_name"
+                    android:queryHint="@string/name_of_recipe_search"
                     android:background="@color/light_grey"
                     android:iconifiedByDefault="false"
                     />

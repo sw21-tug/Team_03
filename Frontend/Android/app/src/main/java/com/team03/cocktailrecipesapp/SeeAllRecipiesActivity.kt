@@ -143,6 +143,7 @@ class SeeAllRecipiesActivity : SharedPreferencesActivity() {
         startActivity(intent)
     }
 
+
     fun onClickFilterByIngredients(view: View) {
         val intent = Intent(this, FilterIngredientsActivity::class.java)
         if(ingredients_pub_name != null)
@@ -161,16 +162,5 @@ class SeeAllRecipiesActivity : SharedPreferencesActivity() {
         }
         fillAllRecipesList(recipe_list_gl);
     }
-
-    fun getRecipeDifficutly(difficulty: Int) : String
-    {
-        when (difficulty) {
-            1 -> return resources.getString(R.string.difficulty_very_easy)
-            2 -> return resources.getString(R.string.difficulty_easy)
-            3 -> return resources.getString(R.string.difficulty_medium)
-            4 -> return resources.getString(R.string.difficulty_hard)
-            5 -> return resources.getString(R.string.difficulty_very_hard)
-        }
-        return "Error"
-    }
 }
+

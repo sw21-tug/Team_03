@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="light_grey">#DDDDDD</color>
     <color name="accent_color">#FF6E40</color>
+    <color name="color_button_selected">#FFBB86FC</color>
+    <color name="color_button_not_selected">#FF6200EE</color>
 </resources>
