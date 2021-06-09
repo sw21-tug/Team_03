@@ -205,6 +205,7 @@ class CocktailRecipesAppTest {
         onView(withId(R.id.user_profile_image)).check(matches(isDisplayed()))
         onView(withId(R.id.user_profile_username)).check(matches(isDisplayed()))
     }
+
     @Test
     fun AddNewRecipeWithNoIngredients() {
         login()
@@ -225,7 +226,7 @@ class CocktailRecipesAppTest {
     fun AddNewRecipe() {
         login()
         // Get recipe for testing
-        if (test_recipes_index > 2) { test_recipes_index = 0 }
+        if (test_recipes_index > 3) { test_recipes_index = 0 }
         val recipe: TestRecipe = test_recipes.get(test_recipes_index)
 
         onView(withId(R.id.add_recipe_button)).perform(click())
@@ -265,6 +266,24 @@ class CocktailRecipesAppTest {
             AddNewRecipe()
             Thread.sleep(1000)
         }
+    }
+
+    @Test
+    fun DeleteRecipe()  {
+        test_recipes_index = 3
+        AddNewRecipe()
+        Thread.sleep(1000)
+        onView(withId(R.id.txtViewSeeAll)).perform(click())
+        Thread.sleep(2000)
+        onView(withId(R.id.searchRecipesCardView)).perform(click())
+        onView(withId(R.id.searchRecipesView)).perform(typeText(test_recipes[3].name), closeSoftKeyboard())
+        Thread.sleep(1000)
+        onView(allOf(
+            withId(R.id.trendingCocktailCard), withParentIndex(0))).perform(click())
+        Thread.sleep(3000)
+        onView(withId(R.id.delete_recipe_button)).perform(click())
+        Thread.sleep(1000)
+        onView(withText("YES")).perform(click())
     }
 
     @Test
@@ -336,4 +355,6 @@ class CocktailRecipesAppTest {
         Thread.sleep(500)
         onView(withId(R.id.cocktail_name)).check(matches(withText("Test recipe 1")))
     }
+
+
 }
