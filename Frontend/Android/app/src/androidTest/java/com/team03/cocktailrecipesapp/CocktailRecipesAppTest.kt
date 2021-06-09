@@ -96,6 +96,7 @@ class CocktailRecipesAppTest {
             listOf("Stroh80", "Jaegermeister", "Baileys"),
             listOf(120, 200, 20),
             listOf("ml", "ml", "ml"),
+            "",
             testListener as Response.Listener<JSONObject>,
             testErrorListener as Response.ErrorListener);
 
@@ -292,7 +293,7 @@ class CocktailRecipesAppTest {
         {
             onView(allOf(
                 withId(R.id.trendingCocktailCardImageView), withParent(allOf(
-                    withId(R.id.linearLayout), withParent(allOf(
+                    withId(R.id.trendingCocktailListCardLinearLayout), withParent(allOf(
                         withId(R.id.trendingCocktailCard), withParentIndex(i)))))))
                 .perform(scrollTo(), click())
             Thread.sleep(1000)

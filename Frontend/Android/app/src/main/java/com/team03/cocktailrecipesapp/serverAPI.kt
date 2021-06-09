@@ -41,7 +41,7 @@ class serverAPI(context: Context)
         return sendRequest(json, "login", listener, error_listener)
     }
 
-    fun addRecipe(user_id: Int, name: String, preptime_minutes: Int, difficulty: Int, instruction: String, ingredient_names: List<String>, ingredient_amounts: List<Int>, ingredient_units: List<String>, listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
+    fun addRecipe(user_id: Int, name: String, preptime_minutes: Int, difficulty: Int, instruction: String, ingredient_names: List<String>, ingredient_amounts: List<Int>, ingredient_units: List<String>, image: String, listener: Response.Listener<JSONObject>, error_listener: Response.ErrorListener) : Int
     {
         var add_recipe_json = """
             {
@@ -50,6 +50,7 @@ class serverAPI(context: Context)
                 "preptime_minutes": """" + preptime_minutes.toString() + """",
                 "difficulty": """" + difficulty.toString() + """",
                 "instruction": """" + instruction + """",
+                "image": """" + image + """",
                 "ingredients": [
             """
 

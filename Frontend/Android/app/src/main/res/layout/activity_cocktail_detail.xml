@@ -35,12 +35,11 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/imageView8"
+                android:id="@+id/cocktail_detail_image"
                 android:layout_width="409dp"
                 android:layout_height="227dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_cocktail_image" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <include
                 android:id="@+id/include"
@@ -50,7 +49,7 @@
                 android:layout_marginHorizontal="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+                app:layout_constraintTop_toBottomOf="@+id/cocktail_detail_image" />
 
             <RatingBar
                 android:id="@+id/cocktail_rating_bar"
@@ -62,7 +61,7 @@
                 android:progressBackgroundTint="@android:color/darker_gray"
                 android:progressTint="@color/accent_color"
                 app:layout_constraintStart_toEndOf="@+id/imageButtonLike"
-                app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+                app:layout_constraintTop_toBottomOf="@+id/cocktail_detail_image" />
 
             <TextView
                 android:id="@+id/cocktail_name"
@@ -176,7 +175,7 @@
                 android:scaleType="centerCrop"
                 android:layout_marginLeft="14dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView8"
+                app:layout_constraintTop_toBottomOf="@+id/cocktail_detail_image"
                 app:srcCompat="@drawable/hearth_empty" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

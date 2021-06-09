@@ -8,9 +8,11 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.SearchView
 import android.widget.Toast
+import com.squareup.picasso.Picasso
 import com.team03.cocktailrecipesapp.error_listener.GetRecipesErrorListener
 import com.team03.cocktailrecipesapp.listener.GetRecipesListener
 import com.team03.cocktailrecipesapp.listener.Recipe
+import kotlinx.android.synthetic.main.activity_cocktail_detail.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 
 
@@ -22,6 +24,10 @@ class SeeAllRecipiesActivity : SharedPreferencesActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
+
+    override fun onStart() {
+        super.onStart()
         setContentView(R.layout.activity_see_all_recipies)
         progressBar = findViewById(R.id.progressbar);
         recipesLayout = findViewById(R.id.filtered_cocktail_list)
@@ -94,6 +100,13 @@ class SeeAllRecipiesActivity : SharedPreferencesActivity() {
             val preparationTime: String = recipe.preptime_minutes.toString() + " "+getString(R.string.minutes)
             recipeCard.cocktail_preparationtime.text = preparationTime
             recipeCard.cocktail_id.text = recipe.id.toString()
+            Picasso.get()
+                .load(ImageUrl(recipe.image).url)
+                .fit()
+                .placeholder(R.drawable.ic_cocktail_image)
+                .error(R.drawable.ic_cocktail_image)
+                .into(recipeCard.trendingCocktailCardImageView);
+
             addClickListener(recipeCard)
             /* TODO: recipeCard.cocktail_image */
             recipesLayout.addView(recipeCard)
@@ -103,7 +116,7 @@ class SeeAllRecipiesActivity : SharedPreferencesActivity() {
 
     fun addClickListener(recipeCard: View){
         recipeCard.trendingCocktailCardImageView.setOnClickListener { openDetails(recipeCard) }
-        recipeCard.linearLayout.setOnClickListener { openDetails(recipeCard) }
+        recipeCard.trendingCocktailListCardLinearLayout.setOnClickListener { openDetails(recipeCard) }
     }
 
     fun openDetails(recipeCard : View)
