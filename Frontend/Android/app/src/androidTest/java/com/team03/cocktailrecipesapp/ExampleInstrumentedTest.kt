@@ -104,21 +104,27 @@ class ExampleInstrumentedTest {
     )
     // Dummy test recipes for testing
     val test_recipe_1: TestRecipe =
-        TestRecipe("Test recipe 1", "Test description 1", listOf(
-            TestIngredient("Cola", 100, "ml"),
+        TestRecipe("Vodka Makava", "Mix Vodka and makava. Add ice on own preferences.", listOf(
+            TestIngredient("Makava", 100, "ml"),
             TestIngredient("Vodka", 30, "ml"),
             TestIngredient("Ice", 5, "pcs")))
+
     val test_recipe_2: TestRecipe =
-        TestRecipe("Test recipe 2", "Test description 2", listOf(
-            TestIngredient("Tequila", 50, "ml"),
-            TestIngredient("Vodka", 30, "ml"),
-            TestIngredient("Lime-juice", 5, "g"),
-            TestIngredient("Ice", 3, "pcs")))
-    val test_recipe_3: TestRecipe =
-        TestRecipe("Test recipe 3", "Test description 3", listOf(
-            TestIngredient("Cola", 100, "ml"),
+        TestRecipe("Cola Rum", "mixing cola with Rum", listOf(
+            TestIngredient("Cola", 200, "ml"),
             TestIngredient("Rum", 30, "ml"),
             TestIngredient("Ice", 3, "pcs")))
+
+    val test_recipe_3: TestRecipe =
+        TestRecipe("Pina Colada", "    For a Pina Colada, first cut the pineapple slice into cubes and put it in the blender.\n" +
+                "    Add pineapple juice, Cream of Coconut (or coconut syrup), rum, cream (this will make the cocktail even creamier) lemon drops and put everything in the blender and mix well for about 25 seconds.\n" +
+                "    Pour the finished Pina Colada into a balloon glass (fancy glass), fill with crushed ice and garnish with a fresh pineapple slice and a cocktail cherry.\n", listOf(
+            TestIngredient("Cream of Coconut", 4, "cl"),
+            TestIngredient("Whipped cream", 2, "cl"),
+            TestIngredient("Pineapple juice", 8, "cl"),
+            TestIngredient("Whipped cream", 2, "cl"),
+            TestIngredient("Lime juice", 1, "cl"),
+            TestIngredient("Rum", 6, "cl")))
 
     val test_recipe_4: TestRecipe =
         TestRecipe("Averna Sour", "Mix Averna with Lemon", listOf(
@@ -143,6 +149,41 @@ class ExampleInstrumentedTest {
     val test_recipes: List<TestRecipe> = listOf(test_recipe_1, test_recipe_2, test_recipe_3, test_recipe_4, test_recipe_5)
     var test_recipes_index: Int = 0
 
+    @Test
+    fun AddIngredients() {
+        login()
+        // Get recipe for testing
+        if (test_recipes_index > 2) { test_recipes_index = 0 }
+        val recipe: TestRecipe = test_recipes.get(test_recipes_index)
+
+        onView(withId(R.id.add_recipe_button)).perform(click())
+        onView(withId(R.id.etRecipeName)).perform(typeText(recipe.name), closeSoftKeyboard())
+        onView(withId(R.id.etRecipeDescription)).perform(typeText(recipe.description), closeSoftKeyboard())
+        onView(withId(R.id.btnManageIngredients)).perform(click())
+        Thread.sleep(500)
+
+        // Get ingredients of recipe
+        for (ingredient in recipe.ingredients)
+        {
+            onView(withText(ingredient.name)).check(matches(isNotChecked())).perform(
+                scrollTo(), click())
+            onView(allOf(
+                withId(R.id.etIngredientAmount), withParent(allOf(
+                    withId(R.id.etIngredientLayout), hasSibling(withText(ingredient.name)))))).perform(
+                scrollTo(), typeText(""+ingredient.amount))
+            onView(allOf(
+                withId(R.id.etIngredientUnit), withParent(allOf(
+                    withId(R.id.etIngredientLayout), hasSibling(withText(ingredient.name)))))).perform(
+                scrollTo(), typeText(ingredient.unit))
+            Thread.sleep(500)
+        }
+        Thread.sleep(500)
+
+        onView(withId(R.id.btnConfirmIngredients)).perform(click())
+        onView(withId(R.id.difficulty_picker)).perform(swipeDown())
+        onView(withId(R.id.timer_picker_minutes)).perform(swipeDown())
+        onView(withId(R.id.btnAddRecipe)).perform(click())
+    }
 
     data class AnswerSuccess(
         var success: Int? = -1
@@ -537,13 +578,19 @@ class ExampleInstrumentedTest {
     }
 
     @Test
-    fun addUsersData()
+    fun initial_fillDbWithCleanUser()
     {
 
     }
 
     @Test
-    fun fillDbWithCleanData()
+    fun initial_fillDbWithCleanRecipes()
+    {
+
+    }
+
+    @Test
+    fun initial_fillDbWithCleanIngredients()
     {
 
     }
