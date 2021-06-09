@@ -17,15 +17,18 @@ class AddRecipeActivity : SharedPreferencesActivity() {
     var ingredients_pub_amount: List<Int>? = null
     var ingredients_pub_unit: List<String>? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_recipe)
-
+    override fun onStart() {
+        super.onStart()
         timer_picker_minutes.minValue = 1
         timer_picker_minutes.maxValue = 59
         difficulty_picker.displayedValues = difficultyArray
         difficulty_picker.minValue = 1
         difficulty_picker.maxValue = 5
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_add_recipe)
     }
 
     fun onSuccessfullAddRecipe() {
