@@ -94,6 +94,8 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
 
         setInvisibleWhileLoading()
 
+        recipe_list_view.isExpanded = true
+
         getRecipe(b)
     }
 
