@@ -89,4 +89,6 @@
     <string name="filter_by_ingredients">Фильтр по ингредиентам</string>
     <string name="your_profile">Ваш профиль</string>
     <string name="user_profile_name">Имя</string>
+    <string name="image_url">URL изображения</string>
+    <string name="paste_url_here">вставьте URL здесь</string>
 </resources>

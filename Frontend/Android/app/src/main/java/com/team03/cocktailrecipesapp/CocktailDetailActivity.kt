@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.squareup.picasso.Picasso
 import com.team03.cocktailrecipesapp.dialogs.DeleteRecipeDialogFragment
 import com.team03.cocktailrecipesapp.dialogs.RatingDialog
 import com.team03.cocktailrecipesapp.error_listener.DeleteRecipeErrorListener
@@ -137,7 +138,6 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
 
     @SuppressLint("SetTextI18n")
     fun onSuccessfulGetRecipe(recipe: RecipeDetail) {
-
         cocktail_name.text = recipe.name
         cocktail_difficulty.text = getRecipeDifficutly(recipe.difficulty)
         cocktail_rating_bar.rating = recipe.rating
@@ -146,6 +146,13 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
         cocktail_instruction.text = recipe.instruction
         my_rating = recipe.my_rating
         cocktail_creator_username.text = recipe.creator_user
+        Picasso.get()
+            .load(ImageUrl(recipe.image).url)
+            .resize(cocktail_detail_image.width, cocktail_detail_image.height)
+            .centerCrop()
+            .error(R.drawable.ic_cocktail_image)
+            .into(cocktail_detail_image);
+
         if (recipe.liked != 0)
         {
             isLiked = true
@@ -180,7 +187,7 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
 
     fun setInvisibleWhileLoading()
     {
-        imageView8.visibility = View.INVISIBLE
+        cocktail_detail_image.visibility = View.INVISIBLE
         cocktail_name.visibility = View.INVISIBLE
         cocktail_difficulty.visibility = View.INVISIBLE
         cocktail_rating_bar.visibility = View.INVISIBLE
@@ -201,7 +208,7 @@ class CocktailDetailActivity : AppCompatActivity(), RatingInterface  {
 
     fun setVisibleAfterLoading()
     {
-        imageView8.visibility = View.VISIBLE
+        cocktail_detail_image.visibility = View.VISIBLE
         cocktail_name.visibility = View.VISIBLE
         cocktail_difficulty.visibility = View.VISIBLE
         cocktail_rating_bar.visibility = View.VISIBLE
