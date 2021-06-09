@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.team03.cocktailrecipesapp.error_listener.AddRecipeErrorListener
 import com.team03.cocktailrecipesapp.listener.AddRecipeListener
 import kotlinx.android.synthetic.main.activity_add_recipe.*
@@ -92,5 +91,10 @@ class AddRecipeActivity : SharedPreferencesActivity() {
                 errorListener
             )
         }
+    }
+
+    fun backToMainscreen(view: View)
+    {
+        onBackPressed();
     }
 }
