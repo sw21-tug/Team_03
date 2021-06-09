@@ -7,11 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.core.content.ContextCompat
+import com.squareup.picasso.Picasso
 import com.team03.cocktailrecipesapp.error_listener.GetRecipesErrorListener
 import com.team03.cocktailrecipesapp.listener.GetRecipesListener
 import com.team03.cocktailrecipesapp.listener.Recipe
 import com.team03.cocktailrecipesapp.ui.login.LoginActivity
+import kotlinx.android.synthetic.main.recommended_cocktail_list_card.*
 import kotlinx.android.synthetic.main.recommended_cocktail_list_card.view.*
+import kotlinx.android.synthetic.main.trending_cocktail_list_card.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.cocktail_id
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.cocktail_name
@@ -81,9 +84,6 @@ class MainActivity : SharedPreferencesActivity() {
         if (b != null) username = b.getString("username").toString()
     }
 
-
-
-
     fun onClickAddRecipe(view: View) {
         val intent = Intent(this, AddRecipeActivity::class.java)
         startActivity(intent)
@@ -125,6 +125,13 @@ class MainActivity : SharedPreferencesActivity() {
             recipeCard.cocktail_name.text = recipe.name
             recipeCard.cocktail_rating_bar.rating = recipe.rating
             recipeCard.cocktail_id.text = recipe.id.toString()
+            Picasso.get()
+                .load(ImageUrl(recipe.image).url)
+                .fit()
+                .placeholder(R.drawable.ic_cocktail_image)
+                .error(R.drawable.ic_cocktail_image)
+                .into(recipeCard.recommendedCocktailsImageView);
+
             recipeCard.recommendedCocktailsImageView.setOnClickListener { openDetails(recipeCard) }
             recipeCard.recommendedCocktailCard.setOnClickListener { openDetails(recipeCard) }
 
@@ -143,8 +150,15 @@ class MainActivity : SharedPreferencesActivity() {
             val preparationTime: String = recipe.preptime_minutes.toString() + " " +getString(R.string.minutes)
             recipeCard.cocktail_preparationtime.text = preparationTime
             recipeCard.cocktail_id.text = recipe.id.toString()
+            Picasso.get()
+                .load(ImageUrl(recipe.image).url)
+                .fit()
+                .placeholder(R.drawable.ic_cocktail_image)
+                .error(R.drawable.ic_cocktail_image)
+                .into(recipeCard.trendingCocktailCardImageView);
+
             recipeCard.trendingCocktailCardImageView.setOnClickListener { openDetails(recipeCard) }
-            recipeCard.linearLayout.setOnClickListener { openDetails(recipeCard) }
+            recipeCard.trendingCocktailListCardLinearLayout.setOnClickListener { openDetails(recipeCard) }
 
             /* TODO: recipeCard.cocktail_image */
             recipesLayout.addView(recipeCard)

@@ -2,24 +2,22 @@ package com.team03.cocktailrecipesapp
 
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.core.content.ContextCompat
+import com.squareup.picasso.Picasso
 import com.team03.cocktailrecipesapp.error_listener.GetRecipesErrorListener
 import com.team03.cocktailrecipesapp.listener.GetRecipesListener
 import com.team03.cocktailrecipesapp.listener.Recipe
 import kotlinx.android.synthetic.main.activity_user_profile.*
+import kotlinx.android.synthetic.main.recommended_cocktail_list_card.view.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.*
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.cocktail_id
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.cocktail_name
 import kotlinx.android.synthetic.main.trending_cocktail_list_card.view.cocktail_rating_bar
 import java.util.*
-
-
-
 
 class UserProfileActivity : SharedPreferencesActivity() {
     lateinit var userNameText: TextView
@@ -109,7 +107,6 @@ class UserProfileActivity : SharedPreferencesActivity() {
         backButton = findViewById(R.id.user_profile_back_button)
         backButton.setOnClickListener { onBackPressed() }
 
-
         recipesLayout = findViewById(R.id.trending_cocktail_list)
 
         // set username
@@ -161,9 +158,15 @@ class UserProfileActivity : SharedPreferencesActivity() {
             recipeCard.cocktail_ratings.text = recipe.times_rated.toString()
             recipeCard.cocktail_rating_bar.rating = recipe.rating
             recipeCard.cocktail_difficulty.text =  getRecipeDifficutly(recipe.difficulty)
-            val preparationTime: String = recipe.preptime_minutes.toString() + " "+getString(R.string.minutes)
+            val preparationTime: String = recipe.preptime_minutes.toString() + " "+ getString(R.string.minutes)
             recipeCard.cocktail_preparationtime.text = preparationTime
             recipeCard.cocktail_id.text = recipe.id.toString()
+            Picasso.get()
+                .load(ImageUrl(recipe.image).url)
+                .fit()
+                .placeholder(R.drawable.ic_cocktail_image)
+                .error(R.drawable.ic_cocktail_image)
+                .into(recipeCard.trendingCocktailCardImageView);
 
             addClickListener(recipeCard)
 
@@ -175,7 +178,7 @@ class UserProfileActivity : SharedPreferencesActivity() {
 
     fun addClickListener(recipeCard: View){
         recipeCard.trendingCocktailCardImageView.setOnClickListener { openDetails(recipeCard) }
-        recipeCard.linearLayout.setOnClickListener { openDetails(recipeCard) }
+        recipeCard.trendingCocktailListCardLinearLayout.setOnClickListener { openDetails(recipeCard) }
     }
 
     fun openDetails(recipeCard : View)
