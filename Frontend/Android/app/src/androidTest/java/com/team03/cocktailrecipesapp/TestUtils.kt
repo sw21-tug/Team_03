@@ -97,7 +97,12 @@ val test_recipe_3: TestRecipe =
         TestIngredient("Cola", 100, "ml"),
         TestIngredient("Rum", 30, "ml"),
         TestIngredient("Ice", 3, "pcs")))
-val test_recipes: List<TestRecipe> = listOf(test_recipe_1, test_recipe_2, test_recipe_3)
+val test_recipe_4: TestRecipe =
+    TestRecipe("Test recipe delete", "Test description delete", listOf(
+        TestIngredient("Tequila", 100, "ml"),
+        TestIngredient("Rum", 30, "ml"),
+        TestIngredient("Ice", 3, "pcs")))
+val test_recipes: List<TestRecipe> = listOf(test_recipe_1, test_recipe_2, test_recipe_3, test_recipe_4)
 var test_recipes_index: Int = 0
 
 
