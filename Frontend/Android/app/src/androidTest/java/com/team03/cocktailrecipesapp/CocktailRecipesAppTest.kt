@@ -579,6 +579,53 @@ class ExampleInstrumentedTest {
     @Test
     fun initial_fillDbWithCleanUser()
     {
+        Thread.sleep(500)
+        var currentActivity: Activity? = null
+        getInstrumentation().runOnMainSync { run { currentActivity = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED).elementAtOrNull(0) } }
+        Thread.sleep(500)
+
+        if (currentActivity?.localClassName?.contains("LoginActivity") == false)
+        {
+            PerformLogout()
+        }
+        Thread.sleep(500)
+
+        onView(withId(R.id.btnRegister)).perform(click())
+        onView(withId(R.id.txt_username)).perform(typeText("Daniel"), closeSoftKeyboard())
+        onView(withId(R.id.txt_password)).perform(typeText("1234qwer"), closeSoftKeyboard())
+        onView(withId(R.id.txt_password_repeat)).perform(typeText("1234qwer"), closeSoftKeyboard())
+        onView(withId(R.id.btn_register)).perform(click())
+        Thread.sleep(2000)
+        onView(withId(R.id.btnRegister)).perform(click())
+        onView(withId(R.id.txt_username)).perform(typeText("Sepp"), closeSoftKeyboard())
+        onView(withId(R.id.txt_password)).perform(typeText("1234Sepp"), closeSoftKeyboard())
+        onView(withId(R.id.txt_password_repeat)).perform(typeText("1234Sepp"), closeSoftKeyboard())
+        onView(withId(R.id.btn_register)).perform(click())
+        Thread.sleep(2000)
+        onView(withId(R.id.btnRegister)).perform(click())
+        onView(withId(R.id.txt_username)).perform(typeText("Sabine"), closeSoftKeyboard())
+        onView(withId(R.id.txt_password)).perform(typeText("1234Sabine"), closeSoftKeyboard())
+        onView(withId(R.id.txt_password_repeat)).perform(typeText("1234Sabine"), closeSoftKeyboard())
+        onView(withId(R.id.btn_register)).perform(click())
+        Thread.sleep(2000)
+        onView(withId(R.id.btnRegister)).perform(click())
+        onView(withId(R.id.txt_username)).perform(typeText("Heidi"), closeSoftKeyboard())
+        onView(withId(R.id.txt_password)).perform(typeText("1234Heidi"), closeSoftKeyboard())
+        onView(withId(R.id.txt_password_repeat)).perform(typeText("1234Heidi"), closeSoftKeyboard())
+        onView(withId(R.id.btn_register)).perform(click())
+        Thread.sleep(2000)
+        onView(withId(R.id.btnRegister)).perform(click())
+        onView(withId(R.id.txt_username)).perform(typeText("Herbet"), closeSoftKeyboard())
+        onView(withId(R.id.txt_password)).perform(typeText("1234Herbert"), closeSoftKeyboard())
+        onView(withId(R.id.txt_password_repeat)).perform(typeText("1234Herbert"), closeSoftKeyboard())
+        onView(withId(R.id.btn_register)).perform(click())
+        Thread.sleep(2000)
+        onView(withId(R.id.btnRegister)).perform(click())
+        onView(withId(R.id.txt_username)).perform(typeText("Michaela"), closeSoftKeyboard())
+        onView(withId(R.id.txt_password)).perform(typeText("1234Michaela"), closeSoftKeyboard())
+        onView(withId(R.id.txt_password_repeat)).perform(typeText("1234Michaela"), closeSoftKeyboard())
+        onView(withId(R.id.btn_register)).perform(click())
+        Thread.sleep(2000)
 
     }
 
