@@ -137,7 +137,6 @@ class LoginActivity : SharedPreferencesActivity() {
     private fun updateUiWithUser() {
         val welcome = getString(R.string.welcome)
         // TODO : initiate successful logged in experience
-
         Toast.makeText(
             applicationContext,
             "$welcome $userName",
@@ -145,6 +144,10 @@ class LoginActivity : SharedPreferencesActivity() {
         ).show()
 
         val intent = Intent(this, MainActivity::class.java)
+        var bundle = Bundle()
+        bundle.putString("username", userName)
+        intent.putExtras(bundle)
+
         startActivity(intent)
     }
 
