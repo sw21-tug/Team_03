@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Cocktail Recipes App</string>
+    <string name="app_name">Cheeers!</string>
     <string name="cocktail_image">cocktail image</string>
     <string name="cocktail_name">Cocktail name</string>
     <string name="ingredients">Ingredients</string>
@@ -14,10 +14,6 @@
     <string name="recommended_for_you">Recommended for you</string>
     <string name="welcome">Welcome</string>
     <string name="title_activity_register">RegisterActivity</string>
-    <!--
-    This string is used for square devices and overridden by hello_world in
-    values-round/strings.xml for round devices.
-    -->
     <string name="prompt_username">Username</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in</string>
@@ -95,9 +91,8 @@
     <string name="added">added</string>
     <string name="profile">Profile</string>
     <string name="filter_by_ingredients">Filter by ingredients</string>
-    <string name="your_profile">Your Profile</string>
     <string name="sample_name" translatable="false">Sample name</string>
     <string name="user_profile_name">Name</string>
     <string name="image_url">Image URL</string>
-    <string name="paste_url_here">paste URL here</string>
+    <string name="paste_url_here">Paste URL here</string>
 </resources>
